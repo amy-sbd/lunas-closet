@@ -489,14 +489,17 @@
     .primary,
     .secondary,
     .answer {
-      width: 100%;
-      border: 0;
-      border-radius: 16px;
-      min-height: 52px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: transform 0.12s ease;
-    }
+  text-align: left;
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 800;
+
+  font-size: 17px;
+  line-height: 1.55;
+  min-height: 58px;
+  padding: 16px;
+}
 
     .primary:active,
     .secondary:active,
@@ -824,6 +827,25 @@
       color: #9b9099;
       font-size: 11px;
     }
+
+   .reset-data-button {
+  display: block;
+  width: auto;
+  min-height: 0;
+  margin: 24px auto 0;
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  color: #a69ba3;
+  font-size: 12px;
+  text-decoration: underline;
+  box-shadow: none;
+}
+
+.reset-data-button:active {
+  transform: none;
+  color: #7f737c;
+} 
   </style>
 </head>
 
@@ -892,7 +914,15 @@
       </button>
 
             <p class="footer-note">1回3問・約3分</p>
-    </section>
+
+<button
+  id="resetDataButton"
+  class="reset-data-button"
+  type="button"
+>
+  お店のデータをリセット
+</button>
+</section>
 
     <!-- イベント選択画面 -->
     <section id="selectScreen" class="screen">
@@ -2123,6 +2153,27 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
       localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
     }
 
+    function resetAllData() {
+  const firstConfirm = window.confirm(
+    "お店のポイントや成長記録を、全部リセットしますか？"
+  );
+
+  if (!firstConfirm) {
+    return;
+  }
+
+  const finalConfirm = window.confirm(
+    "元には戻せません。本当に最初からやり直しますか？"
+  );
+
+  if (!finalConfirm) {
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
     function showScreen(name) {
       Object.values(screens).forEach(screen => {
         screen.classList.remove("active");
@@ -2772,6 +2823,10 @@ document
         setRandomHomeMessage();
         showScreen("home");
       });
+
+      document
+  .getElementById("resetDataButton")
+  .addEventListener("click", resetAllData);
 
     setRandomHomeMessage();
     renderEventScreen(getScheduledEvent());
