@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8eaf0" />
+  <title>LUNA'S CLOSET</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fff9fb;
+      --panel: rgba(255, 255, 255, 0.94);
+      --text: #504650;
+      --subtext: #827681;
+      --pink: #efb6ca;
+      --pink-dark: #c97899;
+      --cream: #fff2dc;
+      --green: #cfdcc8;
+      --lavender: #dcd4ec;
+      --line: #eadde4;
+      --shadow: 0 14px 34px rgba(130, 95, 110, 0.13);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family:
+        "Zen Maru Gothic",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        "Zen Maru Gothic",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+      background:
+        radial-gradient(circle at top left, #fff0f6 0, transparent 34%),
+        radial-gradient(circle at bottom right, #f2eef9 0, transparent 30%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family:
+        "Zen Maru Gothic",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+    }
+
+    .app {
+      width: min(100%, 460px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 18px 16px 32px;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand {
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      color: var(--subtext);
+      font-weight: 800;
+    }
+
+    .points {
+      padding: 8px 12px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(120, 95, 105, 0.08);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fbe6ee, #fff4df);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--pink-dark);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .lead {
+      margin-bottom: 0;
+      color: var(--subtext);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid rgba(234, 221, 228, 0.95);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #fff7fa;
+      color: var(--pink-dark);
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .shop {
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+      background:
+        linear-gradient(to bottom, #f9efe9 0 68%, #dfcdbd 68% 100%);
+      border-radius: 20px;
+      border: 1px solid #eadbd4;
+    }
+
+    .shop-title {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .rack {
+      position: absolute;
+      left: 24px;
+      bottom: 48px;
+      width: 112px;
+      height: 106px;
+    }
+
+    .rack-bar {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 8px;
+      height: 5px;
+      border-radius: 999px;
+      background: #7a6663;
+    }
+
+    .rack-leg {
+      position: absolute;
+      top: 10px;
+      bottom: 0;
+      width: 5px;
+      background: #7a6663;
+      border-radius: 999px;
+    }
+
+    .rack-leg.left {
+      left: 12px;
+    }
+
+    .rack-leg.right {
+      right: 12px;
+    }
+
+    .dress {
+      position: absolute;
+      top: 17px;
+      width: 24px;
+      height: 58px;
+      border-radius: 9px 9px 14px 14px;
+      background: var(--pink);
+      clip-path: polygon(30% 0, 70% 0, 82% 18%, 100% 100%, 0 100%, 18% 18%);
+    }
+
+    .dress.one {
+      left: 20px;
+    }
+
+    .dress.two {
+      left: 48px;
+      background: var(--lavender);
+    }
+
+    .dress.three {
+      left: 76px;
+      background: var(--green);
+    }
+
+    .counter {
+      position: absolute;
+      right: 22px;
+      bottom: 38px;
+      width: 118px;
+      height: 70px;
+      border-radius: 12px 12px 5px 5px;
+      background: #c7a88f;
+      box-shadow: inset 0 10px rgba(255, 255, 255, 0.18);
+    }
+
+    .counter::before {
+      content: "";
+      position: absolute;
+      inset: -8px -5px auto;
+      height: 12px;
+      border-radius: 999px;
+      background: #a98771;
+    }
+
+    .plant,
+    .bag-shelf,
+    .mirror,
+    .fitting-room,
+    .window-display {
+      display: none;
+    }
+
+    .plant.unlocked,
+    .bag-shelf.unlocked,
+    .mirror.unlocked,
+    .fitting-room.unlocked,
+    .window-display.unlocked {
+      display: block;
+      animation: popIn 0.35s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .plant {
+      position: absolute;
+      left: 8px;
+      bottom: 30px;
+      width: 42px;
+      height: 64px;
+    }
+
+    .plant-pot {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      width: 24px;
+      height: 20px;
+      border-radius: 4px 4px 10px 10px;
+      background: #be927c;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 18px;
+      height: 34px;
+      border-radius: 100% 0 100% 0;
+      background: #97b193;
+      transform-origin: bottom center;
+    }
+
+    .leaf.a {
+      left: 7px;
+      top: 10px;
+      transform: rotate(-28deg);
+    }
+
+    .leaf.b {
+      left: 19px;
+      top: 2px;
+      transform: rotate(4deg);
+    }
+
+    .leaf.c {
+      left: 26px;
+      top: 13px;
+      transform: rotate(30deg);
+    }
+
+    .bag-shelf {
+      position: absolute;
+      right: 10px;
+      top: 58px;
+      width: 92px;
+      height: 68px;
+      border: 5px solid #bb9d88;
+      border-top-width: 7px;
+      border-radius: 8px;
+    }
+
+    .bag {
+      position: absolute;
+      bottom: 8px;
+      width: 27px;
+      height: 25px;
+      border-radius: 6px 6px 9px 9px;
+      background: var(--pink);
+    }
+
+    .bag::before {
+      content: "";
+      position: absolute;
+      width: 13px;
+      height: 10px;
+      border: 3px solid currentColor;
+      border-bottom: 0;
+      border-radius: 9px 9px 0 0;
+      top: -8px;
+      left: 4px;
+      color: inherit;
+      opacity: 0.75;
+    }
+
+    .bag.a {
+      left: 8px;
+    }
+
+    .bag.b {
+      right: 8px;
+      background: var(--lavender);
+    }
+
+    .mirror {
+      position: absolute;
+      left: 150px;
+      top: 64px;
+      width: 58px;
+      height: 82px;
+      border-radius: 40px 40px 12px 12px;
+      border: 6px solid #d4b6aa;
+      background: linear-gradient(135deg, #eef4f7, #ffffff 45%, #e2ebef);
+    }
+
+    .fitting-room {
+      position: absolute;
+      right: 16px;
+      bottom: 34px;
+      width: 82px;
+      height: 125px;
+      background: #d7cce7;
+      border: 7px solid #b5a1c6;
+      border-bottom: 0;
+    }
+
+    .fitting-room::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.14) 0 8px,
+        rgba(255, 255, 255, 0.02) 8px 16px
+      );
+    }
+
+    .window-display {
+      position: absolute;
+      inset: 42px 130px 105px 140px;
+      border: 8px solid #cdaea1;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.7),
+        rgba(220, 235, 240, 0.5)
+      );
+      border-radius: 12px;
+    }
+
+    .window-display::before {
+      content: "NEW";
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: white;
+      color: var(--pink-dark);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .rank-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--subtext);
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background: #f1e8ec;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--pink), var(--pink-dark));
+      border-radius: inherit;
+      transition: width 0.35s ease;
+    }
+
+    .primary,
+    .secondary,
+    .answer {
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      min-height: 52px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .primary:active,
+    .secondary:active,
+    .answer:active {
+      transform: scale(0.98);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #df9db8, #bd7896);
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 12px 24px rgba(191, 119, 148, 0.25);
+    }
+
+    .event-choice-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.event-choice {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 10px;
+  min-height: 126px;
+  background: white;
+  color: var(--text);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(130, 95, 110, 0.08);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.event-choice:active {
+  transform: scale(0.97);
+}
+
+.event-choice-icon {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.event-choice-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.event-choice-label {
+  display: block;
+  margin-top: 5px;
+  color: var(--subtext);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.event-select-luna {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.event-select-luna .avatar {
+  flex-basis: 52px;
+  width: 52px;
+  height: 52px;
+  border-radius: 17px;
+}
+
+.event-select-luna p {
+  margin: 0;
+  color: var(--subtext);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+@media (max-width: 360px) {
+  .event-choice-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+    .secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .story-box {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .avatar {
+      flex: 0 0 58px;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #ffeaf1, #fff7df);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .avatar.customer {
+      font-size: 28px;
+    }
+
+    .speech {
+      margin-bottom: 0;
+      color: var(--subtext);
+      line-height: 1.85;
+      font-size: 14px;
+    }
+
+    .luna-tip {
+      background: linear-gradient(135deg, #fff8e8, #fff5fa);
+      border-left: 5px solid #e2b468;
+    }
+
+    .luna-tip strong {
+      display: block;
+      margin-bottom: 7px;
+      color: #b67946;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .question {
+      font-size: 21px;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      text-align: left;
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .answer.correct {
+      background: #edf6ea;
+      border-color: #b7d4b1;
+    }
+
+    .answer.wrong {
+      background: #fff0f2;
+      border-color: #e5b9c1;
+    }
+
+    .answer:disabled {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      background: #edf6ea;
+    }
+
+    .feedback.wrong {
+      background: #fff3f5;
+    }
+
+    .feedback-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 8px;
+    }
+
+    .feedback-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .feedback-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .feedback-name {
+      font-weight: 900;
+      color: var(--pink-dark);
+    }
+
+    .next-wrap {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .next-wrap.show {
+      display: block;
+    }
+
+    .result-luna {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0 14px;
+      padding: 12px;
+      border-radius: 18px;
+      background: #fff7fa;
+    }
+
+    .result-luna .avatar {
+      flex-basis: 52px;
+      width: 52px;
+      height: 52px;
+      border-radius: 17px;
+    }
+
+    .result-luna p {
+      margin: 0;
+      color: var(--subtext);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .result-score {
+      text-align: center;
+      padding: 10px 0 4px;
+    }
+
+    .result-score .big {
+      font-size: 54px;
+      font-weight: 900;
+      color: var(--pink-dark);
+      line-height: 1;
+    }
+
+    .reward {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .reward-item {
+      text-align: center;
+      padding: 14px 10px;
+      border-radius: 16px;
+      background: #fff8fb;
+      border: 1px solid var(--line);
+    }
+
+    .reward-item span {
+      display: block;
+      font-size: 12px;
+      color: var(--subtext);
+      margin-bottom: 5px;
+    }
+
+    .reward-item strong {
+      font-size: 20px;
+    }
+
+    .unlock {
+      display: none;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      background: #fff8e8;
+      border: 1px solid #efdfb9;
+      text-align: center;
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    .unlock.show {
+      display: block;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 14px;
+      color: #9b9099;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+
+    <!-- トップ画面 -->
+    <section id="homeScreen" class="screen active">
+      <div class="topbar">
+        <div class="brand">LUNA'S CLOSET</div>
+        <div class="points">🪙 <span id="homePoints">0</span> pt</div>
+      </div>
+
+      <div class="hero">
+  <p class="eyebrow">WELCOME TO LUNA'S CLOSET</p>
+  <h1>今日もお店をのぞいてこ〜✨</h1>
+  <p id="homeLunaMessage" class="lead"></p>
+</div>
+
+      <div class="card">
+        <h2>ルナのお店</h2>
+
+        <div class="shop" aria-label="ショップの成長画面">
+          <div class="shop-title">LUNA'S CLOSET</div>
+
+          <div id="windowDisplay" class="window-display"></div>
+
+          <div class="rack">
+            <div class="rack-bar"></div>
+            <div class="rack-leg left"></div>
+            <div class="rack-leg right"></div>
+            <div class="dress one"></div>
+            <div class="dress two"></div>
+            <div class="dress three"></div>
+          </div>
+
+          <div id="plant" class="plant">
+            <div class="leaf a"></div>
+            <div class="leaf b"></div>
+            <div class="leaf c"></div>
+            <div class="plant-pot"></div>
+          </div>
+
+          <div id="bagShelf" class="bag-shelf">
+            <div class="bag a"></div>
+            <div class="bag b"></div>
+          </div>
+
+          <div id="mirror" class="mirror"></div>
+          <div id="fittingRoom" class="fitting-room"></div>
+          <div class="counter"></div>
+        </div>
+
+        <div class="rank-row">
+          <span id="rankLabel">ショップランク 1</span>
+          <span id="nextUnlockText">次の成長まで 30pt</span>
+        </div>
+
+        <div class="progress">
+          <div id="shopProgressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <button id="startButton" class="primary">
+        今日もお店を手伝う
+      </button>
+
+            <p class="footer-note">1回3問・約3分</p>
+    </section>
+
+    <!-- イベント選択画面 -->
+    <section id="selectScreen" class="screen">
+      <div class="topbar">
+        <div class="brand">SELECT EVENT</div>
+        <div class="points">🪙 <span id="selectPoints">0</span> pt</div>
+      </div>
+
+      <div class="hero">
+        <p class="eyebrow">TODAY'S WORK</p>
+        <h1>今日はどのお仕事にする？</h1>
+        <p class="lead">
+          気になるフェアを選んでね〜💕<br>
+          どれも3問だけだから、ゆるっといこ〜✨
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="event-select-luna">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <p>
+            今日は好きなお仕事を選んでOK〜💕<br>
+            最近やってないやつもおすすめだよ〜✨
+          </p>
+        </div>
+
+        <div id="eventChoiceList" class="event-choice-list"></div>
+      </div>
+
+      <button id="backFromSelectButton" class="secondary">
+        お店に戻る
+      </button>
+
+      <p class="footer-note">
+        選んだあと、何かが起きるかも……？🐾
+      </p>
+    </section>
+
+    <!-- イベント導入画面 -->
+    <section id="eventScreen" class="screen">
+      <div class="topbar">
+        <div id="eventBrand" class="brand">SPRING SALE</div>
+        <div class="points">🪙 <span id="eventPoints">0</span> pt</div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <div>
+            <div class="event-badge">🌸 ルナ店長</div>
+            <h2 id="eventIntroTitle">春セール、はじまるよ〜！</h2>
+            <p id="eventIntroSpeech" class="speech"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div id="customerAvatar" class="avatar customer">🛍️</div>
+
+          <div>
+            <div id="customerBadge" class="event-badge">最初のお客さん</div>
+            <h2 id="customerTitle">この服、いくらになるの？</h2>
+            <p id="customerSpeech" class="speech"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card luna-tip">
+        <strong>✨ ルナのひとこと</strong>
+        <p id="lunaTipText" class="speech"></p>
+      </div>
+
+      <button id="goQuizButton" class="primary">
+        接客スタート〜💕
+      </button>
+    </section>
+
+    <!-- クイズ画面 -->
+    <section id="quizScreen" class="screen">
+      <div class="topbar">
+        <div class="brand">SALE TIME</div>
+        <div class="points">できた！ <span id="liveScore">0</span></div>
+      </div>
+
+      <div class="card">
+        <div class="quiz-meta">
+          <span id="questionCount">1 / 3</span>
+          <span id="quizEventLabel">🌸 春セール</span>
+        </div>
+
+        <h2 id="questionText" class="question"></h2>
+
+        <div id="answers" class="answers"></div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <div id="nextWrap" class="next-wrap">
+          <button id="nextButton" class="primary">
+            次のお客さんへ
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="resultScreen" class="screen">
+      <div class="topbar">
+        <div class="brand">CLOSE SHOP</div>
+        <div class="points">🪙 <span id="resultTotalPoints">0</span> pt</div>
+      </div>
+
+      <div class="card">
+        <div class="event-badge">🌸 今日のお仕事おわり〜！</div>
+
+        <div class="result-score">
+          <div id="resultBigScore" class="big">3 / 3</div>
+        </div>
+
+        <div class="result-luna">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+          <p id="resultComment"></p>
+        </div>
+
+        <div class="reward">
+          <div class="reward-item">
+  <span id="earnedPointsLabel">今日の報酬</span>
+  <strong id="earnedPoints">+30</strong>
+</div>
+
+          <div class="reward-item">
+            <span>ショップpt</span>
+            <strong id="totalPoints">30</strong>
+          </div>
+        </div>
+
+        <div id="unlockMessage" class="unlock"></div>
+      </div>
+
+      <button id="chooseAnotherEventButton" class="primary">
+  別のお仕事を選ぶ✨
+</button>
+
+<button
+  id="backHomeButton"
+  class="secondary"
+  style="margin-top: 10px;"
+>
+  ルナのお店を見る
+</button>
+
+<p class="footer-note">
+  もう1つお仕事しても、お店を見に戻ってもOK〜💕
+</p>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "mathBoutiqueSave_v1";
+
+/* ねこイベントの出現確率：0.15で15％ */
+const CAT_EVENT_CHANCE = 0.15;
+
+/*
+  動作確認中は true にすると、必ずねこイベントになります。
+  確認後は false に戻します。
+*/
+const FORCE_CAT_EVENT_FOR_TEST = false;
+
+    const defaultSaveData = {
+  shopPoints: 0,
+  completedCount: 0,
+
+  /* 最後に遊んだ日と連続記録 */
+  lastPlayedDate: null,
+  streakCount: 0,
+
+  /* ねこイベントを一度でも見たか */
+  seenRareEvents: false,
+
+  /* その日にねこイベントが登場したか */
+  catAppearedDate: null,
+
+  /* その日のメイン報酬を受け取ったか */
+  dailyRewardDate: null
+};
+
+    const homeMessages = [
+      "ルナ「おはよ〜💕 今日もゆるっとお願いしま〜す(∩´∀｀)∩」",
+      "ルナ「今日、新作入ったんだ〜✨ ちょっと見てって〜💕」",
+      "ルナ「セールの日ってテンション上がるよね〜( *´艸｀)」",
+      "ルナ「今日もお店よろしく〜✨ 3分だけ手伝って〜💕」",
+      "ルナ「やば〜！今日はお客さん多いかも😂 いっしょにがんばろ〜✨」"
+    ];
+
+    const normalQuestionPools = {
+      easy: [
+        {
+          question: "定価2000円のトップスが10％OFF。何円安くなる？",
+          choices: ["1900円", "200円", "1800円", "100円"],
+          answer: 1,
+          explanation: "2000円の10％は200円。10％は10分の1って考えてもいいよ〜✨",
+          correctLine: "ナイス〜💕 10％分、サクッと見つけられたじゃ〜ん✨",
+          wrongLine: "おし〜い😂 10％は、もとの値段の10分の1だよ〜✨"
+        },
+        {
+          question: "定価2400円のバッグが25％OFF。何円安くなる？",
+          choices: ["600円", "400円", "1800円", "2000円"],
+          answer: 0,
+          explanation: "25％は4分の1。2400 ÷ 4 ＝ 600円安くなるよ〜💕",
+          correctLine: "やる〜✨ 25％を4分の1で見られたら強い〜💕",
+          wrongLine: "25％は4分の1って考えるとラクだよ〜😊 2400を4で割ってみよ✨"
+        },
+        {
+          question: "定価3600円のワンピースが20％OFF。何円安くなる？",
+          choices: ["2880円", "720円", "360円", "3400円"],
+          answer: 1,
+          explanation: "3600円の20％は、3600 × 0.2 ＝ 720円。720円安くなるよ〜✨",
+          correctLine: "いいじゃ〜ん💕 20％分、ちゃんと出せた〜(∩´∀｀)∩",
+          wrongLine: "今回は『何円安くなる？』だから、20％分を出せばOK〜✨"
+        },
+        {
+          question: "定価4500円のジャケットが30％OFF。何円安くなる？",
+          choices: ["3150円", "900円", "4050円", "1350円"],
+          answer: 3,
+          explanation: "4500円の30％は、4500 × 0.3 ＝ 1350円だよ〜✨",
+          correctLine: "30％分もばっちり〜💕 セール担当いけるじゃ〜ん✨",
+          wrongLine: "30％OFFでも、聞かれてるのは『安くなる金額』だよ〜😊"
+        }
+      ],
+
+      middle: [
+        {
+          question: "定価3200円のスカートが25％OFF。支払う金額はいくら？",
+          choices: ["2400円", "800円", "2600円", "2200円"],
+          answer: 0,
+          explanation: "25％OFFなら75％払うよ。3200 × 0.75 ＝ 2400円〜✨",
+          correctLine: "ナイス〜💕 『引く方』じゃなくて『払う方』を見られた〜✨",
+          wrongLine: "25％OFFなら、払うのは残りの75％だよ〜😊"
+        },
+        {
+          question: "定価4800円のバッグが20％OFF。支払う金額はいくら？",
+          choices: ["4000円", "960円", "3840円", "3600円"],
+          answer: 2,
+          explanation: "20％OFFなら80％払うから、4800 × 0.8 ＝ 3840円だよ〜💕",
+          correctLine: "レジ計算いい感じ〜✨ 20％OFFは80％払う、ばっちり💕",
+          wrongLine: "20％引くなら、残りは80％。4800円の80％を考えよ〜✨"
+        },
+        {
+          question: "定価6000円のコートが3割引。支払う金額はいくら？",
+          choices: ["4800円", "4200円", "1800円", "4000円"],
+          answer: 1,
+          explanation: "3割引は30％OFF。払うのは70％だから、6000 × 0.7 ＝ 4200円だよ〜✨",
+          correctLine: "3割引もいけた〜💕 30％OFFと同じって分かれば強い〜✨",
+          wrongLine: "3割引＝30％OFFだよ〜😊 だから払うのは70％✨"
+        },
+        {
+          question: "定価2500円の帽子が半額。支払う金額はいくら？",
+          choices: ["1000円", "1500円", "2000円", "1250円"],
+          answer: 3,
+          explanation: "半額は50％OFF。2500 ÷ 2 ＝ 1250円だよ〜💕",
+          correctLine: "半額は半分こ〜✨ これは爆速でいけたじゃ〜ん💕",
+          wrongLine: "半額はもとの値段の半分だよ〜😊 2500を2で割ろ〜✨"
+        }
+      ],
+
+      hard: [
+        {
+          question: "20％OFFで2400円になったバッグ。定価はいくら？",
+          choices: ["3200円", "2800円", "3000円", "3600円"],
+          answer: 2,
+          explanation: "20％OFFなら2400円は定価の80％。2400 ÷ 0.8 ＝ 3000円だよ〜✨",
+          correctLine: "逆から考えるのもできた〜🤣💕 強すぎ〜！",
+          wrongLine: "2400円が『80％分』って考えるところからスタート〜😊✨"
+        },
+        {
+          question: "25％OFFで3600円になったジャケット。定価はいくら？",
+          choices: ["5400円", "4800円", "4500円", "5000円"],
+          answer: 1,
+          explanation: "25％OFFなら3600円は定価の75％。3600 ÷ 0.75 ＝ 4800円だよ〜💕",
+          correctLine: "25％OFFの逆算までいけた〜✨ 神接客じゃん💕",
+          wrongLine: "25％引いたあとの3600円は、定価の75％だよ〜✨"
+        },
+        {
+          question: "定価5000円のコートが4000円になりました。何％OFF？",
+          choices: ["25％OFF", "10％OFF", "40％OFF", "20％OFF"],
+          answer: 3,
+          explanation: "1000円安くなっているね。1000 ÷ 5000 ＝ 0.2だから、20％OFFだよ〜✨",
+          correctLine: "割合を逆に見つけるのもできた〜💕 さすが〜✨",
+          wrongLine: "まず5000円から何円安くなったかを見ると分かりやすいよ〜😊"
+        },
+        {
+          question: "定価6400円のバッグが4800円になりました。何％OFF？",
+          choices: ["25％OFF", "20％OFF", "30％OFF", "40％OFF"],
+          answer: 0,
+          explanation: "1600円安くなっているよ。1600 ÷ 6400 ＝ 0.25だから、25％OFF〜✨",
+          correctLine: "やば〜✨ 何％OFFかまで見抜けた〜💕",
+          wrongLine: "6400円から1600円安くなってるね。1600円が6400円の何％か見てみよ〜✨"
+        }
+      ]
+    };
+
+    const extraQuestionPools = {
+            trick: {
+        easy: [
+  {
+    question: "25円のビーズを4個買います。一番ラクな考え方は？",
+    choices: [
+      "25円を4個で100円とまとめる",
+      "25＋4を計算する",
+      "25円を10倍してから考える",
+      "4÷25を計算する"
+    ],
+    answer: 0,
+    explanation: "25 × 4 ＝ 100✨ 「25が4つで100」は、覚えておくといろんな計算で使えるよ〜💕",
+    correctLine: "それそれ〜✨ 25が4つで100！この組み合わせ使える〜(∩´∀｀)∩",
+    wrongLine: "25円が4個なら、4個まとめて100円って見ると一瞬だよ〜✨"
+  },
+  {
+    question: "125円のアクセパーツを8個買います。一番ラクな考え方は？",
+    choices: [
+      "125＋8を計算する",
+      "125を8個で1000円とまとめる",
+      "125を10倍してから8を引く",
+      "8÷125を計算する"
+    ],
+    answer: 1,
+    explanation: "125 × 8 ＝ 1000✨ 「125が8つで1000」も便利な組み合わせだよ〜💕",
+    correctLine: "やば〜✨ 125が8つで1000！気づけたの強い〜💕",
+    wrongLine: "125を8個集めると、ちょうど1000になるよ〜✨"
+  },
+  {
+    question: "250円のリボンを4本買います。一番ラクな考え方は？",
+    choices: [
+      "250＋4を計算する",
+      "250円を4本で1000円とまとめる",
+      "250円から4円引く",
+      "4÷250を計算する"
+    ],
+    answer: 1,
+    explanation: "250 × 4 ＝ 1000✨ 250を4つで1000になるまとまりとして見るとラク〜💕",
+    correctLine: "いいじゃ〜ん✨ 250が4つで1000！きれい〜💕",
+    wrongLine: "250円が4本なら、まとめて1000円って見られるよ〜✨"
+  },
+  {
+    question: "50円のチャームを16個買います。一番ラクな考え方は？",
+    choices: [
+      "50＋16を計算する",
+      "50×10だけ計算する",
+      "50円を2個で100円にして、100×8",
+      "16÷50を計算する"
+    ],
+    answer: 2,
+    explanation: "50円を2個ずつ組にすると100円✨ 16個なら8組だから、100 × 8 ＝ 800円だよ〜💕",
+    correctLine: "そのまとめ方〜💕 50円を2個ずつ組にするとラクじゃ〜ん✨",
+    wrongLine: "50円を2個合わせると100円✨ 16個なら8組できるよ〜💕"
+  }
+],
+
+        middle: [
+          {
+            question: "198円のシュシュを4個買います。一番計算しやすい式は？",
+            choices: [
+              "200×4−2×4",
+              "200×4−2",
+              "198＋4",
+              "200×4＋2×4"
+            ],
+            answer: 0,
+            explanation: "198を200−2と考えると、200×4−2×4✨ 800−8＝792円だよ〜💕",
+            correctLine: "それそれ〜✨ 198を200に近づけるとめっちゃラク〜(๑•̀ㅂ•́)و",
+            wrongLine: "198は200より2小さいよ〜😊 200で計算して、あとで2×4を引こう〜✨"
+          },
+          {
+            question: "498円のポーチを6個仕入れます。一番計算しやすい式は？",
+            choices: [
+              "498＋6",
+              "500×6−2",
+              "500×6−2×6",
+              "500×6＋2×6"
+            ],
+            answer: 2,
+            explanation: "498は500−2✨ だから500×6−2×6。3000−12＝2988円だよ〜💕",
+            correctLine: "500に近づけるの見抜いた〜✨ 店長っぽい計算〜💕",
+            wrongLine: "498は500より2小さいから、6個分なら2×6を戻すよ〜✨"
+          },
+          {
+            question: "299円のヘアアクセを5個買います。一番計算しやすい式は？",
+            choices: [
+              "299＋5",
+              "300×5−1×5",
+              "300×5−1",
+              "300×5＋1×5"
+            ],
+            answer: 1,
+            explanation: "299は300−1✨ だから300×5−1×5。1500−5＝1495円だよ〜💕",
+            correctLine: "299を300で見るの、ナイス〜✨",
+            wrongLine: "299は300より1小さいよ〜😊 5個なら1×5を引けばOK〜💕"
+          },
+          {
+            question: "1002円のバッグを4個仕入れます。一番計算しやすい式は？",
+            choices: [
+              "1000×4＋2",
+              "1002＋4",
+              "1000×4−2×4",
+              "1000×4＋2×4"
+            ],
+            answer: 3,
+            explanation: "1002は1000＋2✨ だから1000×4＋2×4。4000＋8＝4008円だよ〜💕",
+            correctLine: "1000に分けた〜✨ その考え方めっちゃいいじゃん💕",
+            wrongLine: "1002は1000より2大きいよ〜✨ 4個分だから2×4を足そう〜💕"
+          }
+        ],
+
+        hard: [
+  {
+    question: "398円のポーチを5個と、102円のチャームを5個仕入れます。一番ラクな式は？",
+    choices: [
+      "398＋102×5",
+      "(398＋102)×5",
+      "398×10＋102",
+      "(398−102)×5"
+    ],
+    answer: 1,
+    explanation: "どちらも5個ずつだから、(398＋102)×5✨ 500×5＝2500円になるよ〜💕",
+    correctLine: "やば〜✨ 同じ5個ずつをまとめたら一瞬じゃ〜ん💕",
+    wrongLine: "どっちも5個ずつだから、398と102を先にまとめられるよ〜✨"
+  },
+  {
+    question: "125円のパーツを7個買ったあと、もう1個追加しました。一番ラクな式は？",
+    choices: [
+      "125×7＋1",
+      "125×8",
+      "125＋7＋1",
+      "125×7×1"
+    ],
+    answer: 1,
+    explanation: "7個にもう1個追加したから、全部で8個✨ 125×8＝1000円だよ〜💕",
+    correctLine: "追加分までまとめて8個〜✨ その見方いいじゃ〜ん💕",
+    wrongLine: "7個＋1個で全部で8個✨ 125×8にまとめるとラクだよ〜💕"
+  },
+  {
+    question: "48円のビーズを25個と、52円のビーズを25個買います。一番ラクな式は？",
+    choices: [
+      "48×25＋52",
+      "(48＋52)×25",
+      "48＋52×25",
+      "(52−48)×25"
+    ],
+    answer: 1,
+    explanation: "どちらも25個ずつだから、(48＋52)×25✨ 100×25＝2500円だよ〜💕",
+    correctLine: "48＋52＝100を見つけた〜🤣✨ 気持ちいいやつ〜💕",
+    wrongLine: "どちらも25個ずつだから、48と52を先に足せるよ〜✨"
+  },
+  {
+    question: "199円のリボンを6本と、1円の袋を6枚買います。一番ラクな式は？",
+    choices: [
+      "(199＋1)×6",
+      "199×6＋1",
+      "199＋1×6",
+      "(199−1)×6"
+    ],
+    answer: 0,
+    explanation: "どちらも6個ずつだから、(199＋1)×6✨ 200×6＝1200円だよ〜💕",
+    correctLine: "199＋1で200〜✨ そのまとめ方、神じゃ〜ん💕",
+    wrongLine: "199円と1円が6組あるから、先に200円にまとめられるよ〜✨"
+  }
+]
+      },
+            decimal: {
+        easy: [
+          {
+            question: "1.2Lのドリンクと0.8Lのドリンクを合わせます。全部で何L？",
+            choices: ["1.8L", "2.0L", "2.2L", "2.8L"],
+            answer: 1,
+            explanation: "1.2＋0.8＝2.0L✨ 小数点をそろえて足せばOKだよ〜💕",
+            correctLine: "ぴったり2L〜✨ いい感じじゃ〜ん💕",
+            wrongLine: "1.2と0.8を合わせるよ〜✨ 小数点をそろえて見てみよ💕"
+          },
+          {
+            question: "3.5mのリボンから0.7m使いました。残りは何m？",
+            choices: ["2.8m", "3.2m", "4.2m", "2.7m"],
+            answer: 0,
+            explanation: "3.5−0.7＝2.8m✨ 残りを求めるから引き算だよ〜💕",
+            correctLine: "ナイス〜✨ リボンの残り、ばっちり〜💕",
+            wrongLine: "使った分を引くから、3.5−0.7だよ〜✨"
+          },
+          {
+            question: "0.75Lのドリンクを2本用意します。全部で何L？",
+            choices: ["1.25L", "1.5L", "1.75L", "2.0L"],
+            answer: 1,
+            explanation: "0.75×2＝1.5L✨ 同じ量が2本だから2倍だよ〜💕",
+            correctLine: "0.75を2つで1.5〜✨ いいじゃ〜ん💕",
+            wrongLine: "0.75Lが2本だから、0.75×2で考えよう〜✨"
+          },
+          {
+            question: "3.6kgの荷物を2つに同じ重さで分けます。1つ何kg？",
+            choices: ["1.6kg", "1.8kg", "2.0kg", "2.2kg"],
+            answer: 1,
+            explanation: "3.6÷2＝1.8kg✨ 半分に分けるから2で割るよ〜💕",
+            correctLine: "半分こ完璧〜✨ 1.8kgずつだね💕",
+            wrongLine: "2つに同じ重さで分けるから、3.6÷2だよ〜✨"
+          }
+        ],
+
+                middle: [
+          {
+            question: "5mのリボンがあります。1.2mずつ3本使いました。残りは何m？",
+            choices: ["1.2m", "1.4m", "1.6m", "2.4m"],
+            answer: 1,
+            explanation: "まず1.2×3＝3.6m使うよ〜✨ 5−3.6＝1.4m残るよ💕",
+            correctLine: "使った分をまとめてから引けた〜✨ いいじゃ〜ん💕",
+            wrongLine: "まず3本分で何m使うか出してから、5mから引いてみよ〜✨"
+          },
+          {
+            question: "4.8Lのドリンクを0.6Lずつボトルに入れます。5本作ると、何L残る？",
+            choices: ["1.2L", "1.5L", "1.8L", "2.4L"],
+            answer: 2,
+            explanation: "0.6×5＝3.0L使うよ〜✨ 4.8−3.0＝1.8L残るよ💕",
+            correctLine: "ボトル5本分を先に出せた〜✨ ナイス〜💕",
+            wrongLine: "まず0.6Lが5本で何Lになるか考えてみよ〜✨"
+          },
+          {
+            question: "6kgの商品があります。1.25kgずつ4箱に分けました。残りは何kg？",
+            choices: ["1kg", "1.25kg", "1.5kg", "2kg"],
+            answer: 0,
+            explanation: "1.25×4＝5kg使うよ〜✨ 6−5＝1kg残るよ💕",
+            correctLine: "1.25×4を使えた〜✨ 残りもばっちり💕",
+            wrongLine: "まず4箱分の重さを出してから、6kgから引こう〜✨"
+          },
+          {
+            question: "8mの布があります。1.5mずつ3枚切りました。残りは何m？",
+            choices: ["3m", "3.5m", "4m", "4.5m"],
+            answer: 1,
+            explanation: "1.5×3＝4.5m使うよ〜✨ 8−4.5＝3.5m残るよ💕",
+            correctLine: "2段階の計算もいい感じ〜✨ 店員さん頼もし〜💕",
+            wrongLine: "まず3枚分の長さを出して、8mから引いてみよ〜✨"
+          }
+        ],
+
+        hard: [
+          {
+            question: "2mの布の3/4を使います。使うのは何m？",
+            choices: ["0.5m", "1m", "1.5m", "1.75m"],
+            answer: 2,
+            explanation: "2mの3/4は、2×3/4＝1.5mだよ〜✨",
+            correctLine: "全体の3/4、ちゃんと出せた〜✨ いいじゃ〜ん💕",
+            wrongLine: "2m全部のうち、4つに分けた3つ分を使うよ〜✨"
+          },
+          {
+            question: "3mのリボンの1/3を使いました。残りは何m？",
+            choices: ["1m", "1.5m", "2m", "2.5m"],
+            answer: 2,
+            explanation: "3mの1/3は1m✨ 3−1＝2m残るよ〜💕",
+            correctLine: "使った分と残り、どっちも見られた〜✨",
+            wrongLine: "まず3mの1/3が何mか出してから、全体から引こう〜✨"
+          },
+          {
+            question: "2.5mのリボンの2/5を使います。残りは何m？",
+            choices: ["1m", "1.5m", "2m", "2.25m"],
+            answer: 1,
+            explanation: "2.5mの2/5は1m✨ 2.5−1＝1.5m残るよ〜💕",
+            correctLine: "小数と分数を一緒に使えた〜✨ 強いじゃ〜ん💕",
+            wrongLine: "まず2.5mの2/5を出してから、残りを考えよう〜✨"
+          },
+          {
+            question: "4mの布の1/4をリボンに、1/2をバッグに使いました。残りは何m？",
+            choices: ["0.5m", "1m", "1.5m", "2m"],
+            answer: 1,
+            explanation: "1/2は2/4だから、使ったのは1/4＋2/4＝3/4✨ 残りは1/4で、4mの1/4＝1mだよ〜💕",
+            correctLine: "残りの割合まで見つけた〜✨ めっちゃいいじゃん💕",
+            wrongLine: "1/2を2/4にすると、使った割合を足しやすくなるよ〜✨"
+          }
+        ]
+      },
+            unit: {
+        easy: [
+          {
+            question: "2.4mのリボンは何cm？",
+            choices: ["24cm", "204cm", "240cm", "2400cm"],
+            answer: 2,
+            explanation: "1m＝100cmだから、2.4m＝240cmだよ〜✨",
+            correctLine: "mからcm、ばっちり〜💕",
+            wrongLine: "mをcmにするときは100倍だよ〜✨"
+          },
+          {
+            question: "3500gの荷物は何kg？",
+            choices: ["0.35kg", "3.5kg", "35kg", "350kg"],
+            answer: 1,
+            explanation: "1000g＝1kgだから、3500g＝3.5kgだよ〜✨",
+            correctLine: "gからkg、いい感じ〜💕",
+            wrongLine: "1000gで1kgだから、3500gは3.5kgだよ〜✨"
+          },
+          {
+            question: "1.25Lのドリンクは何mL？",
+            choices: ["125mL", "1025mL", "1250mL", "12500mL"],
+            answer: 2,
+            explanation: "1L＝1000mLだから、1.25L＝1250mLだよ〜✨",
+            correctLine: "LとmLも完璧〜💕",
+            wrongLine: "LをmLにするときは1000倍だよ〜✨"
+          },
+          {
+            question: "480cmの布は何m？",
+            choices: ["0.48m", "4.8m", "48m", "4800m"],
+            answer: 1,
+            explanation: "100cm＝1mだから、480cm＝4.8mだよ〜✨",
+            correctLine: "cmからmもできた〜✨",
+            wrongLine: "cmをmにするときは100で割るよ〜💕"
+          }
+        ],
+
+        middle: [
+          {
+            question: "1m20cmのリボンに、80cmを足します。全部で何m？",
+            choices: ["1m28cm", "1m80cm", "2m", "2m20cm"],
+            answer: 2,
+            explanation: "1m20cmは120cm✨ 120＋80＝200cmだから2mだよ〜💕",
+            correctLine: "単位をそろえて、ぴったり2m〜✨",
+            wrongLine: "まず1m20cmを120cmにすると足しやすいよ〜✨"
+          },
+          {
+            question: "2.5Lのドリンクから750mL使いました。残りは何L？",
+            choices: ["1.25L", "1.5L", "1.75L", "2.25L"],
+            answer: 2,
+            explanation: "750mLは0.75L✨ 2.5−0.75＝1.75Lだよ〜💕",
+            correctLine: "単位をそろえてから引けた〜✨",
+            wrongLine: "750mLを0.75Lに直してから引いてみよ〜✨"
+          },
+          {
+            question: "3kgの荷物に450gの商品を入れます。全部で何kg？",
+            choices: ["3.045kg", "3.45kg", "3.5kg", "3.9kg"],
+            answer: 1,
+            explanation: "450gは0.45kg✨ 3＋0.45＝3.45kgだよ〜💕",
+            correctLine: "kgにそろえて計算できた〜✨",
+            wrongLine: "450gを0.45kgに直してから足そう〜💕"
+          },
+          {
+            question: "2mのリボンから35cmずつ4本切ります。残りは何cm？",
+            choices: ["40cm", "50cm", "60cm", "65cm"],
+            answer: 2,
+            explanation: "2mは200cm✨ 35×4＝140cm使うから、200−140＝60cmだよ〜💕",
+            correctLine: "長さをそろえて、残りまで出せた〜✨",
+            wrongLine: "2mを200cmにしてから、4本分を引こう〜✨"
+          }
+        ],
+
+        hard: [
+          {
+            question: "1.8kgの荷物と1750gの荷物。どちらが何g重い？",
+            choices: [
+              "1.8kgの荷物が50g重い",
+              "1750gの荷物が50g重い",
+              "1.8kgの荷物が500g重い",
+              "同じ重さ"
+            ],
+            answer: 0,
+            explanation: "1.8kgは1800g✨ 1800−1750＝50gだから、1.8kgの方が50g重いよ〜💕",
+            correctLine: "同じ単位にして比べられた〜✨",
+            wrongLine: "1.8kgを1800gに直すと比べやすいよ〜✨"
+          },
+          {
+            question: "2.4Lのドリンクを350mLずつ6本に入れました。残りは何mL？",
+            choices: ["200mL", "250mL", "300mL", "350mL"],
+            answer: 2,
+            explanation: "2.4Lは2400mL✨ 350×6＝2100mLだから、300mL残るよ〜💕",
+            correctLine: "mLにそろえて、残りまで完璧〜✨",
+            wrongLine: "まず2.4Lを2400mLに直してみよ〜✨"
+          },
+          {
+            question: "5mの布から、1m25cmと240cmを使いました。残りは？",
+            choices: ["1m15cm", "1m25cm", "1m35cm", "1m45cm"],
+            answer: 2,
+            explanation: "5mは500cm、1m25cmは125cm✨ 500−125−240＝135cmだから1m35cmだよ〜💕",
+            correctLine: "全部cmにそろえて考えられた〜✨",
+            wrongLine: "5mと1m25cmを、まずcmにそろえると見やすいよ〜✨"
+          },
+          {
+            question: "1.35kgの商品を、2kgにしたいです。あと何g必要？",
+            choices: ["550g", "650g", "750g", "850g"],
+            answer: 1,
+            explanation: "2kgは2000g、1.35kgは1350g✨ 2000−1350＝650gだよ〜💕",
+            correctLine: "必要な分を逆算できた〜✨ さすが〜💕",
+            wrongLine: "両方gに直して、2000−1350を計算してみよ〜✨"
+          }
+        ]
+      },
+            average: {
+        easy: [
+          {
+            question: "月曜日は48人、火曜日は52人が来店しました。1日平均は何人？",
+            choices: ["48人", "50人", "52人", "100人"],
+            answer: 1,
+            explanation: "48＋52＝100人✨ 2日分だから、100÷2＝50人だよ〜💕",
+            correctLine: "1日平均50人〜✨ ばっちりじゃ〜ん💕",
+            wrongLine: "まず2日分を足してから、2で割ってみよ〜✨"
+          },
+          {
+            question: "3日間の来店人数は36人、42人、48人でした。1日平均は何人？",
+            choices: ["40人", "42人", "44人", "126人"],
+            answer: 1,
+            explanation: "36＋42＋48＝126人✨ 126÷3＝42人だよ〜💕",
+            correctLine: "3日分の平均、きれいに出せた〜✨",
+            wrongLine: "3日分の合計を出して、3で割ろう〜💕"
+          },
+          {
+            question: "3日間の売上が1200円、1500円、1800円でした。1日平均はいくら？",
+            choices: ["1400円", "1500円", "1600円", "4500円"],
+            answer: 1,
+            explanation: "1200＋1500＋1800＝4500円✨ 4500÷3＝1500円だよ〜💕",
+            correctLine: "平均売上、ちゃんと出せた〜✨",
+            wrongLine: "3日分を合計してから、3で割ってみよ〜✨"
+          },
+          {
+            question: "3つの荷物の重さは2.4kg、3.0kg、3.6kgです。平均は何kg？",
+            choices: ["2.8kg", "3.0kg", "3.2kg", "9.0kg"],
+            answer: 1,
+            explanation: "2.4＋3.0＋3.6＝9.0kg✨ 9.0÷3＝3.0kgだよ〜💕",
+            correctLine: "小数の平均もいい感じ〜✨",
+            wrongLine: "3つの重さを足して、3で割ろう〜💕"
+          }
+        ],
+
+        middle: [
+          {
+            question: "4日間の平均来店人数は54人でした。4日間の合計は何人？",
+            choices: ["108人", "162人", "216人", "270人"],
+            answer: 2,
+            explanation: "平均54人が4日分だから、54×4＝216人だよ〜✨",
+            correctLine: "平均から合計を出せた〜✨ いいじゃ〜ん💕",
+            wrongLine: "平均×日数で、全部の人数が出せるよ〜✨"
+          },
+          {
+            question: "5日間の平均売上は1200円でした。5日間の合計はいくら？",
+            choices: ["240円", "5000円", "6000円", "7200円"],
+            answer: 2,
+            explanation: "平均1200円が5日分だから、1200×5＝6000円だよ〜💕",
+            correctLine: "5日分の売上、逆から出せた〜✨",
+            wrongLine: "1日平均が1200円だから、5日分は1200×5だよ〜✨"
+          },
+          {
+            question: "3日間の平均来店人数は50人です。3日間の合計は何人？",
+            choices: ["100人", "150人", "200人", "250人"],
+            answer: 1,
+            explanation: "平均50人が3日分だから、50×3＝150人だよ〜✨",
+            correctLine: "平均と日数から合計を出せた〜💕",
+            wrongLine: "平均50人が3日あるから、50×3で考えよう〜✨"
+          },
+          {
+            question: "4つの箱の平均の重さは1.5kgです。全部で何kg？",
+            choices: ["4.5kg", "5kg", "6kg", "6.5kg"],
+            answer: 2,
+            explanation: "平均1.5kgが4箱分だから、1.5×4＝6kgだよ〜💕",
+            correctLine: "箱全部の重さ、ちゃんと出せた〜✨",
+            wrongLine: "平均の重さ×箱の数で考えてみよ〜✨"
+          }
+        ],
+
+        hard: [
+          {
+            question: "3日間の平均来店人数は52人です。月曜48人、火曜55人なら、水曜は何人？",
+            choices: ["51人", "52人", "53人", "55人"],
+            answer: 2,
+            explanation: "3日間の合計は52×3＝156人✨ 156−48−55＝53人だよ〜💕",
+            correctLine: "平均から分からない日を逆算できた〜✨",
+            wrongLine: "まず52×3で、3日間の合計を出してみよ〜✨"
+          },
+          {
+            question: "4日間の平均来店人数は62人です。最初の3日が58人、64人、60人なら、4日目は何人？",
+            choices: ["62人", "64人", "66人", "68人"],
+            answer: 2,
+            explanation: "4日間の合計は62×4＝248人✨ 最初の3日は182人だから、248−182＝66人だよ〜💕",
+            correctLine: "4日目の人数、逆算成功〜✨ 強いじゃ〜ん💕",
+            wrongLine: "平均×4で合計を出して、分かっている3日分を引こう〜✨"
+          },
+          {
+            question: "5点の商品の平均価格は2400円です。4点が2200円、2500円、2100円、2600円なら、残り1点はいくら？",
+            choices: ["2400円", "2500円", "2600円", "2800円"],
+            answer: 2,
+            explanation: "5点の合計は2400×5＝12000円✨ 4点の合計は9400円だから、12000−9400＝2600円だよ〜💕",
+            correctLine: "商品の値段まで逆算できた〜✨ さすが〜💕",
+            wrongLine: "まず平均2400円から、5点全部の合計を出してみよ〜✨"
+          },
+          {
+            question: "4日間の平均来店人数は50人でした。5日目に70人来ると、5日間の平均は何人？",
+            choices: ["52人", "54人", "56人", "60人"],
+            answer: 1,
+            explanation: "最初の4日間は50×4＝200人✨ 70人を足すと270人。270÷5＝54人だよ〜💕",
+            correctLine: "新しい日の分まで入れて、平均を出し直せた〜✨",
+            wrongLine: "まず最初の4日間の合計を出して、5日目の70人を足そう〜✨"
+          }
+        ]
+      },
+            ratio: {
+        easy: [
+          {
+            question: "ピンクのリボンが6本、白いリボンが9本あります。ピンク：白を簡単な比にすると？",
+            choices: ["1：2", "2：3", "3：2", "6：3"],
+            answer: 1,
+            explanation: "6：9は、両方を3で割ると2：3になるよ〜✨",
+            correctLine: "両方を同じ数で割れた〜✨ いいじゃ〜ん💕",
+            wrongLine: "6と9を、どちらも割れる数を探してみよ〜✨"
+          },
+          {
+            question: "ゴールドのビーズが15個、シルバーが10個あります。ゴールド：シルバーを簡単な比にすると？",
+            choices: ["2：3", "3：2", "3：5", "5：3"],
+            answer: 1,
+            explanation: "15：10は、両方を5で割ると3：2だよ〜✨",
+            correctLine: "3：2まで小さくできた〜💕",
+            wrongLine: "15と10を、どちらも5で割ってみよ〜✨"
+          },
+          {
+            question: "トップスが12着、スカートが18着あります。トップス：スカートを簡単な比にすると？",
+            choices: ["2：3", "3：2", "6：9", "12：6"],
+            answer: 0,
+            explanation: "12：18は、両方を6で割ると2：3だよ〜✨",
+            correctLine: "いちばん簡単な比にできた〜✨",
+            wrongLine: "12と18の両方を割れる数を探してみよ〜💕"
+          },
+          {
+            question: "小さいバッグが21個、大きいバッグが28個あります。小さい：大きいを簡単な比にすると？",
+            choices: ["3：4", "4：3", "7：4", "7：9"],
+            answer: 0,
+            explanation: "21：28は、両方を7で割ると3：4だよ〜✨",
+            correctLine: "3：4、ばっちり〜💕",
+            wrongLine: "21と28は、どちらも7で割れるよ〜✨"
+          }
+        ],
+
+        middle: [
+          {
+            question: "ピンクと白のリボンの長さの比は2：3です。ピンクが8mなら、白は何m？",
+            choices: ["10m", "12m", "14m", "16m"],
+            answer: 1,
+            explanation: "2にあたる量が8mだから、1あたり4m✨ 白は3つ分なので4×3＝12mだよ〜💕",
+            correctLine: "1つ分を出して、白の長さまで分かった〜✨",
+            wrongLine: "まず比の2が8mなら、比の1はいくつか考えてみよ〜✨"
+          },
+          {
+            question: "ゴールドとシルバーのアクセの数の比は3：5です。ゴールドが12個なら、シルバーは何個？",
+            choices: ["15個", "18個", "20個", "24個"],
+            answer: 2,
+            explanation: "3にあたる量が12個だから、1あたり4個✨ シルバーは5つ分なので4×5＝20個だよ〜💕",
+            correctLine: "比の1つ分を見つけられた〜✨",
+            wrongLine: "3つ分で12個なら、1つ分は4個だよ〜💕"
+          },
+          {
+            question: "ワンピースとバッグの数の比は4：3です。バッグが9個なら、ワンピースは何着？",
+            choices: ["10着", "12着", "14着", "16着"],
+            answer: 1,
+            explanation: "比の3が9個だから、1つ分は3✨ ワンピースは4つ分なので3×4＝12着だよ〜💕",
+            correctLine: "バッグからワンピースの数を出せた〜✨",
+            wrongLine: "比の3つ分が9個なら、1つ分はいくつかな〜？✨"
+          },
+          {
+            question: "赤と白のビーズの数の比は5：2です。赤が15個なら、白は何個？",
+            choices: ["5個", "6個", "8個", "10個"],
+            answer: 1,
+            explanation: "比の5が15個だから、1つ分は3個✨ 白は2つ分なので3×2＝6個だよ〜💕",
+            correctLine: "白のビーズの数までばっちり〜✨",
+            wrongLine: "赤15個が比の5つ分。まず1つ分を出してみよ〜✨"
+          }
+        ],
+
+        hard: [
+          {
+            question: "ピンクと青のリボンを2：3の比で、全部で25本用意します。青は何本？",
+            choices: ["10本", "12本", "15本", "18本"],
+            answer: 2,
+            explanation: "比の合計は2＋3＝5✨ 25÷5＝5本が1つ分。青は5×3＝15本だよ〜💕",
+            correctLine: "全部を比で分けられた〜✨ いいじゃ〜ん💕",
+            wrongLine: "まず比の2＋3で、全部が何つ分か考えてみよ〜✨"
+          },
+          {
+            question: "ゴールドとシルバーのアクセを3：5の比で、全部で32個作ります。シルバーは何個？",
+            choices: ["12個", "16個", "20個", "24個"],
+            answer: 2,
+            explanation: "比の合計は3＋5＝8✨ 32÷8＝4個が1つ分。シルバーは4×5＝20個だよ〜💕",
+            correctLine: "32個を3：5に分けられた〜✨",
+            wrongLine: "比の合計は8。まず32個を8つ分に分けてみよ〜✨"
+          },
+          {
+            question: "ピンクと白の布の長さの比は4：7です。ピンクが12mなら、2色合わせて何m？",
+            choices: ["21m", "27m", "30m", "33m"],
+            answer: 3,
+            explanation: "比の4が12mだから、1つ分は3m✨ 白は3×7＝21m。合わせて12＋21＝33mだよ〜💕",
+            correctLine: "もう一方を出して、合計までできた〜✨",
+            wrongLine: "比の4つ分が12mだから、まず1つ分を出してみよ〜✨"
+          },
+          {
+            question: "スカートとワンピースの数の比は7：4で、スカートの方が9着多いです。全部で何着？",
+            choices: ["27着", "30着", "33着", "36着"],
+            answer: 2,
+            explanation: "数の差は比の7−4＝3つ分✨ 3つ分が9着だから、1つ分は3着。全部は比の11つ分なので3×11＝33着だよ〜💕",
+            correctLine: "差から比の1つ分を逆算できた〜✨ 強いじゃ〜ん💕",
+            wrongLine: "実際の差9着は、比では7−4＝3つ分だよ〜✨"
+          }
+        ]
+      }
+    };
+
+    const catQuestionPools = {
+  easy: [
+    {
+      question: "レオンの首輪に1.2m、コッタの首輪に0.8mのリボンを使います。全部で何m？",
+      choices: ["1.8m", "2.0m", "2.2m", "2.8m"],
+      answer: 1,
+      explanation: "1.2＋0.8＝2.0m✨ ふたり分でちょうど2mだよ〜💕",
+      correctLine: "ふたりの首輪、準備ばっちり〜🐾💕",
+      wrongLine: "レオンの1.2mとコッタの0.8mを足してみよ〜✨"
+    },
+    {
+      question: "レオンのおやつが6個、コッタのおやつが9個あります。レオン：コッタを簡単な比にすると？",
+      choices: ["1：2", "2：3", "3：2", "6：3"],
+      answer: 1,
+      explanation: "6：9は両方を3で割ると2：3だよ〜✨",
+      correctLine: "おやつのバランス、いい感じに見られた〜🐾",
+      wrongLine: "6と9を、両方同じ数で割ってみよ〜✨"
+    },
+    {
+      question: "250g入りのキャットフードを4袋用意します。全部で何g？",
+      choices: ["750g", "900g", "1000g", "1250g"],
+      answer: 2,
+      explanation: "250×4＝1000g✨ 250が4つで1000になるよ〜💕",
+      correctLine: "250が4つで1000〜✨ ごはん準備完了〜🐾",
+      wrongLine: "250gを4袋分だよ〜✨ 250×4で考えてみよ💕"
+    },
+    {
+      question: "レオンが遊んだ時間は20分、コッタは30分、ふたり一緒は40分でした。平均は何分？",
+      choices: ["25分", "30分", "35分", "90分"],
+      answer: 1,
+      explanation: "20＋30＋40＝90分✨ 90÷3＝30分だよ〜💕",
+      correctLine: "平均30分〜✨ いっぱい遊んだね〜🐾",
+      wrongLine: "3つの時間を足してから、3で割ってみよ〜✨"
+    }
+  ],
+
+  middle: [
+    {
+      question: "レオン用の蝶ネクタイは1600円。25％OFFだと、支払う金額はいくら？",
+      choices: ["400円", "1000円", "1200円", "1400円"],
+      answer: 2,
+      explanation: "25％OFFなら75％払うから、1600×0.75＝1200円だよ〜✨",
+      correctLine: "レオンの蝶ネクタイ、お得にゲット〜🤣💕",
+      wrongLine: "25％引くなら、支払うのは75％だよ〜✨"
+    },
+    {
+      question: "3mのリボンから45cmずつ4本切ります。残りは何cm？",
+      choices: ["100cm", "110cm", "120cm", "130cm"],
+      answer: 2,
+      explanation: "3mは300cm✨ 45×4＝180cm使うから、300−180＝120cmだよ〜💕",
+      correctLine: "ふたりのリボンを切っても、まだ120cmある〜✨",
+      wrongLine: "まず3mを300cmにそろえてから考えよう〜✨"
+    },
+    {
+      question: "2.5Lのお水があります。レオンとコッタが1日に合わせて0.4Lずつ、4日間飲みました。残りは何L？",
+      choices: ["0.7L", "0.9L", "1.1L", "1.6L"],
+      answer: 1,
+      explanation: "0.4×4＝1.6L飲んだよ〜✨ 2.5−1.6＝0.9L残るよ💕",
+      correctLine: "4日分を先に出せた〜✨ お水も足りそう〜🐾",
+      wrongLine: "まず0.4Lの4日分を出してから、2.5Lから引こう〜✨"
+    },
+    {
+      question: "レオンが4日間に食べたごはんは、1日平均120gでした。4日間で何g食べた？",
+      choices: ["360g", "420g", "480g", "520g"],
+      answer: 2,
+      explanation: "平均120gが4日分だから、120×4＝480gだよ〜✨",
+      correctLine: "レオンの4日分、ちゃんと出せた〜🐾💕",
+      wrongLine: "1日平均120gが4日分あるから、120×4だよ〜✨"
+    }
+  ],
+
+  hard: [
+    {
+      question: "2.5mのリボンの2/5をレオンのケープに使いました。残りは何m？",
+      choices: ["1m", "1.5m", "2m", "2.25m"],
+      answer: 1,
+      explanation: "2.5mの2/5は1m✨ 2.5−1＝1.5m残るよ〜💕",
+      correctLine: "レオンのケープ分と残り、両方出せた〜✨",
+      wrongLine: "まず2.5mの2/5が何mか出してから、残りを考えよう〜✨"
+    },
+    {
+      question: "レオンとコッタのおやつを2：3の比で、全部で25個用意します。コッタは何個？",
+      choices: ["10個", "12個", "15個", "18個"],
+      answer: 2,
+      explanation: "比の合計は2＋3＝5✨ 25÷5＝5個が1つ分。コッタは5×3＝15個だよ〜💕",
+      correctLine: "コッタのおやつ15個〜🐾 バランス完璧〜✨",
+      wrongLine: "まず2＋3で、全部が比の何つ分か考えてみよ〜✨"
+    },
+    {
+      question: "コッタが3日間に食べたごはんは、1日平均140gでした。1日目130g、2日目150gなら、3日目は何g？",
+      choices: ["130g", "140g", "150g", "160g"],
+      answer: 1,
+      explanation: "3日分の合計は140×3＝420g✨ 420−130−150＝140gだよ〜💕",
+      correctLine: "コッタの3日目まで逆算できた〜✨ 強い〜🐾",
+      wrongLine: "まず平均140gから、3日分の合計を出してみよ〜✨"
+    },
+    {
+      question: "1.8kgのキャットフードがあります。250gずつ5袋に分けると、残りは何g？",
+      choices: ["450g", "500g", "550g", "650g"],
+      answer: 2,
+      explanation: "1.8kgは1800g✨ 250×5＝1250gだから、1800−1250＝550g残るよ〜💕",
+      correctLine: "単位も袋の数もばっちり〜✨ ごはん分け完了〜🐾",
+      wrongLine: "まず1.8kgを1800gにして、5袋分を引いてみよ〜✨"
+    }
+  ]
+};
+
+    const normalEvents = [
+      {
+        key: "spring",
+        title: "🌸 春のセール",
+        badge: "🏷️ 今日のお仕事：セールのお手伝い",
+        brand: "SPRING SALE",
+        quizLabel: "🌸 春セール",
+        introTitle: "春セール、はじまるよ〜！",
+        introSpeech: "おはよ〜💕(∩´∀｀)∩<br>今日は春セールでちょいバタバタかも〜！<br>お客さんのお買い物、いっしょに手伝って〜✨",
+        customerAvatar: "🛍️",
+        customerBadge: "最初のお客さん",
+        customerTitle: "この服、いくらになるの？",
+        customerSpeech: "このワンピかわい〜🥺💕<br>セールになってるんだけど、いくらになるんだろ？<br>一緒に見て〜！",
+        tip: "セールって、<b>引く金額</b>と<b>払う金額</b>を間違えやすいんだよね〜😂<br>問題がどっちを聞いてるか、最初にチェック〜(๑•̀ㅂ•́)و"
+      },
+      {
+        key: "bag",
+        title: "👜 バッグフェア",
+        badge: "👜 今日のお仕事：バッグ売り場をお手伝い",
+        brand: "BAG FAIR",
+        quizLabel: "👜 バッグフェア",
+        introTitle: "今日はバッグ祭り〜💕",
+        introSpeech: "新作バッグがいっぱい入った〜！(∩´∀｀)∩<br>かわいいの多すぎて、ルナも欲しくなってる😂💕<br>今日も接客お願いしま〜す✨",
+        customerAvatar: "👛",
+        customerBadge: "バッグ大好きなお客さん",
+        customerTitle: "セール価格、見てほしい〜！",
+        customerSpeech: "こっちのバッグもかわいいし、あっちも気になる〜🥺💕<br>まず値段見てから決めよ〜！",
+        tip: "○％OFFは、<b>100％から引いて残りを考える</b>とラク〜✨<br>20％OFFなら80％払う、って感じだよ〜💕"
+      },
+      {
+        key: "accessory",
+        title: "🎀 アクセサリーDAY",
+        badge: "🎀 今日のお仕事：アクセ売り場をお手伝い",
+        brand: "ACCESSORY DAY",
+        quizLabel: "🎀 アクセサリーDAY",
+        introTitle: "キラキラ多すぎ〜✨",
+        introSpeech: "今日はアクセサリーDAY〜💕<br>リボンもピアスもネックレスも、全部かわい〜( *´艸｀)<br>値札チェック、手伝って〜✨",
+        customerAvatar: "💍",
+        customerBadge: "迷い中のお客さん",
+        customerTitle: "どれがお得かな〜？",
+        customerSpeech: "予算もあるし、ちゃんと計算して選びたい〜🥺<br>いっしょに見てくれる？💕",
+        tip: "10％は10分の1、25％は4分の1、50％は半分✨<br>見慣れた割合は、ラクな考え方を使っていいんだよ〜(∩´∀｀)∩",
+        questionPool: "percent"
+      },
+      {
+        key: "trick",
+        title: "🧺 まとめ買いフェア",
+        badge: "🧺 今日のお仕事：まとめ買いをお手伝い",
+        brand: "BUNDLE FAIR",
+        quizLabel: "🧺 まとめ買い",
+        introTitle: "計算、もっとラクにできそう〜✨",
+introSpeech: "今日はまとめ買いや仕入れの計算が多そう〜💕<br>そのまま計算する前に、まとめやすい数や組み合わせを探してみよ〜✨",
+customerAvatar: "🛍️",
+customerBadge: "計算を早く終わらせたいお客さん",
+customerTitle: "これ、もっとラクに計算できないかな？",
+customerSpeech: "数が多くて、そのまま計算すると大変そう〜🥺💕<br>パッと分かるやり方、一緒に探してほしいな",
+tip: "そのまま計算する前に、<b>100や1000になる組み合わせ</b>や<b>きりのいい数</b>を探してみよ〜✨<br>同じ数ずつあるものは、まとめて考えるとラクだよ〜💕",
+        questionPool: "trick"
+      },
+      {
+        key: "decimal",
+        title: "🧁 ドリンク&お菓子DAY",
+        badge: "🧁 今日のお仕事：量の計算をお手伝い",
+        brand: "DRINK & SNACK DAY",
+        quizLabel: "🧁 量の計算",
+        introTitle: "これ、どれくらいあれば足りるかな〜？✨",
+        introSpeech: "今日はリボンやドリンクの量を考えるお客さんが多そう〜💕<br>合わせたり、分けたり、少しだけ使ったり……いっしょに見てこ〜(∩´∀｀)∩",
+        customerAvatar: "☕",
+        customerBadge: "量に迷うお客さん",
+        customerTitle: "この量で足りるかな〜？",
+customerSpeech: "リボンとかドリンクって、ちょっとずつ計算するのむずかし〜🥺💕<br>一緒に見てもらえる？",
+tip: "小数も分数も、<b>何を求めるか</b>を先に見るとわかりやすいよ〜✨<br>合わせる？分ける？残りを出す？って考えてみよ〜💕",
+        questionPool: "decimal"
+      },
+      {
+  key: "unit",
+  title: "📏 サイズ確認フェア",
+  badge: "📏 今日のお仕事：量やサイズを分かりやすくする",
+  brand: "SIZE CHECK FAIR",
+  quizLabel: "📏 単位をそろえる",
+  introTitle: "この量、どれくらいなんだろ〜？✨",
+  introSpeech: "今日はリボンや荷物、ドリンクの量を確認する相談が多そう〜💕<br>分かりにくいときは、見やすい単位にそろえてこ〜✨",
+  customerAvatar: "📏",
+  customerBadge: "サイズに迷うお客さん",
+  customerTitle: "これって、どれくらいの量なの？",
+  customerSpeech: "数字は書いてあるんだけど、いまいちピンとこなくて〜🥺💕<br>分かりやすくしてもらえる？",
+  tip: "長さや重さ、量を計算するときは、<b>同じ単位にそろえる</b>のがコツ〜✨<br>そろえてから足したり引いたりすると分かりやすいよ〜💕",
+  questionPool: "unit"
+},
+
+      {
+        key: "average",
+        title: "📊 1週間の来店数",
+        badge: "📊 今日のお仕事：平均をお手伝い",
+        brand: "WEEKLY VISITORS",
+        quizLabel: "📊 平均",
+        introTitle: "お店の記録、まとめて見てこ〜✨",
+introSpeech: "今日は本部から、来店人数や売上のチェック依頼が届いてるよ〜💕<br>日によってバラバラな数字を、ひとつの目安にまとめてみよ〜✨",
+customerAvatar: "📊",
+customerBadge: "本部からのチェック依頼",
+customerTitle: "お店の様子を、ひと目で分かるようにしてほしいな",
+customerSpeech: "日によって人数や売上が違うから、そのままだと比べにくくて〜🥺<br>みんな同じくらいだったらどれくらいか、まとめてもらえる？",
+tip: "平均は、<b>全部を同じ数ずつに分けたときの1つ分</b>だよ〜✨<br>逆に合計を知りたいときは、平均を個数分集めればOK〜💕",
+        questionPool: "average"
+      },
+      {
+        key: "ratio",
+        title: "🎀 比例のコーディネート",
+        badge: "🎀 今日のお仕事：比例をお手伝い",
+        brand: "PROPORTION STYLE",
+        quizLabel: "🎀 比例",
+        introTitle: "色のバランス、いい感じにそろえよ〜✨",
+introSpeech: "今日はリボンやアクセを、決まったバランスで用意するお仕事だよ〜💕<br>「こっちが2つなら、こっちは3つ」みたいに組み合わせて見てこ〜✨",
+customerAvatar: "🎀",
+customerBadge: "組み合わせに迷うお客さん",
+customerTitle: "この2色、どれくらいずつ使えばいいかな？",
+customerSpeech: "ピンクと白を、同じバランスでそろえたいんだけど〜🥺💕<br>いくつずつにすればいいか一緒に見てほしいな",
+tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分かりやすいよ〜✨<br>数が大きくなっても、同じバランスならOK〜💕",
+        questionPool: "ratio"
+      }
+    ];
+
+    const catEvent = {
+      key: "cats",
+      title: "🐾 ねこファッションDAY",
+      badge: "🐱 レアイベント：ねこファッションDAY！",
+      brand: "CAT FASHION DAY",
+      quizLabel: "🐾 レオン＆コッタ",
+      introTitle: "え、今日のお客さんかわいすぎ！？",
+      introSpeech: "ねぇね〜！！見て見て〜🤣💕<br>レオンとコッタが来てるんだけど〜！！<br>今日はふたりのファッション選び、お願いしま〜す(∩´∀｀)∩",
+      customerAvatar: "🐱🐱",
+      customerBadge: "今日のスペシャルゲスト",
+      customerTitle: "レオンとコッタに似合うの、どれかな？",
+      customerSpeech: "レオン「ねぇね、かっこいいの選んでにゃ✨」<br>コッタ「ぼくもかわいいのほしいですにゃ💕」",
+      tip: "今日はどんなお手伝いが来るか、お楽しみ〜🐾💕<br><b>何を求める問題か</b>を先に見て、使えそうな考え方を選んでこ〜✨"
+    };
+
+    let questions = [];
+    let currentEvent = null;
+
+    const growthStages = [
+      {
+        points: 0,
+        rank: 1,
+        label: "小さな洋服ラック",
+        elementId: null
+      },
+      {
+        points: 30,
+        rank: 2,
+        label: "観葉植物",
+        elementId: "plant"
+      },
+      {
+        points: 60,
+        rank: 3,
+        label: "バッグ棚",
+        elementId: "bagShelf"
+      },
+      {
+        points: 100,
+        rank: 4,
+        label: "壁のミラー",
+        elementId: "mirror"
+      },
+      {
+        points: 150,
+        rank: 5,
+        label: "試着室",
+        elementId: "fittingRoom"
+      },
+      {
+        points: 220,
+        rank: 6,
+        label: "ショーウィンドウ",
+        elementId: "windowDisplay"
+      }
+    ];
+
+    let saveData = loadSaveData();
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+    let pointsBeforePlay = saveData.shopPoints;
+
+    const screens = {
+  home: document.getElementById("homeScreen"),
+  select: document.getElementById("selectScreen"),
+  event: document.getElementById("eventScreen"),
+  quiz: document.getElementById("quizScreen"),
+  result: document.getElementById("resultScreen")
+};
+
+    function loadSaveData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        return {
+          ...defaultSaveData,
+          ...(saved || {})
+        };
+      } catch (error) {
+        console.warn(
+          "保存データを読み込めなかったため、初期データを使用します。",
+          error
+        );
+
+        return { ...defaultSaveData };
+      }
+    }
+
+    function saveGame() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
+    }
+
+    function showScreen(name) {
+      Object.values(screens).forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      screens[name].classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function setRandomHomeMessage() {
+      const randomIndex = Math.floor(
+        Math.random() * homeMessages.length
+      );
+
+      document.getElementById("homeLunaMessage").textContent =
+        homeMessages[randomIndex];
+    }
+
+    function getCurrentStage(points) {
+      return [...growthStages]
+        .reverse()
+        .find(stage => points >= stage.points) || growthStages[0];
+    }
+
+    function getNextStage(points) {
+      return growthStages.find(stage => stage.points > points) || null;
+    }
+
+    function updateShopDisplay() {
+      document.getElementById("homePoints").textContent =
+  saveData.shopPoints;
+
+document.getElementById("selectPoints").textContent =
+  saveData.shopPoints;
+
+document.getElementById("eventPoints").textContent =
+  saveData.shopPoints;
+
+      growthStages.forEach(stage => {
+        if (!stage.elementId) return;
+
+        const element = document.getElementById(stage.elementId);
+
+        element.classList.toggle(
+          "unlocked",
+          saveData.shopPoints >= stage.points
+        );
+      });
+
+      const currentStage = getCurrentStage(saveData.shopPoints);
+      const nextStage = getNextStage(saveData.shopPoints);
+
+      document.getElementById("rankLabel").textContent =
+        `ショップランク ${currentStage.rank}`;
+
+      if (!nextStage) {
+        document.getElementById("nextUnlockText").textContent =
+          "お店めっちゃ豪華〜✨";
+
+        document.getElementById("shopProgressBar").style.width =
+          "100%";
+
+        return;
+      }
+
+      const stageStart = currentStage.points;
+      const stageRange = nextStage.points - stageStart;
+      const progressValue = saveData.shopPoints - stageStart;
+
+      const progressPercent = Math.max(
+        0,
+        Math.min(
+          100,
+          (progressValue / stageRange) * 100
+        )
+      );
+
+      document.getElementById("nextUnlockText").textContent =
+        `次の入荷まで ${nextStage.points - saveData.shopPoints}pt`;
+
+      document.getElementById("shopProgressBar").style.width =
+        `${progressPercent}%`;
+    }
+
+    function pickRandom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function getTodayKey() {
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function getEventByKey(key) {
+  return [catEvent, ...normalEvents].find(event => {
+    return event.key === key;
+  }) || normalEvents[0];
+}
+
+function resolveSelectedEvent(eventKey) {
+  const todayKey = getTodayKey();
+
+  /*
+    動作確認用。
+    trueの間は、日付に関係なく必ずねこになります。
+  */
+  if (FORCE_CAT_EVENT_FOR_TEST) {
+    return catEvent;
+  }
+
+  /*
+    今日すでにレオン＆コッタが登場していたら、
+    以降は選んだ通常イベントをそのまま表示します。
+  */
+  const catAlreadyAppeared =
+    saveData.catAppearedDate === todayKey;
+
+  if (catAlreadyAppeared) {
+    return getEventByKey(eventKey);
+  }
+
+  /*
+    まだ今日ねこが登場していない場合だけ、
+    イベントを選ぶたびに抽選します。
+  */
+  const isCatEvent =
+    Math.random() < CAT_EVENT_CHANCE;
+
+  if (isCatEvent) {
+    saveData.catAppearedDate = todayKey;
+    saveData.seenRareEvents = true;
+    saveGame();
+
+    return catEvent;
+  }
+
+  return getEventByKey(eventKey);
+}
+    function buildQuestionSet(event) {
+      if (event.key === catEvent.key) {
+        const pools = catQuestionPools;
+
+        return [
+          pickRandom(pools.easy),
+          pickRandom(pools.middle),
+          pickRandom(pools.hard)
+        ];
+      }
+
+      const poolKey = event.questionPool || "percent";
+      const pools = poolKey === "percent"
+        ? normalQuestionPools
+        : extraQuestionPools[poolKey] || normalQuestionPools;
+
+      return [
+        pickRandom(pools.easy),
+        pickRandom(pools.middle),
+        pickRandom(pools.hard)
+      ];
+    }
+
+    function renderEventScreen(event) {
+      currentEvent = event;
+      questions = buildQuestionSet(currentEvent);
+
+      
+      document.getElementById("eventBrand").textContent =
+        currentEvent.brand;
+
+      document.getElementById("quizEventLabel").textContent =
+        currentEvent.quizLabel;
+
+      document.getElementById("eventIntroTitle").textContent =
+        currentEvent.introTitle;
+
+      document.getElementById("eventIntroSpeech").innerHTML =
+        currentEvent.introSpeech;
+
+      document.getElementById("customerAvatar").textContent =
+        currentEvent.customerAvatar;
+
+      document.getElementById("customerBadge").textContent =
+        currentEvent.customerBadge;
+
+      document.getElementById("customerTitle").textContent =
+        currentEvent.customerTitle;
+
+      document.getElementById("customerSpeech").innerHTML =
+        currentEvent.customerSpeech;
+
+      document.getElementById("lunaTipText").innerHTML =
+        currentEvent.tip;
+
+      document.getElementById("goQuizButton").textContent =
+        currentEvent.key === catEvent.key
+          ? "ねこ接客スタート〜🐾"
+          : "接客スタート〜💕";
+    }
+
+    const selectableEvents = [
+  {
+    key: "spring",
+    label: "割合・セール計算"
+  },
+  {
+    key: "trick",
+    label: "計算の工夫"
+  },
+  {
+    key: "decimal",
+    label: "小数・分数"
+  },
+  {
+    key: "unit",
+    label: "単位をそろえる"
+  },
+  {
+    key: "average",
+    label: "平均"
+  },
+  {
+    key: "ratio",
+    label: "比・バランス"
+  }
+];
+
+function renderEventChoices() {
+  const container =
+    document.getElementById("eventChoiceList");
+
+  container.innerHTML = "";
+
+  selectableEvents.forEach(item => {
+    const event = getEventByKey(item.key);
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "event-choice";
+
+    const titleParts = event.title.split(" ");
+    const icon = titleParts.shift() || "✨";
+    const title = titleParts.join(" ") || event.title;
+
+    button.innerHTML = `
+      <span class="event-choice-icon">${icon}</span>
+      <span class="event-choice-title">${title}</span>
+      <span class="event-choice-label">${item.label}</span>
+    `;
+
+    button.addEventListener("click", () => {
+      startSelectedEvent(item.key);
+    });
+
+    container.appendChild(button);
+  });
+}
+
+function openEventSelect() {
+  updateShopDisplay();
+  renderEventChoices();
+  showScreen("select");
+}
+
+function startSelectedEvent(eventKey) {
+  const selectedEvent =
+    getEventByKey(eventKey);
+
+  const resolvedEvent =
+    resolveSelectedEvent(eventKey);
+
+  renderEventScreen(resolvedEvent);
+
+  /*
+    ねこイベントになった場合だけ、
+    選んだフェアへ進むと思わせてから
+    レオン＆コッタが登場する文章に変更します。
+  */
+  if (resolvedEvent.key === catEvent.key) {
+    document
+      .getElementById("eventIntroTitle")
+      .textContent =
+        "あれ？ お店の前に誰かいる……？🐾";
+
+    document
+      .getElementById("eventIntroSpeech")
+      .innerHTML =
+        `「${selectedEvent.title}」の準備を始めようとしたら……<br>` +
+        `レオンとコッタが遊びに来てる〜🤣💕<br>` +
+        `今日は予定変更！ふたりのファッション選び、お願いしま〜す✨`;
+  }
+
+  pointsBeforePlay = saveData.shopPoints;
+  currentQuestionIndex = 0;
+  score = 0;
+  answered = false;
+
+  document.getElementById("liveScore").textContent =
+    score;
+
+  showScreen("event");
+}
+
+function startEvent() {
+  openEventSelect();
+}
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+
+      renderQuestion();
+      showScreen("quiz");
+    }
+
+    function renderQuestion() {
+      answered = false;
+
+      const current = questions[currentQuestionIndex];
+
+      document.getElementById("questionCount").textContent =
+        `${currentQuestionIndex + 1} / ${questions.length}`;
+
+      document.getElementById("questionText").textContent =
+        current.question;
+
+      document.getElementById("liveScore").textContent =
+        score;
+
+      const answersContainer =
+        document.getElementById("answers");
+
+      answersContainer.innerHTML = "";
+
+      current.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+
+        button.className = "answer";
+        button.textContent = `${index + 1}. ${choice}`;
+
+        button.addEventListener("click", () => {
+          selectAnswer(index);
+        });
+
+        answersContainer.appendChild(button);
+      });
+
+      const feedback =
+        document.getElementById("feedback");
+
+      feedback.className = "feedback";
+      feedback.innerHTML = "";
+
+      document
+        .getElementById("nextWrap")
+        .classList.remove("show");
+
+      document.getElementById("nextButton").textContent =
+        currentQuestionIndex === questions.length - 1
+          ? "今日のお仕事おわり〜！"
+          : "次のお客さんへ";
+    }
+
+    function selectAnswer(selectedIndex) {
+      if (answered) return;
+
+      answered = true;
+
+      const current = questions[currentQuestionIndex];
+      const buttons = [
+        ...document.querySelectorAll(".answer")
+      ];
+
+      const isCorrect =
+        selectedIndex === current.answer;
+
+      if (isCorrect) {
+        score += 1;
+
+        document.getElementById("liveScore").textContent =
+          score;
+      }
+
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+
+        if (index === current.answer) {
+          button.classList.add("correct");
+        } else if (index === selectedIndex) {
+          button.classList.add("wrong");
+        }
+      });
+
+      const feedback =
+        document.getElementById("feedback");
+
+      feedback.className =
+        `feedback show ${isCorrect ? "correct" : "wrong"}`;
+
+      feedback.innerHTML = `
+        <div class="feedback-head">
+          <div class="feedback-avatar">
+            <img src="luna-icon.png" alt="ルナ">
+          </div>
+          <span class="feedback-name">ルナ</span>
+        </div>
+        ${isCorrect ? current.correctLine : current.wrongLine}
+        <br><br>
+        ${current.explanation}
+      `;
+
+      document
+        .getElementById("nextWrap")
+        .classList.add("show");
+    }
+
+    function nextQuestion() {
+      if (!answered) return;
+
+      if (
+        currentQuestionIndex <
+        questions.length - 1
+      ) {
+        currentQuestionIndex += 1;
+        renderQuestion();
+        return;
+      }
+
+      finishEvent();
+    }
+
+    function getEarnedPoints(correctCount) {
+      const table = {
+        3: 30,
+        2: 20,
+        1: 10,
+        0: 5
+      };
+
+      return table[correctCount] ?? 5;
+    }
+
+    function getComment(correctCount) {
+      if (currentEvent?.key === "cats") {
+        if (correctCount === 3) {
+          return "ルナ「やば〜🤣💕 ふたりとも似合いすぎ〜！！」 レオン「ねぇね、ありがとにゃ✨」 コッタ「ぼくも似合うかにゃ？(∩´∀｀)∩」";
+        }
+
+        if (correctCount === 2) {
+          return "ルナ「かわいすぎる〜💕 ねぇねのセンス、いいじゃ〜ん✨」 レオン「うれしいにゃ」 コッタ「また来たいですにゃ」";
+        }
+
+        return "ルナ「今日はちょいムズだったね〜😂 でもレオンもコッタも喜んでる〜💕 また一緒に選ぼ〜✨」";
+      }
+
+      if (correctCount === 3) {
+        return "神接客すぎ〜🤣✨ お客さんめっちゃ満足してたよ〜💕";
+      }
+
+      if (correctCount === 2) {
+        return "いいじゃ〜ん💕 今日のお店かなり助かった〜(∩´∀｀)∩";
+      }
+
+      if (correctCount === 1) {
+        return "今日はちょいムズだったね〜😂 でも最後まで手伝ってくれて助かった〜💕";
+      }
+
+      return "今日はむずかった〜🤣 でも3人とも接客できたじゃん✨ またお願いね〜💕";
+    }
+
+    function getNewUnlocks(beforePoints, afterPoints) {
+      return growthStages.filter(stage => {
+        return (
+          stage.points > beforePoints &&
+          stage.points <= afterPoints &&
+          stage.elementId
+        );
+      });
+    }
+
+    function finishEvent() {
+  const todayKey = getTodayKey();
+  const previousDate = saveData.lastPlayedDate;
+
+  /*
+    今日まだ通常報酬を受け取っていなければ、
+    今回が本日の最初のクリアです。
+  */
+  const isFirstClearToday =
+    saveData.dailyRewardDate !== todayKey;
+
+  const regularEarned =
+    getEarnedPoints(score);
+
+  /*
+    最初のクリア：
+      正解数に応じた通常報酬
+
+    2回目以降：
+      最大10ptの追加練習報酬
+      0問正解の場合は元の5pt
+  */
+  const earned = isFirstClearToday
+    ? regularEarned
+    : Math.min(regularEarned, 10);
+
+  saveData.shopPoints += earned;
+  saveData.completedCount += 1;
+  saveData.lastPlayedDate = todayKey;
+
+  /*
+    連続記録と本日の通常報酬日は、
+    最初のクリア時だけ更新します。
+  */
+  if (isFirstClearToday) {
+    saveData.dailyRewardDate = todayKey;
+
+    if (!previousDate) {
+      saveData.streakCount = 1;
+    } else if (previousDate === todayKey) {
+      /*
+        旧データなどで今日の日付がすでに入っている場合は、
+        連続日数をそのままにします。
+      */
+      saveData.streakCount =
+        Math.max(1, saveData.streakCount || 1);
+    } else {
+      const previous = new Date(
+        `${previousDate}T00:00:00`
+      );
+
+      const current = new Date(
+        `${todayKey}T00:00:00`
+      );
+
+      const diffDays = Math.round(
+        (current - previous) / 86400000
+      );
+
+      saveData.streakCount =
+        diffDays === 1
+          ? (saveData.streakCount || 0) + 1
+          : 1;
+    }
+  }
+
+  saveGame();
+
+  const newUnlocks = getNewUnlocks(
+    pointsBeforePlay,
+    saveData.shopPoints
+  );
+
+  document
+    .getElementById("resultBigScore")
+    .textContent =
+      `${score} / ${questions.length}`;
+
+  document
+    .getElementById("resultComment")
+    .textContent =
+      getComment(score);
+
+  document
+    .getElementById("earnedPointsLabel")
+    .textContent =
+      isFirstClearToday
+        ? "今日のメイン報酬"
+        : "追加練習pt";
+
+  document
+    .getElementById("earnedPoints")
+    .textContent =
+      `+${earned}`;
+
+  document
+    .getElementById("totalPoints")
+    .textContent =
+      saveData.shopPoints;
+
+  document
+    .getElementById("resultTotalPoints")
+    .textContent =
+      saveData.shopPoints;
+
+  const unlockMessage =
+    document.getElementById("unlockMessage");
+
+  if (currentEvent?.key === catEvent.key) {
+    unlockMessage.textContent =
+      "🐾 もーりからレオンとコッタにファッションアイテムをプレゼント！ ふたりとも大よろこび〜💕";
+
+    unlockMessage.classList.add("show");
+  } else if (newUnlocks.length > 0) {
+    unlockMessage.textContent =
+      `ルナ「やば〜💕 新しく『${newUnlocks
+        .map(item => item.label)
+        .join("・")}』入った〜！(∩´∀｀)∩」`;
+
+    unlockMessage.classList.add("show");
+  } else {
+    unlockMessage.classList.remove("show");
+    unlockMessage.textContent = "";
+  }
+
+  updateShopDisplay();
+  showScreen("result");
+}
+
+    document
+  .getElementById("startButton")
+  .addEventListener("click", startEvent);
+
+document
+  .getElementById("chooseAnotherEventButton")
+  .addEventListener("click", () => {
+    openEventSelect();
+  });
+
+  document
+  .getElementById("backFromSelectButton")
+  .addEventListener("click", () => {
+    updateShopDisplay();
+    showScreen("home");
+  });
+
+document
+  .getElementById("goQuizButton")
+  .addEventListener("click", startQuiz);
+
+    document
+      .getElementById("nextButton")
+      .addEventListener("click", nextQuestion);
+
+    document
+      .getElementById("backHomeButton")
+      .addEventListener("click", () => {
+        updateShopDisplay();
+        setRandomHomeMessage();
+        showScreen("home");
+      });
+
+    setRandomHomeMessage();
+    renderEventScreen(getScheduledEvent());
+    updateShopDisplay();
+  </script>
+</body>
+</html>
