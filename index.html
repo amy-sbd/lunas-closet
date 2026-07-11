@@ -974,10 +974,18 @@
       </div>
 
       <button id="startButton" class="primary">
-        今日もお店を手伝う
-      </button>
+  今日もお店を手伝う
+</button>
 
-            <p class="footer-note">1回3問・約3分</p>
+<button
+  id="openCatBookButton"
+  class="secondary"
+  style="margin-top: 10px;"
+>
+  🐾 ねこファッション図鑑
+</button>
+
+<p class="footer-note">1回3問・約3分</p>
 
 <button
   id="resetDataButton"
@@ -988,8 +996,42 @@
 </button>
 </section>
 
-    <!-- イベント選択画面 -->
-    <section id="selectScreen" class="screen">
+    <!-- ねこファッション図鑑画面 -->
+<section id="catBookScreen" class="screen">
+  <div class="topbar">
+    <div class="brand">CAT FASHION BOOK</div>
+    <div class="points">
+      🐾 <span id="catBookCount">0 / 30</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <p class="eyebrow">LEON &amp; KOTTA COLLECTION</p>
+    <h1>ねこファッション図鑑</h1>
+    <p class="lead">
+      ねこファッションDAYで集めたアイテムを見てみよう〜🐾
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>レオン</h2>
+    <p id="leonBookCount" class="lead"></p>
+    <div id="leonBookList"></div>
+  </div>
+
+  <div class="card">
+    <h2>コッタ</h2>
+    <p id="kottaBookCount" class="lead"></p>
+    <div id="kottaBookList"></div>
+  </div>
+
+  <button id="backFromCatBookButton" class="secondary">
+    ルナのお店に戻る
+  </button>
+</section>
+
+<!-- イベント選択画面 -->
+<section id="selectScreen" class="screen">
       <div class="topbar">
         <div class="brand">SELECT EVENT</div>
         <div class="points">🪙 <span id="selectPoints">0</span> pt</div>
@@ -1132,6 +1174,12 @@
         </div>
 
         <div id="unlockMessage" class="unlock"></div>
+
+<div
+  id="catRewardBox"
+  class="unlock"
+  style="display:none;"
+></div>
       </div>
 
       <button id="chooseAnotherEventButton" class="primary">
@@ -1179,10 +1227,206 @@ const FORCE_CAT_EVENT_FOR_TEST = false;
   catAppearedDate: null,
 
   /* その日のメイン報酬を受け取ったか */
-  dailyRewardDate: null
+  dailyRewardDate: null,
+
+  /* レオン・コッタのファッション図鑑 */
+leonItems: [],
+kottaItems: [],
+
+/* 今回獲得したアイテム（結果画面表示用） */
+lastLeonReward: null,
+lastKottaReward: null
 };
 
-    const homeMessages = [
+    const catFashionItems = {
+  leon: [
+    {
+      id: "leon-green-bowtie",
+      name: "深緑の蝶ネクタイ",
+      icon: "🎀",
+      rarity: "normal"
+    },
+    {
+      id: "leon-red-bowtie",
+      name: "赤い蝶ネクタイ",
+      icon: "🎀",
+      rarity: "normal"
+    },
+    {
+      id: "leon-star-bandana",
+      name: "星柄バンダナ",
+      icon: "⭐",
+      rarity: "normal"
+    },
+    {
+      id: "leon-camel-muffler",
+      name: "キャメル色のマフラー",
+      icon: "🧣",
+      rarity: "normal"
+    },
+    {
+      id: "leon-check-muffler",
+      name: "チェックマフラー",
+      icon: "🧣",
+      rarity: "normal"
+    },
+    {
+      id: "leon-check-beret",
+      name: "赤チェックのベレー帽",
+      icon: "🧢",
+      rarity: "normal"
+    },
+    {
+      id: "leon-silk-hat",
+      name: "シルクハット",
+      icon: "🎩",
+      rarity: "rare"
+    },
+    {
+      id: "leon-hunting-cap",
+      name: "ハンチング帽",
+      icon: "🧢",
+      rarity: "normal"
+    },
+    {
+      id: "leon-straw-hat",
+      name: "麦わら帽子",
+      icon: "👒",
+      rarity: "normal"
+    },
+    {
+      id: "leon-knit-cap",
+      name: "ニット帽",
+      icon: "🧶",
+      rarity: "normal"
+    },
+    {
+      id: "leon-prince-cape",
+      name: "王子様風ケープ",
+      icon: "🦸",
+      rarity: "normal"
+    },
+    {
+      id: "leon-detective-cape",
+      name: "探偵マント",
+      icon: "🕵️",
+      rarity: "normal"
+    },
+    {
+      id: "leon-butler-vest",
+      name: "執事ベスト",
+      icon: "🤵",
+      rarity: "normal"
+    },
+    {
+      id: "leon-sailor-collar",
+      name: "セーラーカラー",
+      icon: "⚓",
+      rarity: "normal"
+    },
+    {
+      id: "leon-crown",
+      name: "王冠",
+      icon: "👑",
+      rarity: "rare"
+    }
+  ],
+
+  kotta: [
+    {
+      id: "kotta-blue-ribbon",
+      name: "水色のリボン",
+      icon: "🎀",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-pink-ribbon",
+      name: "ピンクリボン",
+      icon: "🎀",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-flower-scarf",
+      name: "花柄スカーフ",
+      icon: "🌸",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-star-bandana",
+      name: "星柄バンダナ",
+      icon: "⭐",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-lace-collar",
+      name: "レースカラー",
+      icon: "🤍",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-marine-hat",
+      name: "白×ブルーのマリン帽",
+      icon: "⚓",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-beret",
+      name: "ベレー帽",
+      icon: "🧢",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-strawberry-hat",
+      name: "いちご帽子",
+      icon: "🍓",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-flower-crown",
+      name: "花冠",
+      icon: "🌼",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-knit-cap",
+      name: "ニット帽",
+      icon: "🧶",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-fluffy-cape",
+      name: "ふわふわピンクのケープ",
+      icon: "💗",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-princess-dress",
+      name: "プリンセスドレス",
+      icon: "👗",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-angel-wings",
+      name: "天使の羽",
+      icon: "🪽",
+      rarity: "rare"
+    },
+    {
+      id: "kotta-bunny-hood",
+      name: "うさ耳フード",
+      icon: "🐰",
+      rarity: "normal"
+    },
+    {
+      id: "kotta-tiara",
+      name: "王女ティアラ",
+      icon: "👑",
+      rarity: "rare"
+    }
+  ]
+};
+
+const homeMessages = [
       "ルナ「おはよ〜💕 今日もゆるっとお願いしま〜す(∩´∀｀)∩」",
       "ルナ「今日、新作入ったんだ〜✨ ちょっと見てって〜💕」",
       "ルナ「セールの日ってテンション上がるよね〜( *´艸｀)」",
@@ -2195,6 +2439,7 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
 
     const screens = {
   home: document.getElementById("homeScreen"),
+  catBook: document.getElementById("catBookScreen"),
   select: document.getElementById("selectScreen"),
   event: document.getElementById("eventScreen"),
   quiz: document.getElementById("quizScreen"),
@@ -2202,24 +2447,59 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
 };
 
     function loadSaveData() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const loadedData = {
+      ...defaultSaveData,
+      ...(saved || {})
+    };
 
-        return {
-          ...defaultSaveData,
-          ...(saved || {})
-        };
-      } catch (error) {
-        console.warn(
-          "保存データを読み込めなかったため、初期データを使用します。",
-          error
-        );
+    loadedData.leonItems = Array.isArray(loadedData.leonItems)
+      ? loadedData.leonItems
+      : [];
 
-        return { ...defaultSaveData };
-      }
-    }
+    loadedData.kottaItems = Array.isArray(loadedData.kottaItems)
+      ? loadedData.kottaItems
+      : [];
 
-    function saveGame() {
+    return loadedData;
+  } catch (error) {
+    console.warn(
+      "保存データを読み込めなかったため、初期データを使用します。",
+      error
+    );
+
+    return {
+      ...defaultSaveData,
+      leonItems: [],
+      kottaItems: []
+    };
+  }
+}
+
+    function getRandomCatFashionItem(catType) {
+  const owned =
+    catType === "leon"
+      ? saveData.leonItems
+      : saveData.kottaItems;
+
+  const candidates = catFashionItems[catType].filter(
+    item => !owned.includes(item.id)
+  );
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  const item =
+    candidates[Math.floor(Math.random() * candidates.length)];
+
+  owned.push(item.id);
+
+  return item;
+}
+
+function saveGame() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
     }
 
@@ -2824,6 +3104,17 @@ function startEvent() {
     }
   }
 
+    saveData.lastLeonReward = null;
+saveData.lastKottaReward = null;
+
+if (currentEvent?.key === catEvent.key) {
+  saveData.lastLeonReward =
+    getRandomCatFashionItem("leon");
+
+  saveData.lastKottaReward =
+    getRandomCatFashionItem("kotta");
+}
+
   saveGame();
 
   const newUnlocks = getNewUnlocks(
@@ -2883,13 +3174,127 @@ function startEvent() {
     unlockMessage.textContent = "";
   }
 
+    const catRewardBox =
+    document.getElementById("catRewardBox");
+
+  if (currentEvent?.key === catEvent.key) {
+    const leonItem = saveData.lastLeonReward;
+    const kottaItem = saveData.lastKottaReward;
+
+    if (leonItem || kottaItem) {
+      const leonText = leonItem
+        ? `${leonItem.icon} ${leonItem.name}`
+        : "コンプリート済み✨";
+
+      const kottaText = kottaItem
+        ? `${kottaItem.icon} ${kottaItem.name}`
+        : "コンプリート済み✨";
+
+      catRewardBox.innerHTML = `
+        🐾 今日のお買い物<br><br>
+        レオン<br>
+        ${leonText}<br><br>
+        コッタ<br>
+        ${kottaText}
+      `;
+
+      catRewardBox.style.display = "block";
+    } else {
+      catRewardBox.innerHTML =
+        "🎉 レオンとコッタのファッションアイテムを全部集めたよ！";
+
+      catRewardBox.style.display = "block";
+    }
+  } else {
+    catRewardBox.innerHTML = "";
+    catRewardBox.style.display = "none";
+  }
+
   updateShopDisplay();
   showScreen("result");
 }
 
-    document
+    function renderCatFashionBook() {
+  const leonOwned = Array.isArray(saveData.leonItems)
+    ? saveData.leonItems
+    : [];
+
+  const kottaOwned = Array.isArray(saveData.kottaItems)
+    ? saveData.kottaItems
+    : [];
+
+  const renderItemList = (items, ownedIds) => {
+    return items.map(item => {
+      const isOwned = ownedIds.includes(item.id);
+
+      return `
+        <div
+          style="
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: ${isOwned ? "#fff8fb" : "#f5f1f3"};
+            color: ${isOwned ? "var(--text)" : "#aaa0a7"};
+            font-weight: 800;
+          "
+        >
+          ${
+            isOwned
+              ? `${item.icon} ${item.name}${
+                  item.rarity === "rare"
+                    ? "　✨レア"
+                    : ""
+                }`
+              : "🔒 ？？？"
+          }
+        </div>
+      `;
+    }).join("");
+  };
+
+  document.getElementById("leonBookCount").textContent =
+    `${leonOwned.length} / ${catFashionItems.leon.length} アイテム`;
+
+  document.getElementById("kottaBookCount").textContent =
+    `${kottaOwned.length} / ${catFashionItems.kotta.length} アイテム`;
+
+  document.getElementById("catBookCount").textContent =
+    `${leonOwned.length + kottaOwned.length} / ${
+      catFashionItems.leon.length +
+      catFashionItems.kotta.length
+    }`;
+
+  document.getElementById("leonBookList").innerHTML =
+    renderItemList(
+      catFashionItems.leon,
+      leonOwned
+    );
+
+  document.getElementById("kottaBookList").innerHTML =
+    renderItemList(
+      catFashionItems.kotta,
+      kottaOwned
+    );
+}
+
+document
   .getElementById("startButton")
   .addEventListener("click", startEvent);
+
+document
+  .getElementById("openCatBookButton")
+  .addEventListener("click", () => {
+    renderCatFashionBook();
+    showScreen("catBook");
+  });
+
+document
+  .getElementById("backFromCatBookButton")
+  .addEventListener("click", () => {
+    updateShopDisplay();
+    showScreen("home");
+  });
 
 document
   .getElementById("chooseAnotherEventButton")
