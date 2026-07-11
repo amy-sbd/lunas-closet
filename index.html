@@ -846,6 +846,62 @@
   transform: none;
   color: #7f737c;
 } 
+
+/* ボタンの文字を中央にそろえる */
+.primary,
+.secondary,
+.event-choice {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 回答の選択肢だけは読みやすいように左揃え */
+.answer {
+  text-align: left;
+}
+
+/* イベント導入画面のルナを大きくする */
+.story-box .avatar:not(.customer) {
+  flex: 0 0 78px;
+  width: 78px;
+  height: 78px;
+  border-radius: 24px;
+}
+
+/* イベント選択画面のルナを大きくする */
+.event-select-luna .avatar {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+}
+
+/* 結果画面のルナを大きくする */
+.result-luna .avatar {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+}
+
+/* 正誤コメント内のルナも少し大きくする */
+.feedback-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
+
+/* 小さいスマホでも文章部分がつぶれないようにする */
+.story-box > div:last-child,
+.event-select-luna > p,
+.result-luna > p {
+  min-width: 0;
+  flex: 1;
+}
+
+
   </style>
 </head>
 
