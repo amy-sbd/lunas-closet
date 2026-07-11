@@ -902,7 +902,33 @@
 }
 
 
-  </style>
+  /* ===== ショップ画像表示 ===== */
+
+.shop-image-wrap {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.shop-rank-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 24px;
+  border: 1px solid #eadbd3;
+}
+
+.shop-rank-description {
+  margin: 12px 4px 0;
+  color: var(--subtext);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.8;
+  text-align: center;
+  white-space: pre-line;
+}
+
+</style>
 </head>
 
 <body>
@@ -924,37 +950,19 @@
       <div class="card">
         <h2>ルナのお店</h2>
 
-        <div class="shop" aria-label="ショップの成長画面">
-          <div class="shop-title">LUNA'S CLOSET</div>
+        <div class="shop-image-wrap" aria-label="ショップの成長画面">
+  <img
+    id="shopRankImage"
+    src="shop-base.png"
+    alt="ルナのお店"
+    class="shop-rank-image"
+  >
 
-          <div id="windowDisplay" class="window-display"></div>
-
-          <div class="rack">
-            <div class="rack-bar"></div>
-            <div class="rack-leg left"></div>
-            <div class="rack-leg right"></div>
-            <div class="dress one"></div>
-            <div class="dress two"></div>
-            <div class="dress three"></div>
-          </div>
-
-          <div id="plant" class="plant">
-            <div class="leaf a"></div>
-            <div class="leaf b"></div>
-            <div class="leaf c"></div>
-            <div class="plant-pot"></div>
-          </div>
-
-          <div id="bagShelf" class="bag-shelf">
-            <div class="bag a"></div>
-            <div class="bag b"></div>
-          </div>
-
-          <div id="mirror" class="mirror"></div>
-          <div id="fittingRoom" class="fitting-room"></div>
-          <div class="counter"></div>
-        </div>
-
+  <p
+    id="shopRankDescription"
+    class="shop-rank-description"
+  ></p>
+</div>
         <div class="rank-row">
           <span id="rankLabel">ショップランク 1</span>
           <span id="nextUnlockText">次の成長まで 30pt</span>
@@ -2165,11 +2173,17 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
         label: "試着室",
         elementId: "fittingRoom"
       },
-      {
+            {
         points: 220,
         rank: 6,
         label: "ショーウィンドウ",
         elementId: "windowDisplay"
+      },
+      {
+        points: 320,
+        rank: 7,
+        label: "ルナの夢のお店",
+        elementId: null
       }
     ];
 
@@ -2277,6 +2291,8 @@ document.getElementById("eventPoints").textContent =
 
         const element = document.getElementById(stage.elementId);
 
+        if (!element) return;
+
         element.classList.toggle(
           "unlocked",
           saveData.shopPoints >= stage.points
@@ -2284,10 +2300,34 @@ document.getElementById("eventPoints").textContent =
       });
 
       const currentStage = getCurrentStage(saveData.shopPoints);
-      const nextStage = getNextStage(saveData.shopPoints);
+const nextStage = getNextStage(saveData.shopPoints);
 
-      document.getElementById("rankLabel").textContent =
-        `ショップランク ${currentStage.rank}`;
+const shopDescriptions = {
+  1: "小さなルナのお店がオープン！\nまずは洋服ラックとカウンターからスタート✨",
+  2: "バッグ棚が入荷したよ！\n少しずつショップらしくなってきた〜💕",
+  3: "観葉植物を置いて、店内が明るい雰囲気に🌿",
+  4: "アクセサリーや小物が増えてきたよ🎀",
+  5: "ショーウィンドウの準備が進んでるみたい✨",
+  6: "商品もお客さんも増えて、お店がとってもにぎやか！",
+  7: "ルナの夢のお店が完成〜！🎉\nレオンとコッタもお気に入りのお店になったよ🐾"
+};
+
+const shopImage =
+  currentStage.rank >= 7
+    ? "shop-rank7.png"
+    : "shop-base.png";
+
+document.getElementById("shopRankImage").src =
+  shopImage;
+
+document.getElementById("shopRankImage").alt =
+  `ショップランク${currentStage.rank}のルナのお店`;
+
+document.getElementById("shopRankDescription").textContent =
+  shopDescriptions[currentStage.rank] || "";
+
+document.getElementById("rankLabel").textContent =
+  `ショップランク ${currentStage.rank}`;
 
       if (!nextStage) {
         document.getElementById("nextUnlockText").textContent =
