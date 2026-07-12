@@ -952,11 +952,11 @@
 
         <div class="shop-image-wrap" aria-label="ショップの成長画面">
   <img
-    id="shopRankImage"
-    src="shop-base.png"
-    alt="ルナのお店"
-    class="shop-rank-image"
-  >
+  id="shopRankImage"
+  src="shop-rank1.png"
+  alt="ルナのお店"
+  class="shop-rank-image"
+>
 
   <p
     id="shopRankDescription"
@@ -1203,8 +1203,9 @@
   <script>
     const STORAGE_KEY = "mathBoutiqueSave_v1";
 
-/* ねこイベントの出現確率：0.15で15％ */
-const CAT_EVENT_CHANCE = 0.15;
+/* ねこイベントの出現確率：0.33で33％ */
+const CAT_EVENT_CHANCE = 0.33
+;
 
 /*
   動作確認中は true にすると、必ずねこイベントになります。
@@ -2387,49 +2388,49 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
     let currentEvent = null;
 
     const growthStages = [
-      {
-        points: 0,
-        rank: 1,
-        label: "小さな洋服ラック",
-        elementId: null
-      },
-      {
-        points: 30,
-        rank: 2,
-        label: "観葉植物",
-        elementId: "plant"
-      },
-      {
-        points: 60,
-        rank: 3,
-        label: "バッグ棚",
-        elementId: "bagShelf"
-      },
-      {
-        points: 100,
-        rank: 4,
-        label: "壁のミラー",
-        elementId: "mirror"
-      },
-      {
-        points: 150,
-        rank: 5,
-        label: "試着室",
-        elementId: "fittingRoom"
-      },
-            {
-        points: 220,
-        rank: 6,
-        label: "ショーウィンドウ",
-        elementId: "windowDisplay"
-      },
-      {
-        points: 320,
-        rank: 7,
-        label: "ルナの夢のお店",
-        elementId: null
-      }
-    ];
+  {
+    points: 0,
+    rank: 1,
+    label: "小さなルナのお店",
+    elementId: null
+  },
+  {
+    points: 30,
+    rank: 2,
+    label: "バッグ棚",
+    elementId: "plant"
+  },
+  {
+    points: 60,
+    rank: 3,
+    label: "観葉植物",
+    elementId: "bagShelf"
+  },
+  {
+    points: 100,
+    rank: 4,
+    label: "アクセサリーや小物",
+    elementId: "mirror"
+  },
+  {
+    points: 150,
+    rank: 5,
+    label: "ショーウィンドウの準備",
+    elementId: "fittingRoom"
+  },
+  {
+    points: 220,
+    rank: 6,
+    label: "にぎやかな店内",
+    elementId: "windowDisplay"
+  },
+  {
+    points: 320,
+    rank: 7,
+    label: "ルナの夢のお店",
+    elementId: null
+  }
+];
 
     let saveData = loadSaveData();
     let currentQuestionIndex = 0;
@@ -2593,10 +2594,7 @@ const shopDescriptions = {
 };
 
 const shopImage =
-  currentStage.rank >= 7
-    ? "shop-rank7.png"
-    : "shop-base.png";
-
+  `shop-rank${currentStage.rank}.png`;
 document.getElementById("shopRankImage").src =
   shopImage;
 
