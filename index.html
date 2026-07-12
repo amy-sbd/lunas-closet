@@ -2395,37 +2395,37 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
     elementId: null
   },
   {
-    points: 30,
+    points: 40,
     rank: 2,
     label: "バッグ棚",
     elementId: "plant"
   },
   {
-    points: 60,
+    points: 90,
     rank: 3,
     label: "観葉植物",
     elementId: "bagShelf"
   },
   {
-    points: 100,
+    points: 160,
     rank: 4,
     label: "アクセサリーや小物",
     elementId: "mirror"
   },
   {
-    points: 150,
+    points: 260,
     rank: 5,
     label: "ショーウィンドウの準備",
     elementId: "fittingRoom"
   },
   {
-    points: 220,
+    points: 390,
     rank: 6,
     label: "にぎやかな店内",
     elementId: "windowDisplay"
   },
   {
-    points: 320,
+    points: 560,
     rank: 7,
     label: "ルナの夢のお店",
     elementId: null
@@ -2433,7 +2433,11 @@ tip: "2：3なら、<b>2つ分と3つ分のセット</b>って考えると分か
 ];
 
     let saveData = loadSaveData();
-    let currentQuestionIndex = 0;
+
+/* 初回表示にも保存済みポイントとランクを反映 */
+updateShopDisplay();
+
+let currentQuestionIndex = 0;
     let score = 0;
     let answered = false;
     let pointsBeforePlay = saveData.shopPoints;
