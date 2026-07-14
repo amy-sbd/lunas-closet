@@ -937,6 +937,121 @@
   white-space: pre-line;
 }
 
+/* STEP2：100円カード */
+.money-card-visual {
+  display: none;
+  margin: 0 0 16px;
+}
+
+.money-card-visual.show { display: block; }
+
+.money-card-hint {
+  margin: 0 0 10px;
+  color: var(--subtext);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.money-card-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.money-card-item {
+  position: relative;
+  min-height: 128px;
+  overflow: hidden;
+  border: 2px solid #e8cbd6;
+  border-radius: 18px;
+  background: #fffdfc;
+}
+
+.money-card-label {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: white;
+  color: var(--pink-dark);
+  box-shadow: 0 3px 8px rgba(130, 95, 110, 0.09);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.money-card-bar {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  left: 12px;
+  height: 52px;
+  overflow: visible;
+  border: 1px solid #f0e3e8;
+  border-radius: 14px;
+  background: repeating-linear-gradient(90deg, #fff 0 9%, #f9f1f4 9% 10%);
+}
+
+.money-card-colored {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--percent);
+  background: linear-gradient(135deg, #f4b8ce, #e594b6);
+  transition: width 0.25s ease, filter 0.25s ease;
+}
+
+.money-card-colored::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+}
+
+.money-card-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: none;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 15px;
+  font-weight: 900;
+  text-shadow: 0 1px 2px rgba(130, 65, 90, 0.22);
+  white-space: nowrap;
+}
+
+.money-card-visual.revealed .money-card-colored {
+  filter: saturate(1.2) brightness(1.04);
+  animation: moneyCardPop 0.3s ease;
+}
+
+.money-card-visual.revealed .money-card-value { display: block; }
+
+.money-card-value.tiny {
+  left: 0;
+  padding: 2px 5px;
+  border-radius: 7px;
+  background: #dc82a8;
+  font-size: 12px;
+}
+
+@keyframes moneyCardPop {
+  from { transform: scaleY(0.82); transform-origin: left center; }
+  to { transform: scaleY(1); transform-origin: left center; }
+}
+
+@media (max-width: 340px) {
+  .money-card-list { grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 
@@ -1145,6 +1260,8 @@
           <span id="questionCount">1 / 3</span>
           <span id="quizEventLabel">🌸 春セール</span>
         </div>
+
+        <div id="moneyCardVisual" class="money-card-visual" aria-live="polite"></div>
 
         <h2 id="questionText" class="question"></h2>
 
@@ -1567,6 +1684,250 @@ hard: [
     };
 
     const extraQuestionPools = {
+      percentBasics: {
+        easy: [
+          {
+            question: "100個のうち、20個がピンクです。これは何％？",
+            choices: ["20％", "80％", "2％", "200％"],
+            answer: 0,
+            explanation: "そーそー♪ このイベントは100個の世界だから、20個なら20％ってことだよ✨",
+            correctLine: "バッチリじゃん♡ その調子！",
+            wrongLine: "だいじょうぶだよ♪ 100個のうち何個か、その数字を見てみよっか。"
+          },
+          {
+            question: "100個のうち、65個に星のシールがついています。これは何％？",
+            choices: ["65％", "35％", "6％", "100％"],
+            answer: 0,
+            explanation: "100個のうち65個なら、65％♪ 数字がそのままつながるの、わかりやすいでしょ？",
+            correctLine: "ばっちり〜！ ルナ先輩うれしい♡",
+            wrongLine: "おしいっ♪ 100個あるときは、個数の数字をそのまま％にしてみて。"
+          },
+          {
+            question: "100個のうち、8個が青です。これは何％？",
+            choices: ["80％", "8％", "92％", "18％"],
+            answer: 1,
+            explanation: "100個のうち8個だから、8％だよ♪ ちっちゃい数字でも同じルール〜！",
+            correctLine: "そうそう！ その調子✨",
+            wrongLine: "ゆっくりでOK♡ 100個のうちの個数を、そのまま％で言ってみよ。"
+          },
+          {
+            question: "100個のうち、100個ぜんぶが丸です。これは何％？",
+            choices: ["0％", "10％", "50％", "100％"],
+            answer: 3,
+            explanation: "ぜんぶで100個あって、ぜんぶ丸なら100％♪ ぜんぶあると100％ってことだね！",
+            correctLine: "大正解〜！ バッチリじゃん♡",
+            wrongLine: "あとちょっと♪ 100個ぜんぶあるときは、100％だよ。"
+          }
+        ],
+        middle: [
+          {
+            question: "いちごが100個あります。そのうち30個が赤いいちごです。赤いいちごは何％？",
+            choices: ["30％", "70％", "3％", "130％"],
+            answer: 0,
+            explanation: "いちごが100個あって、赤いのが30個。だから30％だよ♪ かわいいいちご、数えられたね！",
+            correctLine: "いいね〜！ センスある♡",
+            wrongLine: "おしいっ♪ 赤いいちごは何個だったか、もう一回見てみよ。"
+          },
+          {
+            question: "ボタンが100個あります。そのうち42個がハートのボタンです。ハートのボタンは何％？",
+            choices: ["24％", "42％", "58％", "100％"],
+            answer: 1,
+            explanation: "ハートのボタンは42個だから、42％♪ 100個の世界だと、そのまま言えるね！",
+            correctLine: "その通り！ めっちゃいい感じ✨",
+            wrongLine: "だいじょうぶ♡ ハートのボタンが何個あるか、そこを見てみて。"
+          },
+          {
+            question: "お客さんが100人います。そのうち75人がリボンを見ています。リボンを見ている人は何％？",
+            choices: ["25％", "75％", "7％", "100％"],
+            answer: 1,
+            explanation: "100人のうち75人なら、75％だよ♪ 人でも、100人なら同じ考え方〜！",
+            correctLine: "ぴったり！ その調子だよ♡",
+            wrongLine: "おしい〜！ 100人のうち何人かを、そのまま％で言ってみよ♪"
+          },
+          {
+            question: "ビーズが100個あります。そのうち15個がキラキラです。キラキラのビーズは何％？",
+            choices: ["15％", "85％", "5％", "150％"],
+            answer: 0,
+            explanation: "キラキラは15個だから、15％♪ 100個のうち何個か、ちゃんと見つけられてる！",
+            correctLine: "正解〜！ バッチリじゃん♡",
+            wrongLine: "もう一回いこ♪ 100個中のキラキラが何個か、見てみよう。"
+          }
+        ],
+        hard: [
+          {
+            question: "40％は、100個のうち何個？",
+            choices: ["4個", "40個", "60個", "100個"],
+            answer: 1,
+            explanation: "そーそー！ このイベントは100個の世界だから、40％は100個のうち40個ってことだよ♪",
+            correctLine: "そう！ その調子〜♡",
+            wrongLine: "だいじょうぶ♪ ％の数字は、100個のうちの個数を言ってるんだよ。"
+          },
+          {
+            question: "100個のうち30個がピンクです。白は何個？ 白は何％？",
+            choices: ["30個・30％", "70個・70％", "70個・30％", "100個・100％"],
+            answer: 1,
+            explanation: "そーそー♪ このイベントは100個の世界だから、のこりの白は70個。100個のうち70個だから、白は70％だよ♡",
+            correctLine: "いいね〜！ のこりまで見つけられた♡",
+            wrongLine: "ゆっくりでOK♪ 100個からピンクの30個をのぞくと、白が見えてくるよ。"
+          },
+          {
+            question: "100人のお客さんのうち、55人が青いバッグを見ています。青いバッグを見ていない人は何人？ 何％？",
+            choices: ["45人・45％", "55人・55％", "45人・55％", "100人・100％"],
+            answer: 0,
+            explanation: "100人の世界でも同じだよ♪ のこりは45人。100人のうち45人だから、45％ってこと♡",
+            correctLine: "大正解〜！ のこりもバッチリ♡",
+            wrongLine: "おしいっ♪ 100人から、青いバッグを見てる55人をのぞいてみよ。"
+          },
+          {
+            question: "12％は、100個のうち何個？",
+            choices: ["12個", "88個", "2個", "120個"],
+            answer: 0,
+            explanation: "このイベントは100個の世界だから、12％は100個のうち12個♪ バッチリつながったね〜！",
+            correctLine: "その通り！ バッチリじゃん♡",
+            wrongLine: "もう一回いこ♪ 100個の世界では、％の数字がそのまま個数になるよ。"
+          }
+        ]
+       },
+      moneyPercent: {
+        easy: [
+          {
+            question: "100円の1％は何円？",
+            choices: ["1円", "10円", "50円", "100円"],
+            answer: 0,
+            cardCount: 1,
+            percent: 1,
+            unitYen: 1,
+            explanation: "そーそー♪ 100円だから、1％は1円！ 色のところが1円ぶんだよ♡",
+            correctLine: "できた〜！ 100円のまとまり、見えてきたね✨",
+            wrongLine: "だいじょうぶ♪ 100円カードの色のところを、よ〜く見てみよっか。"
+          },
+          {
+            question: "100円の10％は何円？",
+            choices: ["1円", "10円", "25円", "50円"],
+            answer: 1,
+            cardCount: 1,
+            percent: 10,
+            unitYen: 10,
+            explanation: "100円だから、10％は10円♪ 100円の中の色のところが10円ぶんだよ！",
+            correctLine: "バッチリじゃん♡ その調子〜！",
+            wrongLine: "おしいっ♪ 100円のときは、10％は10円だよ。"
+          },
+          {
+            question: "100円の25％は何円？",
+            choices: ["10円", "25円", "50円", "75円"],
+            answer: 1,
+            cardCount: 1,
+            percent: 25,
+            unitYen: 25,
+            explanation: "100円だから、25％は25円♪ 色のところ、ちょうど25円ぶんだね♡",
+            correctLine: "いいね〜！ ぴったりできた✨",
+            wrongLine: "ゆっくりでOK♪ 100円カードの色のところを見てみよ。"
+          },
+          {
+            question: "100円の50％は何円？",
+            choices: ["5円", "25円", "50円", "100円"],
+            answer: 2,
+            cardCount: 1,
+            percent: 50,
+            unitYen: 50,
+            explanation: "100円だから、50％は50円！ カードの半分が色のところだね♪",
+            correctLine: "大正解〜！ 半分、ちゃんと見つけたね♡",
+            wrongLine: "あとちょっと♪ 100円カードの半分は50円だよ。"
+          }
+        ],
+        middle: [
+          {
+            question: "200円の1％は何円？",
+            choices: ["1円", "2円", "10円", "20円"],
+            answer: 1,
+            cardCount: 2,
+            percent: 1,
+            unitYen: 1,
+            explanation: "200円は100円が2つ♪ 1円の色のところも2つあるから、ぜんぶで2円だよ♡",
+            correctLine: "できた！ 100円カードを2つ数えられたね✨",
+            wrongLine: "だいじょうぶ♪ 100円カードが何枚あるか、数えてみよっか。"
+          },
+          {
+            question: "200円の10％は何円？",
+            choices: ["10円", "20円", "25円", "50円"],
+            answer: 1,
+            cardCount: 2,
+            percent: 10,
+            unitYen: 10,
+            explanation: "200円は100円が2つだから、10円の色のところも2つ♪ ぜんぶで20円だよ！",
+            correctLine: "その調子✨ 10円が2つ、見えたね！",
+            wrongLine: "おしいっ♪ 10円の色のところが、カードごとに1つずつあるよ。"
+          },
+          {
+            question: "200円の25％は何円？",
+            choices: ["25円", "50円", "75円", "100円"],
+            answer: 1,
+            cardCount: 2,
+            percent: 25,
+            unitYen: 25,
+            explanation: "200円は100円が2つだから、25円も2つあるね♡ ぜんぶで50円、バッチリ！",
+            correctLine: "いいね〜！ 25円が2つ、見つけた♡",
+            wrongLine: "ゆっくりでOK♪ 25円の色のところが2つあるよ。"
+          },
+          {
+            question: "200円の50％は何円？",
+            choices: ["50円", "100円", "150円", "200円"],
+            answer: 1,
+            cardCount: 2,
+            percent: 50,
+            unitYen: 50,
+            explanation: "200円は100円が2つ！ 50円の色のところも2つだから、ぜんぶで100円だよ♪",
+            correctLine: "大正解〜！ 50円が2つ、バッチリじゃん♡",
+            wrongLine: "おしいっ♪ 50円の色のところを2つ、ならべて見てみよ。"
+          }
+        ],
+        hard: [
+          {
+            question: "300円の10％は何円？",
+            choices: ["10円", "20円", "30円", "50円"],
+            answer: 2,
+            cardCount: 3,
+            percent: 10,
+            unitYen: 10,
+            explanation: "300円は100円が3つ♪ 10円の色のところも3つあるから、ぜんぶで30円だよ！",
+            correctLine: "バッチリ♡ 10円が3つ、数えられたね！",
+            wrongLine: "だいじょうぶ♪ 100円カードは3枚。色のところも3つあるよ。"
+          },
+          {
+            question: "300円の50％は何円？",
+            choices: ["50円", "100円", "150円", "300円"],
+            answer: 2,
+            cardCount: 3,
+            percent: 50,
+            unitYen: 50,
+            explanation: "300円は100円が3つだから、50円の色のところも3つ♪ ぜんぶで150円だよ♡",
+            correctLine: "すごい〜！ 50円が3つ、きれいに見えたね✨",
+            wrongLine: "おしいっ♪ 50円の色のところを、3つ数えてみよ。"
+          },
+          {
+            question: "400円の25％は何円？",
+            choices: ["25円", "50円", "100円", "200円"],
+            answer: 2,
+            cardCount: 4,
+            percent: 25,
+            unitYen: 25,
+            explanation: "400円は100円が4つ♪ 25円の色のところも4つあるから、ぜんぶで100円だよ！",
+            correctLine: "できた〜！ 25円が4つ、バッチリじゃん♡",
+            wrongLine: "ゆっくりでOK♪ 100円カードが4枚あることから見てみよ。"
+          },
+          {
+            question: "500円の10％は何円？",
+            choices: ["10円", "25円", "50円", "100円"],
+            answer: 2,
+            cardCount: 5,
+            percent: 10,
+            unitYen: 10,
+            explanation: "500円は100円が5つ！ 10円の色のところも5つあるから、ぜんぶで50円だよ♪",
+            correctLine: "その調子〜！ 10円が5つ、数えられたね♡",
+            wrongLine: "あとちょっと♪ 10円の色のところが5つあるよ。"
+          }
+        ]
+      },
            trick: {
   easy: [
   {
@@ -2777,6 +3138,36 @@ hard: [
 
     const normalEvents = [
       {
+        key: "percent-basics",
+        title: "🔢 ％ってなあに？",
+        badge: "100個のうち何個かを、％で言ってみよう",
+        brand: "PERCENT BASICS",
+        quizLabel: "🔢 ％ってなあに？",
+        introTitle: "％は、100個のうち何個かを表すマークだよ",
+        introSpeech: "今日は、100個の世界をのぞいてみよう。<br>％はむずかしい計算じゃなくて、100個のうち何個あるかを言うマークなんだ。",
+        customerAvatar: "🍓",
+        customerBadge: "100個の世界を見てみたい",
+        customerTitle: "％って、どういう意味なの？",
+        customerSpeech: "100個あるときに、何個あるかを％で言えるんだって。<br>いっしょに見つけてみよう！",
+        tip: "<b>％は、100個（100人）のうち何個かを表すマーク</b><br>100個中20個なら20％。数字がそのままつながるよ。",
+        questionPool: "percentBasics"
+      },
+      {
+        key: "percent-yen",
+        title: "💗 ％って何円？",
+        badge: "100円のまとまりで、％を円にしてみよう",
+        brand: "PERCENT & YEN",
+        quizLabel: "💗 ％って何円？",
+        introTitle: "100円のまとまりで見てみよっか♪",
+        introSpeech: "％ってなあに？で見た、100個の世界を思い出してみて♡<br>今度は100円カードをならべて、色のところが何円になるか見つけちゃお！",
+        customerAvatar: "💗",
+        customerBadge: "％と円をつなげたい",
+        customerTitle: "100円の25％って、何円なの？",
+        customerSpeech: "100円カードを見たら、なんだかわかりそう！<br>ルナ先輩、いっしょに見てほしいな♪",
+        tip: "<b>100円が何個あるか、カードを数えてみよ♡</b><br>100円の25％は25円。200円なら、25円のところも2つあるよ♪",
+        questionPool: "moneyPercent"
+      },
+      {
         key: "spring",
         title: "🌸 春のセール",
         badge: "🏷️ 今日のお仕事：セールのお手伝い",
@@ -3243,6 +3634,48 @@ function resolveSelectedEvent(eventKey) {
       ];
     }
 
+    function isMoneyPercentEvent() {
+      return currentEvent?.key === "percent-yen";
+    }
+
+    function renderMoneyCardVisual(question) {
+      const visual = document.getElementById("moneyCardVisual");
+
+      if (!isMoneyPercentEvent()) {
+        visual.className = "money-card-visual";
+        visual.innerHTML = "";
+        return;
+      }
+
+      const cards = Array.from(
+        { length: question.cardCount },
+        () => `
+          <div class="money-card-item">
+            <span class="money-card-label">100円</span>
+            <div class="money-card-bar">
+              <div class="money-card-colored" style="--percent: ${question.percent}%;">
+                <span class="money-card-value${question.percent <= 10 ? " tiny" : ""}">${question.unitYen}円</span>
+              </div>
+            </div>
+          </div>
+        `
+      ).join("");
+
+      visual.className = "money-card-visual show";
+      visual.innerHTML = `
+        <p class="money-card-hint">100円カードを数えて、色のところが何円か考えてみよっか♪</p>
+        <div class="money-card-list">${cards}</div>
+      `;
+    }
+
+    function revealMoneyCardVisual() {
+      if (!isMoneyPercentEvent()) return;
+
+      document
+        .getElementById("moneyCardVisual")
+        .classList.add("revealed");
+    }
+
     function renderEventScreen(event) {
       currentEvent = event;
       questions = buildQuestionSet(currentEvent);
@@ -3281,7 +3714,15 @@ function resolveSelectedEvent(eventKey) {
     : "接客スタート〜💕";
     }
 
-    const selectableEvents = [
+const selectableEvents = [
+  {
+    key: "percent-basics",
+    label: "100個のうち何個？"
+  },
+  {
+    key: "percent-yen",
+    label: "100円のまとまりで考えよう"
+  },
   {
     key: "spring",
     label: "割合・セール計算"
@@ -3424,7 +3865,9 @@ function startQuiz() {
     .textContent =
       isCatTime
         ? "CAT PLAY TIME"
-        : "SALE TIME";
+        : currentEvent?.key === "percent-yen"
+          ? "PERCENT & YEN"
+          : "SALE TIME";
 
   document
     .getElementById("quizScoreDisplay")
@@ -3447,6 +3890,8 @@ function startQuiz() {
 
       document.getElementById("questionText").textContent =
         current.question;
+
+      renderMoneyCardVisual(current);
 
       const liveScore =
   document.getElementById("liveScore");
@@ -3551,6 +3996,8 @@ if (currentEvent?.key === catEvent.key) {
 
 const isCorrect =
   selectedIndex === current.answer;
+
+revealMoneyCardVisual();
 
       if (isCorrect) {
         score += 1;
