@@ -3787,20 +3787,20 @@ function openEventSelect() {
 }
 
 function startSelectedEvent(eventKey) {
-  const selectedEvent =
-    getEventByKey(eventKey);
+  const selectedEvent = getEventByKey(eventKey);
 
-  const resolvedEvent =
-    resolveSelectedEvent(eventKey);
+  if (!selectedEvent) {
+    return;
+  }
 
-  renderEventScreen(resolvedEvent);
+  renderEventScreen(selectedEvent);
 
   /*
     ねこイベントになった場合だけ、
     選んだフェアへ進むと思わせてから
     レオン＆コッタが登場する文章に変更します。
   */
-  if (resolvedEvent.key === catEvent.key) {
+  if (selectedEvent.key === catEvent.key) {
     document
       .getElementById("eventIntroTitle")
       .textContent =
@@ -3819,8 +3819,12 @@ function startSelectedEvent(eventKey) {
   score = 0;
   answered = false;
 
-  document.getElementById("liveScore").textContent =
-    score;
+  const liveScoreElement =
+    document.getElementById("liveScore");
+
+  if (liveScoreElement) {
+    liveScoreElement.textContent = score;
+  }
 
   showScreen("event");
 }
@@ -3847,8 +3851,12 @@ function startCatTime() {
   score = 0;
   answered = false;
 
-  document.getElementById("liveScore").textContent =
-    score;
+  const liveScoreElement =
+    document.getElementById("liveScore");
+
+  if (liveScoreElement) {
+    liveScoreElement.textContent = score;
+  }
 
   showScreen("event");
 }
@@ -4514,7 +4522,6 @@ document
   .addEventListener("click", resetAllData);
 
     setRandomHomeMessage();
-    renderEventScreen(getScheduledEvent());
     updateShopDisplay();
   </script>
 </body>
