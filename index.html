@@ -874,6 +874,16 @@
       width: min(100%, 100%);
     }
 
+    .percent-ribbon-body.is-collect-step4 {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0) 34%, rgba(255,255,255,0.18) 68%, rgba(255,255,255,0.1)),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.7) 0 10px, rgba(251, 238, 244, 0.95) 10px 20px, rgba(255,255,255,0.82) 20px 30px),
+        linear-gradient(90deg, #fffdfd 0%, #fff7fb 50%, #fffafc 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.7),
+        inset 0 -1px 0 rgba(208, 180, 194, 0.2);
+    }
+
     .percent-ribbon-divider {
       position: absolute;
       top: 0;
@@ -895,6 +905,38 @@
       font-size: clamp(14px, 4vw, 18px);
       text-shadow: 0 1px 2px rgba(130, 70, 98, 0.55);
       min-width: 0;
+    }
+
+    .percent-ribbon-body.is-collect-step4 .percent-ribbon-segment {
+      box-shadow: inset -1px 0 0 rgba(255, 220, 233, 0.8);
+    }
+
+    .percent-ribbon-body.is-collect-step4 .percent-ribbon-segment.is-highlighted {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0)),
+        linear-gradient(90deg, #d13a7d 0%, #c81f6b 50%, #a80f52 100%) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.28),
+        inset 0 -1px 0 rgba(135, 39, 79, 0.24),
+        0 0 0 1px rgba(181, 52, 99, 0.14);
+    }
+
+    .percent-ribbon-body.is-collect-step4 .percent-ribbon-segment.is-fade {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1)),
+        linear-gradient(90deg, #fffdfd 0%, #fff5f9 50%, #fffafc 100%);
+      box-shadow: inset -1px 0 0 rgba(245, 208, 222, 0.55);
+    }
+
+    .percent-collect-boundary {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 1px rgba(168, 46, 92, 0.35);
+      z-index: 3;
+      pointer-events: none;
     }
 
     .percent-ribbon-segment:not(:last-child) {
@@ -1449,6 +1491,53 @@
 
       <button id="percentSplitNextButton" class="primary">
         半分に分けてみる
+      </button>
+    </section>
+
+    <section id="percentCollectScreen" class="screen">
+      <div class="topbar">
+        <div class="brand">PERCENT COLLECTION</div>
+        <div id="percentCollectStepLabel" class="points">✨ 1%コレクション</div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <div style="min-width:0;flex:1;">
+            <h2>前のお仕事を思い出そう</h2>
+            <p id="percentCollectSpeech" class="speech">
+              前のお仕事で、100%を100こに分けたね〜<br>
+              その1つぶんが1%だったよ✨
+            </p>
+          </div>
+        </div>
+
+        <div id="percentCollectRibbonVisual" class="percent-ribbon-visual">
+          <div class="percent-ribbon-label">100こに分けたリボン</div>
+          <div class="percent-ribbon-body"></div>
+        </div>
+
+        <div id="percentCollectThreeGuide" class="speech" style="display:none;margin-top:8px;text-align:left;font-size:12px;font-weight:800;color:#d94f86;">
+          ここが3こ✨
+        </div>
+
+        <div id="percentCollectOnePercent" style="margin-top:12px;text-align:center;line-height:1.2;font-weight:900;color:var(--pink-dark);">
+          <span style="display:block;font-size:14px;">1こで</span>
+          <strong style="display:block;font-size:30px;color:#d94f86;">1%</strong>
+        </div>
+
+        <div id="percentCollectCaption" class="speech" style="margin-top:10px;text-align:center;">
+          100こに分けたうちの1こが、1%だったね
+        </div>
+
+        <div id="percentCollectChoices" class="answers" style="display:none;margin-top:12px;"></div>
+      </div>
+
+      <button id="percentCollectNextButton" class="primary">
+        1%を集めてみる✨
       </button>
     </section>
 
@@ -3389,6 +3478,20 @@ hard: [
         tip: "<b>今日は計算しなくてOK〜</b><br>リボンが細かく分かれていく様子を見て、1%のひみつを見つけよう✨"
       },
       {
+        key: "percent-collect",
+        title: "✨ 1%を集めてみよう",
+        badge: "1%を集めて、いろいろな%を作ろう",
+        brand: "PERCENT COLLECTION",
+        quizLabel: "✨ 1%コレクション",
+        introTitle: "1%を集めてみよ〜！",
+        introSpeech: "前のお仕事で、100%を100こに分けたね〜<br>その1つぶんが1%だったよ✨<br>今日は、この1%をいくつか集めてみよう〜！",
+        customerAvatar: "✨",
+        customerBadge: "リボンの色分け",
+        customerTitle: "1%を集めたら、何%になるの？",
+        customerSpeech: "リボンの1%ずつに色をつけたいんだ〜✨<br>色をつけた数と、%の数字にはどんな関係があるのかな？",
+        tip: "<b>1%を1こずつ集めてみよう〜</b><br>集めた数が、そのまま%の数字になるか見てみよう✨"
+      },
+      {
         key: "spring",
         title: "🌸 春のセール",
         badge: "🏷️ 今日のお仕事：セールのお手伝い",
@@ -3599,12 +3702,15 @@ let currentQuestionIndex = 0;
     let percentSplitCompleted = false;
     let percentSplitSelectedIndex = -1;
     let percentSplitFinished = false;
+    let percentCollectStep = 0;
+    let percentCollectFinished = false;
 
 const screens = {
   home: document.getElementById("homeScreen"),
   catBook: document.getElementById("catBookScreen"),
   select: document.getElementById("selectScreen"),
   percentSplit: document.getElementById("percentSplitScreen"),
+  percentCollect: document.getElementById("percentCollectScreen"),
   event: document.getElementById("eventScreen"),
   quiz: document.getElementById("quizScreen"),
   result: document.getElementById("resultScreen")
@@ -3993,7 +4099,7 @@ function resolveSelectedEvent(eventKey) {
         .classList.add("revealed");
     }
 
-    function renderEventScreen(event) {
+function renderEventScreen(event) {
       currentEvent = event;
       questions = buildQuestionSet(currentEvent);
 
@@ -4028,10 +4134,202 @@ function resolveSelectedEvent(eventKey) {
       document.getElementById("goQuizButton").textContent =
   currentEvent.key === "percent-split"
     ? "リボンを見てみる"
+    : currentEvent.key === "percent-collect"
+      ? "1%を集めてみる✨"
     : currentEvent.key === catEvent.key
       ? "ねこタイムスタート〜🐾"
       : "接客スタート〜💕";
     }
+
+function startPercentCollectExperience() {
+  percentCollectStep = 0;
+  percentCollectFinished = false;
+  renderPercentCollectStep();
+  showScreen("percentCollect");
+}
+
+function renderPercentCollectStep() {
+  const percentCollectStepLabel =
+    document.getElementById("percentCollectStepLabel");
+  const percentCollectTitle =
+    document.querySelector("#percentCollectScreen h2");
+  const percentCollectSpeech =
+    document.getElementById("percentCollectSpeech");
+  const percentCollectOnePercent =
+    document.getElementById("percentCollectOnePercent");
+  const percentCollectCaption =
+    document.getElementById("percentCollectCaption");
+  const percentCollectThreeGuide =
+    document.getElementById("percentCollectThreeGuide");
+  const percentCollectChoices =
+    document.getElementById("percentCollectChoices");
+  const percentCollectRibbonVisual =
+    document.getElementById("percentCollectRibbonVisual");
+  const percentCollectNextButton =
+    document.getElementById("percentCollectNextButton");
+
+  let highlightCount = 1;
+  let guideText = "";
+  let resultHtml = "";
+  let groupCount = 0;
+  let speechHtml = "";
+  let titleText = "";
+  let stepLabel = "";
+  let captionText = "";
+  let buttonText = "";
+  let showNextButton = true;
+
+  switch (percentCollectStep) {
+    case 0:
+      stepLabel = "1 / 5";
+      titleText = "前のお仕事を思い出そう";
+      speechHtml =
+        "前のお仕事で、100%を100こに分けたね〜<br>その1つぶんが1%だったよ✨";
+      resultHtml = `
+        <span style="display:block;font-size:14px;">1こで</span>
+        <strong style="display:block;font-size:30px;color:#d94f86;">1%</strong>
+      `;
+      captionText = "100こに分けたうちの1こが、1%だったね";
+      buttonText = "1%を集めてみる✨";
+      break;
+
+    case 1:
+      stepLabel = "2 / 5";
+      titleText = "1%を3こ集めてみよう";
+      speechHtml =
+        "今は1%が1こあるよ〜<br>あと2こ集めて、3こにしてみよう✨";
+      resultHtml = `
+        <span style="display:block;font-size:14px;">今は1%が1こ</span>
+      `;
+      captionText = "あと2こ集めてみよう✨";
+      buttonText = "もう2こ集める";
+      break;
+
+    case 2:
+      stepLabel = "3 / 5";
+      titleText = "3こ集まった！";
+      speechHtml =
+        "1%が3こ集まったから、<br>3%になったね〜✨";
+      resultHtml = `
+        <span style="display:block;font-size:14px;">1%が3こ</span>
+        <strong style="display:block;font-size:30px;color:#d94f86;">3%</strong>
+      `;
+      captionText = "集めた数が、そのまま%の数字になるんだね";
+      buttonText = "もっと集めてみる";
+      highlightCount = 3;
+      guideText = "ここが3こ✨";
+      groupCount = 3;
+      break;
+
+    case 3:
+      stepLabel = "4 / 5";
+      titleText = "10こ集めてみよう";
+      speechHtml =
+        "今度は1%を10こ集めたよ〜<br>10こ集まったから、10%だね✨";
+      resultHtml = `
+        <span style="display:block;font-size:14px;">1%が10こ</span>
+        <strong style="display:block;font-size:30px;color:#d94f86;">10%</strong>
+      `;
+      captionText = "1%を集めた数と、%の数字が同じになったね";
+      buttonText = "もっとたくさん集める";
+      highlightCount = 10;
+      guideText = "ここが10こ✨";
+      groupCount = 10;
+      break;
+
+    case 4:
+      stepLabel = "5 / 5";
+      titleText = "37こ集めたら？";
+      speechHtml =
+        "今度は1%を37こ集めてみたよ〜✨<br>色がついたところは何%かな？";
+      resultHtml = `
+        <span style="display:block;font-size:14px;">1%が37こ</span>
+      `;
+      captionText = "色がついたところは何%かな？";
+      buttonText = "37%を作れた〜！✨";
+      showNextButton = false;
+      highlightCount = 37;
+      break;
+
+    default:
+      return;
+  }
+
+  percentCollectStepLabel.textContent = stepLabel;
+  percentCollectTitle.textContent = titleText;
+  percentCollectSpeech.innerHTML = speechHtml;
+  percentCollectOnePercent.innerHTML = resultHtml;
+  percentCollectCaption.textContent = captionText;
+  percentCollectThreeGuide.textContent = guideText;
+  percentCollectThreeGuide.style.display = guideText ? "block" : "none";
+  percentCollectNextButton.textContent = buttonText;
+  percentCollectNextButton.style.display = showNextButton ? "block" : "none";
+  percentCollectChoices.style.display = percentCollectStep === 4 ? "grid" : "none";
+  percentCollectChoices.innerHTML = "";
+  percentCollectRibbonVisual.innerHTML = `
+    <div class="percent-ribbon-label">100こに分けたリボン</div>
+    <div class="percent-ribbon-body${percentCollectStep === 4 ? " is-collect-step4" : ""}">
+      ${Array.from({ length: 100 }, (_, i) => `
+        <span
+          class="percent-ribbon-segment${percentCollectStep === 4 ? (i < 37 ? " is-highlighted" : " is-fade") : ""}"
+          style="flex-basis:1%;"
+        ></span>
+      `).join("")}
+      ${groupCount ? `<span class="percent-collect-group" style="position:absolute;top:1px;bottom:1px;left:0;width:${groupCount}%;box-sizing:border-box;border:2px solid rgba(217,79,134,0.9);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.32), 0 0 0 1px rgba(217,79,134,0.18);border-radius:2px;pointer-events:none;z-index:3;"></span>` : ""}
+      ${percentCollectStep === 4 ? '<span class="percent-collect-boundary" style="left:37%;"></span>' : ""}
+      ${Array.from({ length: 99 }, (_, i) => `<span class="percent-ribbon-divider" style="left:${i + 1}%;"></span>`).join("")}
+    </div>
+  `;
+
+  if (percentCollectStep === 4) {
+    percentCollectChoices.innerHTML = `
+      <button type="button" class="answer" data-choice="1%">1%</button>
+      <button type="button" class="answer" data-choice="37%">37%</button>
+      <button type="button" class="answer" data-choice="63%">63%</button>
+      <button type="button" class="answer" data-choice="100%">100%</button>
+    `;
+
+    percentCollectChoices
+      .querySelectorAll(".answer")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          if (percentCollectFinished) {
+            return;
+          }
+
+          const value = button.dataset.choice;
+
+          if (value === "37%") {
+            percentCollectSpeech.innerHTML =
+              "そうそう〜<br><br>1%が37こ集まっているから、<br>37%なんだ〜✨";
+            percentCollectOnePercent.innerHTML = `
+              <span style="display:block;font-size:14px;">1%が37こ</span>
+              <strong style="display:block;font-size:30px;color:#d94f86;">37%</strong>
+            `;
+            percentCollectCaption.textContent =
+              "集めた数が、そのまま%の数字になるんだね";
+            percentCollectNextButton.textContent = "37%を作れた〜！✨";
+            percentCollectNextButton.style.display = "block";
+
+            percentCollectChoices
+              .querySelectorAll(".answer")
+              .forEach(choiceButton => {
+                choiceButton.disabled = true;
+                if (choiceButton.dataset.choice === "37%") {
+                  choiceButton.classList.add("correct");
+                }
+              });
+
+            return;
+          }
+
+          percentCollectSpeech.innerHTML =
+            "もう一回、色がついた1%を見てみよう〜✨<br>1%がいくつ集まっているかな？";
+          button.classList.add("wrong");
+        });
+      });
+  }
+}
 
 const selectableEvents = [
   {
@@ -4045,6 +4343,10 @@ const selectableEvents = [
   {
     key: "percent-split",
     label: "100こに分けた1つぶんを見つけよう"
+  },
+  {
+    key: "percent-collect",
+    label: "1%を集めて、いろいろな%を作ろう"
   },
   {
     key: "spring",
@@ -4596,6 +4898,23 @@ if (currentEvent?.key === catEvent.key) {
 
     earnedPoints.textContent =
       `+${earned}`;
+  } else if (currentEvent?.key === "percent-collect") {
+    resultBigScore.textContent =
+      "37%を作れた！";
+
+    resultBigScore.style.fontSize =
+      "30px";
+
+    resultComment.textContent =
+      "ルナ「1%を集めた数が、そのまま%になったね〜 次は、この%が何円ぶんなのか見てみよう✨」";
+
+    earnedPointsLabel.textContent =
+      isFirstClearToday
+        ? "今日のメイン報酬"
+        : "追加練習pt";
+
+    earnedPoints.textContent =
+      `+${earned}`;
   } else if (isCatTime) {
     resultBigScore.textContent =
       "ねこタイム完了🐾";
@@ -4664,6 +4983,18 @@ if (currentEvent?.key === catEvent.key) {
 
     resultFooterNote.textContent =
       "次は、この1%をいくつか集めてみよう✨";
+  } else if (currentEvent?.key === "percent-collect") {
+    resultBrand.textContent =
+      "PERCENT COMPLETE";
+
+    resultBadge.textContent =
+      "✨ 1%コレクション完成！";
+
+    chooseAnotherEventButton.textContent =
+      "別のお仕事を選ぶ✨";
+
+    resultFooterNote.textContent =
+      "次は、この%が何円ぶんなのか見てみよう✨";
   } else if (isCatTime) {
     resultBrand.textContent =
       "CAT PLAY FINISH";
@@ -4872,7 +5203,54 @@ document
       return;
     }
 
+    if (currentEvent?.key === "percent-collect") {
+      startPercentCollectExperience();
+      return;
+    }
+
     startQuiz();
+  });
+
+document
+  .getElementById("percentCollectNextButton")
+  .addEventListener("click", () => {
+    if (percentCollectStep === 0) {
+      percentCollectStep = 1;
+      renderPercentCollectStep();
+      return;
+    }
+
+    if (percentCollectStep === 1) {
+      percentCollectStep = 2;
+      renderPercentCollectStep();
+      return;
+    }
+
+    if (percentCollectStep === 2) {
+      percentCollectStep = 3;
+      renderPercentCollectStep();
+      return;
+    }
+
+    if (percentCollectStep === 3) {
+      percentCollectStep = 4;
+      renderPercentCollectStep();
+      return;
+    }
+
+    if (percentCollectStep === 4) {
+      if (percentCollectFinished) {
+        return;
+      }
+
+      percentCollectFinished = true;
+      score = 3;
+      questions = [{}, {}, {}];
+      finishEvent();
+      return;
+    }
+
+    return;
   });
 
 document
