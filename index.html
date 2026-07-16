@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
@@ -553,6 +553,11 @@
   line-height: 1.45;
 }
 
+.event-choice .event-choice-title {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
 .event-choice-label {
   display: block;
   margin-top: 5px;
@@ -835,6 +840,175 @@
       margin-top: 14px;
       color: #9b9099;
       font-size: 11px;
+    }
+
+    .percent-ribbon-visual {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .percent-ribbon-label,
+    .percent-ribbon-percent {
+      font-weight: 800;
+      color: var(--pink-dark);
+      font-size: 14px;
+    }
+
+    .percent-ribbon-body {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      height: 42px;
+      margin: 8px auto;
+      overflow: hidden;
+      border-radius: 4px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 34%, rgba(255,255,255,0.14) 68%, rgba(255,255,255,0.06)),
+        repeating-linear-gradient(135deg, #f4c0d5 0 10px, #f0b8d0 10px 20px, #ebc5e4 20px 30px),
+        linear-gradient(90deg, #f0b7cd 0%, #eddcf5 50%, #f7cddd 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -1px 0 rgba(176, 108, 139, 0.18);
+      width: min(100%, 100%);
+    }
+
+    .percent-ribbon-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 0 1px rgba(180, 120, 150, 0.18);
+      z-index: 2;
+    }
+
+    .percent-ribbon-segment {
+      position: relative;
+      flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      font-size: clamp(14px, 4vw, 18px);
+      text-shadow: 0 1px 2px rgba(130, 70, 98, 0.55);
+      min-width: 0;
+    }
+
+    .percent-ribbon-segment:not(:last-child) {
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.42);
+    }
+
+    .percent-ribbon-body.is-step5 .percent-ribbon-segment:not(:last-child) {
+      box-shadow: none;
+    }
+
+    .percent-ribbon-value {
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    .percent-ribbon-split-button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      min-width: 0;
+      min-height: 0;
+      outline: none;
+    }
+
+    .percent-ribbon-body.is-step5 .percent-ribbon-split-button {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .percent-ribbon-split-button:disabled {
+      cursor: default;
+    }
+
+    .percent-ribbon-split-button.is-selected {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0)),
+        linear-gradient(90deg, #d94f86 0%, #f1b84b 100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.42),
+        0 0 0 1px rgba(165, 77, 116, 0.24);
+      z-index: 3;
+    }
+
+    .percent-ribbon-body.is-step5 .percent-ribbon-split-button.is-selected {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0)),
+        linear-gradient(90deg, #cf4f83 0%, #e2a74a 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.45),
+        inset 0 -1px 0 rgba(161, 84, 115, 0.18),
+        0 0 8px rgba(224, 123, 164, 0.12);
+    }
+
+    .percent-ribbon-split-button.is-selected .percent-ribbon-value {
+      color: #fffdfd;
+    }
+
+    .percent-ribbon-split-button:focus-visible {
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7), 0 0 0 2px rgba(224, 128, 168, 0.42);
+    }
+
+    .percent-ribbon-split-button:not(:last-child) {
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.28);
+    }
+
+    .percent-ribbon-body.is-step5 .percent-ribbon-split-button:not(:last-child) {
+      box-shadow: none;
+    }
+
+    .percent-ribbon-body.is-step5 .percent-ribbon-divider {
+      width: 1px;
+      opacity: 0.2;
+      background: rgba(255,255,255,0.42);
+      box-shadow: none;
+    }
+
+    .percent-split-result {
+      margin-top: 12px;
+      font-weight: 900;
+      color: var(--pink-dark);
+      text-align: center;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .percent-split-result.show {
+      display: block;
+    }
+
+    .percent-split-result span {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: clamp(28px, 9vw, 42px);
+      color: #d94f86;
+    }
+
+    .percent-split-note {
+      margin: 8px 4px 0;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+      text-align: center;
+      display: none;
+      white-space: pre-line;
+    }
+
+    .percent-split-note.show {
+      display: block;
     }
 
    .reset-data-button {
@@ -1173,8 +1347,8 @@
         <p class="eyebrow">TODAY'S WORK</p>
         <h1>今日はどのお仕事にする？</h1>
         <p class="lead">
-          気になるフェアを選んでね〜💕<br>
-          どれも3問だけだから、ゆるっといこ〜✨
+          気になるお仕事を選んでね〜<br>
+          どれも短いから、ゆるっといこ〜✨
         </p>
       </div>
 
@@ -1242,6 +1416,39 @@
 
       <button id="goQuizButton" class="primary">
         接客スタート〜💕
+      </button>
+    </section>
+
+    <!-- STEP3 専用画面 -->
+    <section id="percentSplitScreen" class="screen">
+      <div class="topbar">
+        <div class="brand">RIBBON PERCENT</div>
+        <div class="points">100%のひみつ</div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <div>
+            <h2>まずは全部のリボンを見てみよう</h2>
+            <p class="speech">
+              このリボン全部で100%だよ〜<br>
+              今日は、この100%を細かく分けてみようね✨
+            </p>
+          </div>
+        </div>
+
+        <div id="percentRibbonVisual" class="percent-ribbon-visual">
+          <div class="percent-ribbon-label">リボン全部</div>
+          <div class="percent-ribbon-body"></div>
+        </div>
+      </div>
+
+      <button id="percentSplitNextButton" class="primary">
+        半分に分けてみる
       </button>
     </section>
 
@@ -3168,6 +3375,20 @@ hard: [
         questionPool: "moneyPercent"
       },
       {
+        key: "percent-split",
+        title: "100%を100こに分けよう",
+        badge: "100こに分けた1つぶんを見つけよう",
+        brand: "RIBBON PERCENT",
+        quizLabel: "100%のひみつ",
+        introTitle: "リボンを100こに分けてみよ〜！",
+        introSpeech: "今日は、お店のなが〜いリボンを分けてみるよ〜<br>このリボン全部で100%だよ〜✨<br>全部を100%って呼ぶんだよ〜！",
+        customerAvatar: "",
+        customerBadge: "ラッピングのお手伝い",
+        customerTitle: "この長いリボン、細かく分けられる？",
+        customerSpeech: "プレゼント用に、リボンを細かく分けたいんだ〜✨<br>全部を100こに分けると、どうなるのかな？",
+        tip: "<b>今日は計算しなくてOK〜</b><br>リボンが細かく分かれていく様子を見て、1%のひみつを見つけよう✨"
+      },
+      {
         key: "spring",
         title: "🌸 春のセール",
         badge: "🏷️ 今日のお仕事：セールのお手伝い",
@@ -3374,15 +3595,111 @@ let currentQuestionIndex = 0;
     let score = 0;
     let answered = false;
     let pointsBeforePlay = saveData.shopPoints;
+    let percentSplitStep = 0;
+    let percentSplitCompleted = false;
+    let percentSplitSelectedIndex = -1;
+    let percentSplitFinished = false;
 
-    const screens = {
+const screens = {
   home: document.getElementById("homeScreen"),
   catBook: document.getElementById("catBookScreen"),
   select: document.getElementById("selectScreen"),
+  percentSplit: document.getElementById("percentSplitScreen"),
   event: document.getElementById("eventScreen"),
   quiz: document.getElementById("quizScreen"),
   result: document.getElementById("resultScreen")
 };
+
+const percentSplitScreenTitle = document.querySelector("#percentSplitScreen h2");
+const percentSplitSpeech = document.querySelector("#percentSplitScreen .speech");
+const percentSplitProgress = document.querySelector("#percentSplitScreen .points");
+const percentSplitButton = document.getElementById("percentSplitNextButton");
+const percentSplitRibbonVisual = document.getElementById("percentRibbonVisual");
+
+function renderPercentSplitStep() {
+  percentSplitProgress.textContent = percentSplitStep === 4 ? "5 / 5" : "100%のひみつ";
+  percentSplitButton.hidden = percentSplitStep === 4 && !percentSplitCompleted;
+  const dividerCount =
+    percentSplitStep === 0 ? 0 : percentSplitStep === 1 ? 1 : percentSplitStep === 2 ? 3 : percentSplitStep === 3 ? 9 : 99;
+  const segments =
+    percentSplitStep === 0 ? 1 : percentSplitStep === 1 ? 2 : percentSplitStep === 2 ? 4 : percentSplitStep === 3 ? 10 : 100;
+  const segmentText =
+    percentSplitStep === 0 ? "100%" : percentSplitStep === 1 ? "50%" : percentSplitStep === 2 ? "25%" : percentSplitStep === 3 ? "10%" : "";
+  const segmentWidth =
+    percentSplitStep === 0 ? "100%" : percentSplitStep === 1 ? "50%" : percentSplitStep === 2 ? "25%" : percentSplitStep === 3 ? "10%" : "1%";
+  const showOnlyFirstLabel = percentSplitStep === 3;
+
+  if (percentSplitStep === 0) {
+    percentSplitScreenTitle.textContent = "まずは全部のリボンを見てみよう";
+    percentSplitSpeech.innerHTML = "このリボン全部で100%だよ〜<br>今日は、この100%を細かく分けてみようね✨";
+    percentSplitButton.textContent = "半分に分けてみる";
+  } else if (percentSplitStep === 1) {
+    percentSplitScreenTitle.textContent = "半分にしてみよう";
+    percentSplitSpeech.innerHTML = "半分にしたら<br>50%が2つになったね〜";
+    percentSplitButton.textContent = "もう一回半分にする";
+  } else if (percentSplitStep === 2) {
+    percentSplitScreenTitle.textContent = "さらに分けてみよう";
+    percentSplitSpeech.innerHTML = "もう一回半分にすると<br>25%が4つになったよ〜✨";
+    percentSplitButton.textContent = "もっと細かく分ける";
+  } else if (percentSplitStep === 3) {
+    percentSplitScreenTitle.textContent = "もっと細かく分けてみよう";
+    percentSplitSpeech.innerHTML = "わあ〜✨<br>今度は全部を10こに分けたよ〜<br><br>100%を10こに分けると<br>1つぶんは10%なんだね✨";
+    percentSplitButton.textContent = "いよいよ100こ！";
+  } else {
+    percentSplitScreenTitle.textContent = "100こに分けてみよう";
+    percentSplitSpeech.innerHTML = percentSplitCompleted
+      ? "そうそう〜<br><br>100%を100こに分けた1つぶんが、1%なんだ〜✨"
+      : "わあ〜！<br>100%のリボンが、100こに分かれたよ〜✨<br><br>この100このうち、好きな1つをタップしてみて";
+    percentSplitButton.textContent = "1%のひみつ発見〜！✨";
+  }
+
+  if (percentSplitStep !== 4) {
+    percentSplitCompleted = false;
+    percentSplitSelectedIndex = -1;
+  }
+
+  percentSplitRibbonVisual.innerHTML = `
+    <div class="percent-ribbon-label">${percentSplitStep === 4 ? "100こに分けたリボン" : "全部で100%"}</div>
+    <div class="percent-ribbon-body${percentSplitStep === 4 ? " is-step5" : ""}">
+      ${percentSplitStep === 4 ? Array.from({ length: segments }, (_, i) => `
+        <button
+          type="button"
+          class="percent-ribbon-segment percent-ribbon-split-button${percentSplitSelectedIndex === i ? " is-selected" : ""}"
+          style="flex-basis:${segmentWidth};"
+          aria-label="100このうちの${i + 1}こ目"
+          data-percent-index="${i}"
+          ${percentSplitCompleted ? "disabled" : ""}
+          aria-pressed="${percentSplitSelectedIndex === i ? "true" : "false"}"
+        ></button>
+      `).join("") : Array.from({ length: segments }, (_, i) => `
+        <span class="percent-ribbon-segment" style="flex-basis:${segmentWidth};">
+          <span class="percent-ribbon-value">${showOnlyFirstLabel ? (i === 0 ? segmentText : "") : segmentText}</span>
+        </span>
+      `).join("")}
+      ${dividerCount === 1 ? '<span class="percent-ribbon-divider" style="left:50%;"></span>' : ""}
+      ${dividerCount === 3 ? '<span class="percent-ribbon-divider" style="left:25%;"></span><span class="percent-ribbon-divider" style="left:50%;"></span><span class="percent-ribbon-divider" style="left:75%;"></span>' : ""}
+      ${dividerCount === 9 ? '<span class="percent-ribbon-divider" style="left:10%;"></span><span class="percent-ribbon-divider" style="left:20%;"></span><span class="percent-ribbon-divider" style="left:30%;"></span><span class="percent-ribbon-divider" style="left:40%;"></span><span class="percent-ribbon-divider" style="left:50%;"></span><span class="percent-ribbon-divider" style="left:60%;"></span><span class="percent-ribbon-divider" style="left:70%;"></span><span class="percent-ribbon-divider" style="left:80%;"></span><span class="percent-ribbon-divider" style="left:90%;"></span>' : ""}
+      ${percentSplitStep === 4 ? Array.from({ length: 99 }, (_, i) => `<span class="percent-ribbon-divider" style="left:${(i + 1)}%;"></span>`).join("") : ""}
+    </div>
+    ${percentSplitStep === 4 ? `<div class="percent-split-result${percentSplitCompleted ? " show" : ""}">この1つぶんが<br><span>1%</span></div><p class="percent-split-note${percentSplitCompleted ? " show" : ""}">${percentSplitCompleted ? '学校では、この「100こに分ける」ことを<br>「100でわる」って言うんだよ✨<br><br>でも今は、<br>「100こに分けた1つぶんが1%」<br>って分かればOK〜' : '100こに分けたうちの、1つぶんを選んでね'}</p>` : ""}
+  `;
+
+  if (percentSplitStep === 4) {
+    percentSplitRibbonVisual
+      .querySelectorAll(".percent-ribbon-split-button")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          if (percentSplitCompleted) {
+            return;
+          }
+
+          percentSplitCompleted = true;
+          percentSplitSelectedIndex = Number(button.dataset.percentIndex);
+          renderPercentSplitStep();
+        });
+      });
+  }
+}
 
     function loadSaveData() {
   try {
@@ -3709,9 +4026,11 @@ function resolveSelectedEvent(eventKey) {
         currentEvent.tip;
 
       document.getElementById("goQuizButton").textContent =
-  currentEvent.key === catEvent.key
-    ? "ねこタイムスタート〜🐾"
-    : "接客スタート〜💕";
+  currentEvent.key === "percent-split"
+    ? "リボンを見てみる"
+    : currentEvent.key === catEvent.key
+      ? "ねこタイムスタート〜🐾"
+      : "接客スタート〜💕";
     }
 
 const selectableEvents = [
@@ -3722,6 +4041,10 @@ const selectableEvents = [
   {
     key: "percent-yen",
     label: "100円のまとまりで考えよう"
+  },
+  {
+    key: "percent-split",
+    label: "100こに分けた1つぶんを見つけよう"
   },
   {
     key: "spring",
@@ -3762,9 +4085,10 @@ function renderEventChoices() {
     button.type = "button";
     button.className = "event-choice";
 
-    const titleParts = event.title.split(" ");
+    const isPercentSplit = item.key === "percent-split";
+    const titleParts = isPercentSplit ? ["🎀", "100%を100こに", "分けよう"] : event.title.split(" ");
     const icon = titleParts.shift() || "✨";
-    const title = titleParts.join(" ") || event.title;
+    const title = isPercentSplit ? "100%を100こに<br>分けよう" : titleParts.join(" ") || event.title;
 
     button.innerHTML = `
       <span class="event-choice-icon">${icon}</span>
@@ -3861,7 +4185,17 @@ function startCatTime() {
   showScreen("event");
 }
 
+function startPercentSplitExperience() {
+  percentSplitStep = 0;
+  percentSplitCompleted = false;
+  percentSplitSelectedIndex = -1;
+  percentSplitFinished = false;
+  renderPercentSplitStep();
+  showScreen("percentSplit");
+}
+
 function startQuiz() {
+
   currentQuestionIndex = 0;
   score = 0;
 
@@ -4245,7 +4579,24 @@ if (currentEvent?.key === catEvent.key) {
   const earnedPoints =
     document.getElementById("earnedPoints");
 
-  if (isCatTime) {
+  if (currentEvent?.key === "percent-split") {
+    resultBigScore.textContent =
+      "1%を見つけた！";
+
+    resultBigScore.style.fontSize =
+      "30px";
+
+    resultComment.textContent =
+      "ルナ「100%を100こに分けた1つぶんが1%だったね〜 次は、この1%をいくつか集めてみよう✨」";
+
+    earnedPointsLabel.textContent =
+      isFirstClearToday
+        ? "今日のメイン報酬"
+        : "追加練習pt";
+
+    earnedPoints.textContent =
+      `+${earned}`;
+  } else if (isCatTime) {
     resultBigScore.textContent =
       "ねこタイム完了🐾";
 
@@ -4301,7 +4652,19 @@ if (currentEvent?.key === catEvent.key) {
   const chooseAnotherEventButton =
     document.getElementById("chooseAnotherEventButton");
 
-  if (isCatTime) {
+  if (currentEvent?.key === "percent-split") {
+    resultBrand.textContent =
+      "RIBBON COMPLETE";
+
+    resultBadge.textContent =
+      "100%のひみつ発見！";
+
+    chooseAnotherEventButton.textContent =
+      "別のお仕事を選ぶ✨";
+
+    resultFooterNote.textContent =
+      "次は、この1%をいくつか集めてみよう✨";
+  } else if (isCatTime) {
     resultBrand.textContent =
       "CAT PLAY FINISH";
 
@@ -4503,7 +4866,46 @@ document
 
 document
   .getElementById("goQuizButton")
-  .addEventListener("click", startQuiz);
+  .addEventListener("click", () => {
+    if (currentEvent?.key === "percent-split") {
+      startPercentSplitExperience();
+      return;
+    }
+
+    startQuiz();
+  });
+
+document
+  .getElementById("percentSplitNextButton")
+  .addEventListener("click", () => {
+    if (percentSplitStep === 4) {
+      if (!percentSplitCompleted || percentSplitFinished) {
+        return;
+      }
+
+      percentSplitFinished = true;
+      score = 3;
+      questions = [{}, {}, {}];
+      finishEvent();
+      return;
+    }
+
+    if (percentSplitStep < 3) {
+      percentSplitStep += 1;
+      renderPercentSplitStep();
+      return;
+    }
+
+    if (percentSplitStep === 3) {
+      percentSplitStep = 4;
+      percentSplitCompleted = false;
+      percentSplitSelectedIndex = -1;
+      renderPercentSplitStep();
+      return;
+    }
+
+    return;
+  });
 
     document
       .getElementById("nextButton")
