@@ -1189,6 +1189,313 @@
       display: block;
     }
 
+    .percent-discount-build-screen .card {
+      overflow: hidden;
+    }
+
+    .percent-discount-build-progress {
+      text-align: center;
+      font-weight: 900;
+      color: var(--pink-dark);
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .percent-discount-build-rows {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .percent-discount-build-row {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff8fb 0%, #fff1f6 100%);
+      color: var(--pink-dark);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .percent-discount-build-row-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .percent-discount-build-row-value {
+      display: block;
+      margin-top: 2px;
+      font-size: clamp(24px, 7vw, 34px);
+      font-weight: 900;
+      color: #d94f86;
+      word-break: keep-all;
+    }
+
+    .percent-discount-build-row-value.is-minus {
+      color: #c96c89;
+    }
+
+    .percent-discount-build-guide {
+      margin-top: 10px;
+      text-align: center;
+      color: #d94f86;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .percent-discount-build-cut-wrap {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .percent-discount-build-cut-block {
+      display: grid;
+      gap: 6px;
+    }
+
+    .percent-discount-build-cut-label {
+      text-align: center;
+      color: #d94f86;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .percent-discount-build-cut-ribbon {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .percent-discount-build-cut-ribbon.is-cut-piece {
+      width: 30%;
+      min-width: 0;
+      opacity: 0.8;
+    }
+
+    .percent-discount-build-cut-ribbon.is-remaining {
+      width: 70%;
+      min-width: 0;
+    }
+
+    .percent-discount-build-cut-ribbon .percent-ribbon-body {
+      margin: 0;
+      border-radius: 0;
+    }
+
+    .percent-discount-build-cut-ribbon.is-cut-piece .percent-ribbon-body {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.36) 0 9px, rgba(248, 214, 226, 0.82) 9px 18px),
+        linear-gradient(90deg, #f5b7cf 0%, #f2cfe0 100%);
+    }
+
+    .percent-discount-build-cut-ribbon.is-remaining .percent-ribbon-body {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+        linear-gradient(90deg, #f2bfd5 0%, #eeb4cf 50%, #f4c9dc 100%);
+    }
+
+    .percent-discount-build-cut-ribbon .percent-ribbon-divider {
+      width: 1px;
+      opacity: 0.24;
+      background: rgba(255,255,255,0.68);
+      box-shadow: none;
+    }
+
+    .percent-discount-build-cut-ribbon .percent-ribbon-segment {
+      box-shadow: inset -1px 0 0 rgba(240, 209, 221, 0.52);
+    }
+
+    .percent-discount-build-cut-ribbon.is-cut-piece .percent-ribbon-segment {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0)),
+        linear-gradient(90deg, #f2a8c5 0%, #f0bfd4 100%);
+      position: relative;
+    }
+
+    .percent-discount-build-cut-ribbon.is-cut-piece .percent-ribbon-segment::after {
+      content: "";
+      position: absolute;
+      left: -12%;
+      right: -12%;
+      top: 50%;
+      height: 2px;
+      background: rgba(201, 108, 137, 0.75);
+      transform: rotate(-26deg);
+    }
+
+    .percent-discount-build-cut-ribbon.is-remaining .percent-ribbon-segment {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0)),
+        linear-gradient(90deg, #df5d92 0%, #cf3f7c 100%);
+    }
+
+    .percent-discount-build-cut-line {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: 100%;
+      width: 2px;
+      transform: translateX(-1px);
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 0 1px rgba(184, 77, 116, 0.36);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .percent-discount-build-cut-scissors {
+      position: absolute;
+      top: -12px;
+      left: calc(100% - 12px);
+      font-size: 16px;
+      line-height: 1;
+      z-index: 4;
+      pointer-events: none;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,0.7));
+    }
+
+    .percent-discount-build-cut-gap {
+      height: 8px;
+    }
+
+    .percent-discount-build-ribbon-body {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.08) 34%, rgba(255,255,255,0.16) 68%, rgba(255,255,255,0.08)),
+        linear-gradient(90deg, #fff9fb 0%, #fff1f6 50%, #fffafc 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.78),
+        inset 0 -1px 0 rgba(201, 167, 182, 0.2);
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-divider {
+      width: 1px;
+      opacity: 0.24;
+      background: rgba(255,255,255,0.68);
+      box-shadow: none;
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-segment {
+      box-shadow: inset -1px 0 0 rgba(240, 209, 221, 0.52);
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-segment.is-highlighted {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0)),
+        linear-gradient(90deg, #df5d92 0%, #cf3f7c 100%);
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-segment.is-discount {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.1)),
+        linear-gradient(90deg, #ffd8e7 0%, #ffc5da 100%);
+      opacity: 0.82;
+      position: relative;
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-segment.is-discount::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      top: 50%;
+      height: 2px;
+      background: rgba(201, 108, 137, 0.88);
+      transform: rotate(-26deg);
+    }
+
+    .percent-discount-build-ribbon-body .percent-ribbon-segment.is-fade {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.46), rgba(255,255,255,0.16)),
+        linear-gradient(90deg, #fffdfd 0%, #fff5f9 100%);
+    }
+
+    .percent-discount-build-boundary {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 0 1px rgba(184, 77, 116, 0.36);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .percent-discount-build-big {
+      margin-top: 14px;
+      text-align: center;
+      font-weight: 900;
+      color: #d94f86;
+      font-size: clamp(30px, 9vw, 42px);
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .percent-discount-build-formula {
+      margin-top: 10px;
+      text-align: center;
+      color: #a26f85;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .percent-discount-build-caption {
+      margin: 10px 4px 0;
+      text-align: center;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .percent-discount-build-choices {
+      margin-top: 14px;
+    }
+
+    .percent-discount-build-feedback {
+      margin-top: 12px;
+    }
+
+    .percent-discount-build-choice {
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .percent-discount-build-choice:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+
+    .percent-discount-build-choice.is-correct {
+      border-color: #d94f86;
+      background: linear-gradient(180deg, #fff6fa 0%, #ffe4ef 100%);
+      color: #b9346f;
+      box-shadow: 0 10px 20px rgba(217, 79, 134, 0.12);
+    }
+
+    .percent-discount-build-choice.is-wrong {
+      border-color: #efb8c8;
+      background: linear-gradient(180deg, #fff8fa 0%, #ffecef 100%);
+      color: #c96c89;
+      box-shadow: none;
+    }
+
+    .percent-discount-build-complete {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .percent-discount-build-complete.show {
+      display: block;
+    }
+
    .reset-data-button {
   display: block;
   width: auto;
@@ -1670,6 +1977,8 @@
         </div>
 
         <div id="percentCollectChoices" class="answers" style="display:none;margin-top:12px;"></div>
+
+        <div id="percentCollectFeedback" class="feedback" aria-live="polite"></div>
       </div>
 
       <button id="percentCollectNextButton" class="primary">
@@ -1720,6 +2029,54 @@
 
       <button id="percentMoneyBuildNextButton" class="primary">
         100こに分けてみる
+      </button>
+    </section>
+
+    <section id="percentDiscountBuildScreen" class="screen percent-discount-build-screen">
+      <div class="topbar">
+        <div class="brand">DISCOUNT PRICE</div>
+        <div id="percentDiscountBuildStepLabel" class="points">1 / 5</div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <div style="min-width:0;flex:1;">
+            <h2 id="percentDiscountBuildTitle">30%OFFのねだんを見つけよう</h2>
+            <p id="percentDiscountBuildSpeech" class="speech"></p>
+          </div>
+        </div>
+
+        <div id="percentDiscountBuildProgress" class="percent-discount-build-progress">1 / 5</div>
+
+        <div id="percentDiscountBuildRows" class="percent-discount-build-rows"></div>
+
+        <div id="percentDiscountBuildRibbonVisual" class="percent-ribbon-visual">
+          <div class="percent-ribbon-label">リボン全部</div>
+          <div class="percent-ribbon-body"></div>
+        </div>
+
+        <div id="percentDiscountBuildGuide" class="percent-discount-build-guide"></div>
+        <div id="percentDiscountBuildBig" class="percent-discount-build-big"></div>
+        <div id="percentDiscountBuildFormula" class="percent-discount-build-formula"></div>
+        <div id="percentDiscountBuildCaption" class="percent-discount-build-caption"></div>
+
+        <div id="percentDiscountBuildChoices" class="answers percent-discount-build-choices" style="display:none;"></div>
+
+        <div id="percentDiscountBuildFeedback" class="feedback percent-discount-build-feedback" aria-live="polite"></div>
+
+        <div id="percentDiscountBuildComplete" class="percent-discount-build-complete">
+          <button id="percentDiscountBuildFinishButton" class="primary">
+            30%OFFのねだんを見つけた〜！✨
+          </button>
+        </div>
+      </div>
+
+      <button id="percentDiscountBuildNextButton" class="primary">
+        30%ぶんを思い出す
       </button>
     </section>
 
@@ -3688,6 +4045,20 @@ hard: [
         tip: "まず1%ぶんの金額を見つければ、<br>あとはその1%を集めればOKだよ〜✨"
       },
       {
+        key: "percent-discount-build",
+        title: "🏷️ 30%OFFのねだんを見つけよう",
+        badge: "30%ぶんを元のねだんから取りのぞこう",
+        brand: "DISCOUNT PRICE",
+        quizLabel: "DISCOUNT PRICE",
+        introTitle: "30%OFFのねだんを見つけよう",
+        introSpeech: "前のお仕事で、1500円の30%ぶんは450円って分かったね〜<br>今日は、その450円をどうするのか見てみよう✨",
+        customerAvatar: "🏷️",
+        customerBadge: "セールのお客さん",
+        customerTitle: "30%OFFだと、いくら払うの？",
+        customerSpeech: "1500円のリボンが30%OFFなんだって〜<br>セールのねだんを見つけてみよう！",
+        tip: "「30%OFF」は、30%ぶんの金額が安くなるってことだよ〜✨"
+      },
+      {
         key: "spring",
         title: "🌸 春のセール",
         badge: "🏷️ 今日のお仕事：セールのお手伝い",
@@ -3900,11 +4271,17 @@ let currentQuestionIndex = 0;
     let percentSplitFinished = false;
     let percentCollectStep = 0;
     let percentCollectFinished = false;
+    let percentCollectAnswered = false;
+    let percentCollectWrongChoices = [];
     let percentMoneyBuildStep = 0;
     let percentMoneyBuildFinished = false;
     let percentMoneyBuildAnswered = false;
     let percentMoneyBuildHintVisible = false;
     let percentMoneyBuildWrongChoices = [];
+    let percentDiscountBuildStep = 0;
+    let percentDiscountBuildFinished = false;
+    let percentDiscountBuildAnswered = false;
+    let percentDiscountBuildWrongChoices = [];
 
 const screens = {
   home: document.getElementById("homeScreen"),
@@ -3913,6 +4290,7 @@ const screens = {
   percentSplit: document.getElementById("percentSplitScreen"),
   percentCollect: document.getElementById("percentCollectScreen"),
   percentMoneyBuild: document.getElementById("percentMoneyBuildScreen"),
+  percentDiscountBuild: document.getElementById("percentDiscountBuildScreen"),
   event: document.getElementById("eventScreen"),
   quiz: document.getElementById("quizScreen"),
   result: document.getElementById("resultScreen")
@@ -4340,6 +4718,8 @@ function renderEventScreen(event) {
       ? "1%を集めてみる✨"
     : currentEvent.key === "percent-money-build"
       ? "金額を見つけにいく✨"
+    : currentEvent.key === "percent-discount-build"
+      ? "セールのねだんを見つける✨"
     : currentEvent.key === catEvent.key
       ? "ねこタイムスタート〜🐾"
       : "接客スタート〜💕";
@@ -4348,6 +4728,8 @@ function renderEventScreen(event) {
 function startPercentCollectExperience() {
   percentCollectStep = 0;
   percentCollectFinished = false;
+  percentCollectAnswered = false;
+  percentCollectWrongChoices = [];
   renderPercentCollectStep();
   showScreen("percentCollect");
 }
@@ -4367,6 +4749,8 @@ function renderPercentCollectStep() {
     document.getElementById("percentCollectThreeGuide");
   const percentCollectChoices =
     document.getElementById("percentCollectChoices");
+  const percentCollectFeedback =
+    document.getElementById("percentCollectFeedback");
   const percentCollectRibbonVisual =
     document.getElementById("percentCollectRibbonVisual");
   const percentCollectNextButton =
@@ -4469,7 +4853,8 @@ function renderPercentCollectStep() {
   percentCollectNextButton.textContent = buttonText;
   percentCollectNextButton.style.display = showNextButton ? "block" : "none";
   percentCollectChoices.style.display = percentCollectStep === 4 ? "grid" : "none";
-  percentCollectChoices.innerHTML = "";
+  percentCollectFeedback.className = "feedback";
+  percentCollectFeedback.innerHTML = "";
   percentCollectRibbonVisual.innerHTML = `
     <div class="percent-ribbon-label">100こに分けたリボン</div>
     <div class="percent-ribbon-body${percentCollectStep === 4 ? " is-collect-step4" : ""}">
@@ -4484,55 +4869,94 @@ function renderPercentCollectStep() {
       ${Array.from({ length: 99 }, (_, i) => `<span class="percent-ribbon-divider" style="left:${i + 1}%;"></span>`).join("")}
     </div>
   `;
+  if (percentCollectStep !== 4) {
+    percentCollectChoices.innerHTML = "";
+    return;
+  }
 
-  if (percentCollectStep === 4) {
-    percentCollectChoices.innerHTML = `
-      <button type="button" class="answer" data-choice="1%">1%</button>
-      <button type="button" class="answer" data-choice="37%">37%</button>
-      <button type="button" class="answer" data-choice="63%">63%</button>
-      <button type="button" class="answer" data-choice="100%">100%</button>
-    `;
+    const choiceConfig = [
+      { value: "1%" },
+      { value: "37%", correct: true },
+      { value: "63%" },
+      { value: "100%" }
+    ];
+
+    percentCollectChoices.innerHTML = choiceConfig.map(choice => `
+      <button
+        type="button"
+        class="answer${percentCollectWrongChoices.includes(choice.value) ? " wrong" : ""}${percentCollectAnswered && choice.correct ? " correct" : ""}"
+        data-choice="${choice.value}"
+        ${percentCollectAnswered || percentCollectWrongChoices.includes(choice.value) ? "disabled" : ""}
+      >${choice.value}</button>
+    `).join("");
 
     percentCollectChoices
       .querySelectorAll(".answer")
       .forEach(button => {
         button.addEventListener("click", () => {
-          if (percentCollectFinished) {
+          if (percentCollectFinished || percentCollectAnswered) {
             return;
           }
 
           const value = button.dataset.choice;
 
           if (value === "37%") {
-            percentCollectSpeech.innerHTML =
-              "そうそう〜<br><br>1%が37こ集まっているから、<br>37%なんだ〜✨";
-            percentCollectOnePercent.innerHTML = `
-              <span style="display:block;font-size:14px;">1%が37こ</span>
-              <strong style="display:block;font-size:30px;color:#d94f86;">37%</strong>
-            `;
-            percentCollectCaption.textContent =
-              "集めた数が、そのまま%の数字になるんだね";
-            percentCollectNextButton.textContent = "37%を作れた〜！✨";
-            percentCollectNextButton.style.display = "block";
-
-            percentCollectChoices
-              .querySelectorAll(".answer")
-              .forEach(choiceButton => {
-                choiceButton.disabled = true;
-                if (choiceButton.dataset.choice === "37%") {
-                  choiceButton.classList.add("correct");
-                }
-              });
-
+            percentCollectAnswered = true;
+            renderPercentCollectStep();
             return;
           }
 
-          percentCollectSpeech.innerHTML =
-            "もう一回、色がついた1%を見てみよう〜✨<br>1%がいくつ集まっているかな？";
-          button.classList.add("wrong");
+          if (!percentCollectWrongChoices.includes(value)) {
+            percentCollectWrongChoices.push(value);
+          }
+
+          renderPercentCollectStep();
         });
       });
-  }
+
+    if (percentCollectAnswered) {
+      percentCollectChoices
+        .querySelectorAll(".answer")
+        .forEach(choiceButton => {
+          choiceButton.disabled = true;
+        });
+
+      percentCollectFeedback.className = "feedback show correct";
+      percentCollectFeedback.innerHTML = `
+        <div class="feedback-head">
+          <div class="feedback-avatar">
+            <img src="luna-icon.png" alt="ルナ">
+          </div>
+          <span class="feedback-name">ルナ</span>
+        </div>
+        正解〜！ ばっちりじゃん<br><br>
+        1%が37こ集まっているから、<br>
+        37%になるんだよ〜✨<br><br>
+        集めた1%の数が、<br>
+        そのまま%の数字になるんだね<br><br>
+        <b>1%が37こ ＝ 37%</b>
+    `;
+      percentCollectNextButton.textContent = "37%を作れた〜！✨";
+      percentCollectNextButton.style.display = "block";
+      return;
+    }
+
+    if (percentCollectWrongChoices.length > 0) {
+      percentCollectFeedback.className = "feedback show wrong";
+      percentCollectFeedback.innerHTML = `
+        <div class="feedback-head">
+          <div class="feedback-avatar">
+            <img src="luna-icon.png" alt="ルナ">
+          </div>
+          <span class="feedback-name">ルナ</span>
+        </div>
+        おしい〜！ 1%がいくつあるか見てみよ✨<br><br>
+        色がついているところは、<br>
+        1%が37こ集まっているよ〜<br>
+        1%を37こ集めると、何%になるかな？<br><br>
+        1%が37こ
+      `;
+    }
 }
 
 function startPercentMoneyBuildExperience() {
@@ -4801,6 +5225,367 @@ function renderPercentMoneyBuildStep() {
   feedback.innerHTML = "";
 }
 
+function startPercentDiscountBuildExperience() {
+  percentDiscountBuildStep = 0;
+  percentDiscountBuildFinished = false;
+  percentDiscountBuildAnswered = false;
+  percentDiscountBuildWrongChoices = [];
+  renderPercentDiscountBuildStep();
+  showScreen("percentDiscountBuild");
+}
+
+function buildPercentDiscountBuildRibbon(mode) {
+  if (mode === "full") {
+    return `
+      <div class="percent-ribbon-label">リボン全部</div>
+      <div class="percent-ribbon-body">
+        <span class="percent-ribbon-segment" style="flex-basis:100%;">
+          <span class="percent-ribbon-value">100%</span>
+        </span>
+      </div>
+    `;
+  }
+
+  if (mode === "cutting") {
+    return `
+      <div class="percent-ribbon-label">リボン全部　100%</div>
+      <div class="percent-discount-build-cut-wrap">
+        <div class="percent-discount-build-cut-block">
+          <div class="percent-discount-build-cut-label">切り取る部分　30%</div>
+          <div class="percent-discount-build-cut-ribbon is-cut-piece">
+            <div class="percent-ribbon-body">
+              ${Array.from({ length: 30 }, () => `
+                <span class="percent-ribbon-segment" style="flex-basis:3.333333%;"></span>
+              `).join("")}
+              <span class="percent-discount-build-cut-line"></span>
+              <span class="percent-discount-build-cut-scissors">✂️</span>
+            </div>
+          </div>
+        </div>
+        <div class="percent-discount-build-cut-block">
+          <div class="percent-discount-build-cut-label">リボン全部　100%</div>
+          <div class="percent-discount-build-cut-ribbon">
+            <div class="percent-ribbon-body percent-discount-build-ribbon-body">
+              ${Array.from({ length: 100 }, (_, i) => `
+                <span
+                  class="percent-ribbon-segment${i < 30 ? " is-highlighted" : " is-fade"}"
+                  style="flex-basis:1%;"
+                ></span>
+              `).join("")}
+              <span class="percent-discount-build-cut-line"></span>
+              <span class="percent-discount-build-cut-scissors">✂️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (mode === "short") {
+    return `
+      <div class="percent-ribbon-label">残ったリボン　70%</div>
+      <div class="percent-discount-build-cut-wrap">
+        <div class="percent-discount-build-cut-block">
+          <div class="percent-discount-build-cut-label">切り取った30%ぶん</div>
+          <div class="percent-discount-build-cut-ribbon is-cut-piece" style="width:30%;">
+            <div class="percent-ribbon-body">
+              ${Array.from({ length: 30 }, () => `
+                <span class="percent-ribbon-segment" style="flex-basis:3.333333%;"></span>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+        <div class="percent-discount-build-cut-block">
+          <div class="percent-discount-build-cut-label">残ったリボン</div>
+          <div class="percent-discount-build-cut-ribbon is-remaining">
+            <div class="percent-ribbon-body percent-discount-build-ribbon-body">
+              ${Array.from({ length: 70 }, () => `
+                <span class="percent-ribbon-segment" style="flex-basis:1.428571%;"></span>
+              `).join("")}
+              <span class="percent-discount-build-cut-line"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="percent-ribbon-label">100こに分けたリボン</div>
+    <div class="percent-ribbon-body percent-discount-build-ribbon-body">
+      ${Array.from({ length: 100 }, (_, i) => {
+        const className =
+          mode === "discounted"
+            ? i < 30
+              ? " is-discount"
+              : " is-highlighted"
+            : i < 30
+              ? " is-highlighted"
+              : " is-fade";
+
+        return `
+          <span
+            class="percent-ribbon-segment${className}"
+            style="flex-basis:1%;"
+          ></span>
+        `;
+      }).join("")}
+      <span class="percent-discount-build-boundary" style="left:30%;"></span>
+      ${Array.from({ length: 99 }, (_, i) => `<span class="percent-ribbon-divider" style="left:${i + 1}%;"></span>`).join("")}
+    </div>
+  `;
+}
+
+function renderPercentDiscountBuildStep() {
+  const stepLabel =
+    document.getElementById("percentDiscountBuildStepLabel");
+  const progress =
+    document.getElementById("percentDiscountBuildProgress");
+  const title =
+    document.getElementById("percentDiscountBuildTitle");
+  const speech =
+    document.getElementById("percentDiscountBuildSpeech");
+  const rows =
+    document.getElementById("percentDiscountBuildRows");
+  const ribbonVisual =
+    document.getElementById("percentDiscountBuildRibbonVisual");
+  const guide =
+    document.getElementById("percentDiscountBuildGuide");
+  const big =
+    document.getElementById("percentDiscountBuildBig");
+  const formula =
+    document.getElementById("percentDiscountBuildFormula");
+  const caption =
+    document.getElementById("percentDiscountBuildCaption");
+  const choices =
+    document.getElementById("percentDiscountBuildChoices");
+  const feedback =
+    document.getElementById("percentDiscountBuildFeedback");
+  const completeWrap =
+    document.getElementById("percentDiscountBuildComplete");
+  const nextButton =
+    document.getElementById("percentDiscountBuildNextButton");
+
+  let titleText = "";
+  let speechHtml = "";
+  let rowsHtml = "";
+  let ribbonHtml = "";
+  let guideText = "";
+  let bigText = "";
+  let formulaText = "";
+  let captionText = "";
+  let nextButtonText = "";
+  let showNextButton = true;
+
+  switch (percentDiscountBuildStep) {
+    case 0:
+      titleText = "元のねだんを確認しよう";
+      speechHtml =
+        "このリボンの元のねだんは1500円だよ〜<br>これが、何も安くなっていない100%のねだんだね✨";
+      rowsHtml = `
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">元のねだん</span>
+          <span class="percent-discount-build-row-value">100% ＝ 1500円</span>
+        </div>
+      `;
+      ribbonHtml = buildPercentDiscountBuildRibbon("full");
+      bigText = "100% ＝ 1500円";
+      captionText = "まだセール前のねだんだよ";
+      nextButtonText = "30%ぶんを思い出す";
+      break;
+
+    case 1:
+      titleText = "30%ぶんはいくらだった？";
+      speechHtml =
+        "前のお仕事で、<br>1500円の30%ぶんは450円って見つけたね〜✨";
+      rowsHtml = `
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">元のねだん</span>
+          <span class="percent-discount-build-row-value">1500円</span>
+        </div>
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">30%ぶん</span>
+          <span class="percent-discount-build-row-value">450円</span>
+        </div>
+      `;
+      ribbonHtml = buildPercentDiscountBuildRibbon("highlight");
+      guideText = "30%ぶん ＝ 450円";
+      bigText = "30%ぶん ＝ 450円";
+      captionText = "この450円ぶんが、30%にあたるよ";
+      nextButtonText = "30%OFFの意味を見る";
+      break;
+
+    case 2:
+      titleText = "30%ぶんを切ってみよう";
+      speechHtml =
+        "30%OFFだから、<br>リボンの30%ぶんを切り取るよ〜✂️✨";
+      rowsHtml = `
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">リボン全部　100%</span>
+          <span class="percent-discount-build-row-value">切り取る部分　30%</span>
+        </div>
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">ガイド</span>
+          <span class="percent-discount-build-row-value is-minus">ここを切るよ✂️</span>
+        </div>
+      `;
+      ribbonHtml = buildPercentDiscountBuildRibbon("cutting");
+      guideText = "30%OFFは、全部のうち30%ぶんを取りのぞくってことだね";
+      formulaText = "1500円\n− 450円";
+      captionText = "30%ぶんを切ると、そのぶん値段も安くなるよ";
+      nextButtonText = "30%ぶんを切る✂️";
+      break;
+
+    case 3:
+      titleText = "リボンが短くなった！";
+      speechHtml =
+        "30%ぶんを切ったから、<br>リボンはそのぶん短くなったね〜✨<br>切り取った30%ぶんは450円だったから、<br>値段も450円ぶん安くなるよ";
+      rowsHtml = `
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">元のリボン</span>
+          <span class="percent-discount-build-row-value">1500円</span>
+        </div>
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">切り取った30%ぶん</span>
+          <span class="percent-discount-build-row-value is-minus">450円</span>
+        </div>
+        <div class="percent-discount-build-row">
+          <span class="percent-discount-build-row-label">残ったリボン</span>
+          <span class="percent-discount-build-row-value">1050円</span>
+        </div>
+      `;
+      ribbonHtml = buildPercentDiscountBuildRibbon("short");
+      guideText = "切り取ったぶんだけ、値段も安くなったね";
+      bigText = "1050円";
+      formulaText = "1500円 − 450円 ＝ 1050円";
+      captionText = "切り取ったぶんだけ、値段も安くなったね";
+      nextButtonText = "わかったか確認する✨";
+      break;
+
+    case 4:
+      titleText = "残ったリボンはいくら？";
+      speechHtml =
+        "元の1500円のリボンから、<br>30%ぶんの450円を切り取ったね〜✨<br>残ったリボンの値段はいくらかな？";
+      rowsHtml = "";
+      ribbonHtml = buildPercentDiscountBuildRibbon("short");
+      guideText = "1500円 − 450円";
+      formulaText = "1500円 − 450円";
+      captionText = "残ったリボンの値段を考えてみよう";
+      showNextButton = false;
+      break;
+
+    default:
+      return;
+  }
+
+  stepLabel.textContent = `${percentDiscountBuildStep + 1} / 5`;
+  progress.textContent = `${percentDiscountBuildStep + 1} / 5`;
+  title.textContent = titleText;
+  speech.innerHTML = speechHtml;
+  rows.innerHTML = rowsHtml;
+  rows.style.display = rowsHtml ? "grid" : "none";
+  ribbonVisual.innerHTML = ribbonHtml;
+  guide.textContent = guideText;
+  big.textContent = bigText;
+  big.style.display = bigText ? "block" : "none";
+  formula.textContent = formulaText;
+  formula.style.display = formulaText ? "block" : "none";
+  caption.innerHTML = captionText;
+  nextButton.textContent = nextButtonText;
+  nextButton.style.display = showNextButton ? "block" : "none";
+  choices.style.display = percentDiscountBuildStep === 4 ? "grid" : "none";
+  feedback.className = "feedback percent-discount-build-feedback";
+  feedback.innerHTML = "";
+  completeWrap.className = "percent-discount-build-complete";
+
+  if (percentDiscountBuildStep !== 4) {
+    choices.innerHTML = "";
+    return;
+  }
+
+  const choiceConfig = [
+    { value: "450円" },
+    { value: "1050円", correct: true },
+    { value: "1500円" },
+    { value: "1950円" }
+  ];
+
+  choices.innerHTML = choiceConfig.map(choice => `
+    <button
+      type="button"
+      class="answer percent-discount-build-choice${percentDiscountBuildAnswered && choice.correct ? " is-correct" : ""}${percentDiscountBuildWrongChoices.includes(choice.value) ? " is-wrong" : ""}"
+      data-choice="${choice.value}"
+      ${percentDiscountBuildAnswered || percentDiscountBuildWrongChoices.includes(choice.value) ? "disabled" : ""}
+    >${choice.value}</button>
+  `).join("");
+
+  choices
+    .querySelectorAll(".percent-discount-build-choice")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        if (percentDiscountBuildAnswered) {
+          return;
+        }
+
+        const selectedValue = button.dataset.choice;
+
+        if (selectedValue === "1050円") {
+          percentDiscountBuildAnswered = true;
+          renderPercentDiscountBuildStep();
+          return;
+        }
+
+        if (!percentDiscountBuildWrongChoices.includes(selectedValue)) {
+          percentDiscountBuildWrongChoices.push(selectedValue);
+        }
+
+        renderPercentDiscountBuildStep();
+      });
+    });
+
+  if (percentDiscountBuildAnswered) {
+    choices
+      .querySelectorAll(".percent-discount-build-choice")
+      .forEach(choiceButton => {
+        choiceButton.disabled = true;
+      });
+
+    feedback.className = "feedback show correct percent-discount-build-feedback";
+    feedback.innerHTML = `
+      <div class="feedback-head">
+        <div class="feedback-avatar">
+          <img src="luna-icon.png" alt="ルナ">
+        </div>
+        <span class="feedback-name">ルナ</span>
+      </div>
+      正解〜！ 残ったリボンの値段が分かったね<br><br>
+      30%ぶんを切り取ったから、<br>
+      元の1500円から450円ぶん安くなったよ✨<br>
+      残ったリボンの値段は1050円だね〜<br><br>
+      1500円 − 450円 ＝ 1050円<br><br>
+      これが「1500円のリボンが30%OFFで1050円」ってことだよ✨
+    `;
+    completeWrap.className = "percent-discount-build-complete show";
+    return;
+  }
+
+  if (percentDiscountBuildWrongChoices.length > 0) {
+    feedback.className = "feedback show wrong percent-discount-build-feedback";
+    feedback.innerHTML = `
+      <div class="feedback-head">
+        <div class="feedback-avatar">
+          <img src="luna-icon.png" alt="ルナ">
+        </div>
+        <span class="feedback-name">ルナ</span>
+      </div>
+      おしい〜！ 切り取ったぶんを確認しよ✨<br><br>
+      元のリボンは1500円だったね〜<br>
+      そこから、切り取った30%ぶんの450円を取りのぞいてみよう！<br><br>
+      1500円 − 450円
+    `;
+  }
+}
+
 const selectableEvents = [
   {
     key: "percent-split",
@@ -4813,6 +5598,10 @@ const selectableEvents = [
   {
     key: "percent-money-build",
     label: "1%ぶんの金額を集めてみよう"
+  },
+  {
+    key: "percent-discount-build",
+    label: "30%ぶんを元のねだんから取りのぞこう"
   },
   {
     key: "spring",
@@ -5398,6 +6187,23 @@ if (currentEvent?.key === catEvent.key) {
 
     earnedPoints.textContent =
       `+${earned}`;
+  } else if (currentEvent?.key === "percent-discount-build") {
+    resultBigScore.textContent =
+      "1500円 → 1050円";
+
+    resultBigScore.style.fontSize =
+      "30px";
+
+    resultComment.textContent =
+      "ルナ「30%OFFは、30%ぶんの金額を元のねだんから取りのぞくってことだったね〜 セールのねだん、ばっちり見つけられたよ✨」";
+
+    earnedPointsLabel.textContent =
+      isFirstClearToday
+        ? "今日のメイン報酬"
+        : "追加練習pt";
+
+    earnedPoints.textContent =
+      `+${earned}`;
   } else if (isCatTime) {
     resultBigScore.textContent =
       "ねこタイム完了🐾";
@@ -5490,6 +6296,18 @@ if (currentEvent?.key === catEvent.key) {
 
     resultFooterNote.textContent =
       "次は、この450円を元の値段から引いてみよう〜！";
+  } else if (currentEvent?.key === "percent-discount-build") {
+    resultBrand.textContent =
+      "SALE PRICE";
+
+    resultBadge.textContent =
+      "🏷️ 30%OFFのねだんを発見！";
+
+    chooseAnotherEventButton.textContent =
+      "別のお仕事を選ぶ✨";
+
+    resultFooterNote.textContent =
+      "もう1つお仕事しても、お店を見に戻ってもOK〜💕";
   } else if (isCatTime) {
     resultBrand.textContent =
       "CAT PLAY FINISH";
@@ -5708,6 +6526,11 @@ document
       return;
     }
 
+    if (currentEvent?.key === "percent-discount-build") {
+      startPercentDiscountBuildExperience();
+      return;
+    }
+
     startQuiz();
   });
 
@@ -5804,6 +6627,30 @@ document
     }
 
     percentMoneyBuildFinished = true;
+    score = 3;
+    questions = [{}, {}, {}];
+    finishEvent();
+  });
+
+document
+  .getElementById("percentDiscountBuildNextButton")
+  .addEventListener("click", () => {
+    if (percentDiscountBuildStep >= 4) {
+      return;
+    }
+
+    percentDiscountBuildStep += 1;
+    renderPercentDiscountBuildStep();
+  });
+
+document
+  .getElementById("percentDiscountBuildFinishButton")
+  .addEventListener("click", () => {
+    if (percentDiscountBuildFinished) {
+      return;
+    }
+
+    percentDiscountBuildFinished = true;
     score = 3;
     questions = [{}, {}, {}];
     finishEvent();
