@@ -1053,6 +1053,142 @@
       display: block;
     }
 
+    .percent-money-build-screen .card {
+      overflow: hidden;
+    }
+
+    .percent-money-build-progress {
+      text-align: center;
+      font-weight: 900;
+      color: var(--pink-dark);
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .percent-money-build-ribbon-note {
+      margin-top: 10px;
+      text-align: center;
+      color: var(--pink-dark);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .percent-money-build-big {
+      margin-top: 14px;
+      text-align: center;
+      font-weight: 900;
+      color: #d94f86;
+      font-size: clamp(30px, 9vw, 42px);
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .percent-money-build-formula {
+      margin-top: 10px;
+      text-align: center;
+      color: #a26f85;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .percent-money-build-caption {
+      margin: 10px 4px 0;
+      text-align: center;
+      color: var(--subtext);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .percent-money-build-ribbon-body {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.08) 34%, rgba(255,255,255,0.16) 68%, rgba(255,255,255,0.08)),
+        linear-gradient(90deg, #fffdfd 0%, #fff4f8 50%, #fffafc 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.78),
+        inset 0 -1px 0 rgba(201, 167, 182, 0.2);
+    }
+
+    .percent-money-build-ribbon-body .percent-ribbon-divider {
+      width: 1px;
+      opacity: 0.28;
+      background: rgba(255,255,255,0.7);
+      box-shadow: none;
+    }
+
+    .percent-money-build-ribbon-body .percent-ribbon-segment {
+      box-shadow: inset -1px 0 0 rgba(240, 209, 221, 0.52);
+    }
+
+    .percent-money-build-ribbon-body .percent-ribbon-segment.is-highlighted {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0)),
+        linear-gradient(90deg, #df5d92 0%, #cf3f7c 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.34),
+        inset -1px 0 0 rgba(255, 231, 240, 0.36);
+    }
+
+    .percent-money-build-ribbon-body .percent-ribbon-segment.is-fade {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.46), rgba(255,255,255,0.16)),
+        linear-gradient(90deg, #fffdfd 0%, #fff5f9 100%);
+    }
+
+    .percent-money-build-boundary {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 0 1px rgba(184, 77, 116, 0.36);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .percent-money-build-choices {
+      margin-top: 14px;
+    }
+
+    .percent-money-build-feedback {
+      margin-top: 12px;
+    }
+
+    .percent-money-build-choice {
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .percent-money-build-choice:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+
+    .percent-money-build-choice.is-correct {
+      border-color: #d94f86;
+      background: linear-gradient(180deg, #fff6fa 0%, #ffe4ef 100%);
+      color: #b9346f;
+      box-shadow: 0 10px 20px rgba(217, 79, 134, 0.12);
+    }
+
+    .percent-money-build-choice.is-wrong {
+      border-color: #efb8c8;
+      background: linear-gradient(180deg, #fff8fa 0%, #ffecef 100%);
+      color: #c96c89;
+      box-shadow: none;
+    }
+
+    .percent-money-build-complete {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .percent-money-build-complete.show {
+      display: block;
+    }
+
    .reset-data-button {
   display: block;
   width: auto;
@@ -1538,6 +1674,52 @@
 
       <button id="percentCollectNextButton" class="primary">
         1%を集めてみる✨
+      </button>
+    </section>
+
+    <section id="percentMoneyBuildScreen" class="screen percent-money-build-screen">
+      <div class="topbar">
+        <div class="brand">PERCENT MONEY</div>
+        <div id="percentMoneyBuildStepLabel" class="points">1 / 5</div>
+      </div>
+
+      <div class="card">
+        <div class="story-box">
+          <div class="avatar">
+            <img src="luna-icon.png" alt="ルナ" class="avatar-img">
+          </div>
+
+          <div style="min-width:0;flex:1;">
+            <h2 id="percentMoneyBuildTitle">%ぶんの金額を見つけよう</h2>
+            <p id="percentMoneyBuildSpeech" class="speech"></p>
+          </div>
+        </div>
+
+        <div id="percentMoneyBuildProgress" class="percent-money-build-progress">1 / 5</div>
+
+        <div id="percentMoneyBuildRibbonVisual" class="percent-ribbon-visual">
+          <div class="percent-ribbon-label">リボン全部</div>
+          <div class="percent-ribbon-body"></div>
+        </div>
+
+        <div id="percentMoneyBuildRibbonNote" class="percent-money-build-ribbon-note"></div>
+        <div id="percentMoneyBuildBig" class="percent-money-build-big"></div>
+        <div id="percentMoneyBuildFormula" class="percent-money-build-formula"></div>
+        <div id="percentMoneyBuildCaption" class="percent-money-build-caption"></div>
+
+        <div id="percentMoneyBuildChoices" class="answers percent-money-build-choices" style="display:none;"></div>
+
+        <div id="percentMoneyBuildFeedback" class="feedback percent-money-build-feedback"></div>
+
+        <div id="percentMoneyBuildComplete" class="percent-money-build-complete">
+          <button id="percentMoneyBuildFinishButton" class="primary">
+            30%ぶんを見つけた〜！✨
+          </button>
+        </div>
+      </div>
+
+      <button id="percentMoneyBuildNextButton" class="primary">
+        100こに分けてみる
       </button>
     </section>
 
@@ -3492,6 +3674,20 @@ hard: [
         tip: "<b>1%を1こずつ集めてみよう〜</b><br>集めた数が、そのまま%の数字になるか見てみよう✨"
       },
       {
+        key: "percent-money-build",
+        title: "🎀 %ぶんの金額を見つけよう",
+        badge: "1%ぶんの金額を集めてみよう",
+        brand: "PERCENT MONEY",
+        quizLabel: "PERCENT MONEY",
+        introTitle: "%ぶんの金額を見つけよう",
+        introSpeech: "前のお仕事で、1%を集めると好きな%を作れたね〜<br>今日は、その1%が何円ぶんなのか見てみよう✨",
+        customerAvatar: "🎀",
+        customerBadge: "今日のお仕事",
+        customerTitle: "30%ぶんって何円になるの？",
+        customerSpeech: "全部で1500円ぶんのリボンを使って、<br>30%ぶんの金額を見つけてみよう〜",
+        tip: "まず1%ぶんの金額を見つければ、<br>あとはその1%を集めればOKだよ〜✨"
+      },
+      {
         key: "spring",
         title: "🌸 春のセール",
         badge: "🏷️ 今日のお仕事：セールのお手伝い",
@@ -3704,6 +3900,11 @@ let currentQuestionIndex = 0;
     let percentSplitFinished = false;
     let percentCollectStep = 0;
     let percentCollectFinished = false;
+    let percentMoneyBuildStep = 0;
+    let percentMoneyBuildFinished = false;
+    let percentMoneyBuildAnswered = false;
+    let percentMoneyBuildHintVisible = false;
+    let percentMoneyBuildWrongChoices = [];
 
 const screens = {
   home: document.getElementById("homeScreen"),
@@ -3711,6 +3912,7 @@ const screens = {
   select: document.getElementById("selectScreen"),
   percentSplit: document.getElementById("percentSplitScreen"),
   percentCollect: document.getElementById("percentCollectScreen"),
+  percentMoneyBuild: document.getElementById("percentMoneyBuildScreen"),
   event: document.getElementById("eventScreen"),
   quiz: document.getElementById("quizScreen"),
   result: document.getElementById("resultScreen")
@@ -4136,6 +4338,8 @@ function renderEventScreen(event) {
     ? "リボンを見てみる"
     : currentEvent.key === "percent-collect"
       ? "1%を集めてみる✨"
+    : currentEvent.key === "percent-money-build"
+      ? "金額を見つけにいく✨"
     : currentEvent.key === catEvent.key
       ? "ねこタイムスタート〜🐾"
       : "接客スタート〜💕";
@@ -4331,15 +4535,273 @@ function renderPercentCollectStep() {
   }
 }
 
+function startPercentMoneyBuildExperience() {
+  percentMoneyBuildStep = 0;
+  percentMoneyBuildFinished = false;
+  percentMoneyBuildAnswered = false;
+  percentMoneyBuildHintVisible = false;
+  percentMoneyBuildWrongChoices = [];
+  renderPercentMoneyBuildStep();
+  showScreen("percentMoneyBuild");
+}
+
+function buildPercentMoneyBuildRibbon(highlightCount, options = {}) {
+  const {
+    fullRibbon = false,
+    label = "100こに分けたリボン",
+    showBoundary = false
+  } = options;
+
+  if (fullRibbon) {
+    return `
+      <div class="percent-ribbon-label">${label}</div>
+      <div class="percent-ribbon-body">
+        <span class="percent-ribbon-segment" style="flex-basis:100%;">
+          <span class="percent-ribbon-value">100%</span>
+        </span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="percent-ribbon-label">${label}</div>
+    <div class="percent-ribbon-body percent-money-build-ribbon-body">
+      ${Array.from({ length: 100 }, (_, i) => `
+        <span
+          class="percent-ribbon-segment${i < highlightCount ? " is-highlighted" : " is-fade"}"
+          style="flex-basis:1%;"
+        ></span>
+      `).join("")}
+      ${showBoundary ? `<span class="percent-money-build-boundary" style="left:${highlightCount}%;"></span>` : ""}
+      ${Array.from({ length: 99 }, (_, i) => `<span class="percent-ribbon-divider" style="left:${i + 1}%;"></span>`).join("")}
+    </div>
+  `;
+}
+
+function renderPercentMoneyBuildStep() {
+  const stepLabel =
+    document.getElementById("percentMoneyBuildStepLabel");
+  const progress =
+    document.getElementById("percentMoneyBuildProgress");
+  const title =
+    document.getElementById("percentMoneyBuildTitle");
+  const speech =
+    document.getElementById("percentMoneyBuildSpeech");
+  const ribbonVisual =
+    document.getElementById("percentMoneyBuildRibbonVisual");
+  const ribbonNote =
+    document.getElementById("percentMoneyBuildRibbonNote");
+  const big =
+    document.getElementById("percentMoneyBuildBig");
+  const formula =
+    document.getElementById("percentMoneyBuildFormula");
+  const caption =
+    document.getElementById("percentMoneyBuildCaption");
+  const choices =
+    document.getElementById("percentMoneyBuildChoices");
+  const feedback =
+    document.getElementById("percentMoneyBuildFeedback");
+  const nextButton =
+    document.getElementById("percentMoneyBuildNextButton");
+  const completeWrap =
+    document.getElementById("percentMoneyBuildComplete");
+
+  let titleText = "";
+  let speechHtml = "";
+  let ribbonHtml = "";
+  let ribbonNoteText = "";
+  let bigText = "";
+  let formulaText = "";
+  let captionText = "";
+  let nextButtonText = "";
+  let showNextButton = true;
+
+  switch (percentMoneyBuildStep) {
+    case 0:
+      titleText = "リボン全部はいくらぶん？";
+      speechHtml =
+        "このリボン全部が100%だよ〜<br>今日は、全部で1500円ぶんのリボンを使うよ✨";
+      ribbonHtml = buildPercentMoneyBuildRibbon(0, {
+        fullRibbon: true,
+        label: "リボン全部"
+      });
+      ribbonNoteText = "100%";
+      bigText = "100% ＝ 1500円";
+      captionText = "全部のリボンが、1500円ぶんだよ";
+      nextButtonText = "100こに分けてみる";
+      break;
+
+    case 1:
+      titleText = "1つぶんはいくらかな？";
+      speechHtml =
+        "1500円ぶんを100こに分けたよ〜✨<br>1つぶんは15円になったね";
+      ribbonHtml = buildPercentMoneyBuildRibbon(1);
+      ribbonNoteText = "100こに分けた1つぶん";
+      bigText = "1% ＝ 15円";
+      formulaText = "1500 ÷ 100 ＝ 15";
+      captionText = "1500円を100こに分けると15円";
+      nextButtonText = "1%を集めてみる";
+      break;
+
+    case 2:
+      titleText = "1%を10こ集めよう";
+      speechHtml =
+        "1%ぶんの15円を10こ集めたよ〜<br>10%ぶんは150円だね✨";
+      ribbonHtml = buildPercentMoneyBuildRibbon(10);
+      ribbonNoteText = "1%ぶん ＝ 15円\n15円が10こ";
+      bigText = "10%ぶん ＝ 150円";
+      formulaText = "15 × 10 ＝ 150";
+      captionText = "1%ぶんの金額を10こ集めると、10%ぶんになるね";
+      nextButtonText = "30%ぶんまで集める";
+      break;
+
+    case 3:
+      titleText = "30こ集めたら？";
+      speechHtml =
+        "今度は1%ぶんの15円を30こ集めたよ〜✨<br>30%ぶんは450円になったね";
+      ribbonHtml = buildPercentMoneyBuildRibbon(30, {
+        showBoundary: true
+      });
+      ribbonNoteText = "1%ぶん ＝ 15円\n15円が30こ";
+      bigText = "30%ぶん ＝ 450円";
+      formulaText = "15 × 30 ＝ 450";
+      captionText = "1%ぶんの金額を集めれば、好きな%ぶんの金額が作れるね";
+      nextButtonText = "わかったか確認する✨";
+      break;
+
+    case 4:
+      titleText = "30%ぶんはいくら？";
+      speechHtml = percentMoneyBuildAnswered
+        ? "そうそう〜<br><br>1500円の1%ぶんは15円！<br>その15円を30こ集めたから、<br>30%ぶんは450円だよ✨"
+        : percentMoneyBuildHintVisible
+          ? "まず1%ぶんの15円を思い出してみよう〜✨<br>それが30こあると、いくらかな？"
+          : "全部で1500円ぶんのリボンだったね〜✨<br>30%ぶんの金額はいくらかな？";
+      ribbonHtml = buildPercentMoneyBuildRibbon(30, {
+        showBoundary: true
+      });
+      ribbonNoteText = "1%ぶん ＝ 15円\n15円が30こ";
+      bigText = percentMoneyBuildAnswered
+        ? "30% ＝ 450円"
+        : "1500円の30%ぶんはいくら？";
+      captionText = percentMoneyBuildAnswered
+        ? "1%ぶんの金額を集めると、好きな%ぶんの金額が分かるね"
+        : percentMoneyBuildHintVisible
+          ? "15円が30こ"
+          : "1500円の30%ぶんはいくら？";
+      showNextButton = false;
+      break;
+
+    default:
+      return;
+  }
+
+  stepLabel.textContent = `${percentMoneyBuildStep + 1} / 5`;
+  progress.textContent = `${percentMoneyBuildStep + 1} / 5`;
+  title.textContent = titleText;
+  speech.innerHTML = speechHtml;
+  ribbonVisual.innerHTML = ribbonHtml;
+  ribbonNote.textContent = ribbonNoteText;
+  big.textContent = bigText;
+  formula.textContent = formulaText;
+  formula.style.display = formulaText ? "block" : "none";
+  caption.textContent = captionText;
+  nextButton.textContent = nextButtonText;
+  nextButton.style.display = showNextButton ? "block" : "none";
+  choices.style.display = percentMoneyBuildStep === 4 ? "grid" : "none";
+  feedback.className = "feedback percent-money-build-feedback";
+  completeWrap.className = "percent-money-build-complete";
+
+  if (percentMoneyBuildStep !== 4) {
+    choices.innerHTML = "";
+    feedback.innerHTML = "";
+    return;
+  }
+
+  const choiceConfig = [
+    { value: "15円", wrong: true },
+    { value: "150円", wrong: true },
+    { value: "450円", correct: true },
+    { value: "1050円", wrong: true }
+  ];
+
+  choices.innerHTML = choiceConfig.map(choice => `
+    <button
+      type="button"
+      class="answer percent-money-build-choice${percentMoneyBuildAnswered && choice.correct ? " is-correct" : ""}${percentMoneyBuildWrongChoices.includes(choice.value) ? " is-wrong" : ""}"
+      data-choice="${choice.value}"
+      ${percentMoneyBuildAnswered || percentMoneyBuildWrongChoices.includes(choice.value) ? "disabled" : ""}
+    >${choice.value}</button>
+  `).join("");
+
+  choices
+    .querySelectorAll(".percent-money-build-choice")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        if (percentMoneyBuildAnswered) {
+          return;
+        }
+
+        const selectedValue = button.dataset.choice;
+
+        if (selectedValue === "450円") {
+          percentMoneyBuildAnswered = true;
+          percentMoneyBuildHintVisible = false;
+          renderPercentMoneyBuildStep();
+          return;
+        }
+
+        if (!percentMoneyBuildWrongChoices.includes(selectedValue)) {
+          percentMoneyBuildWrongChoices.push(selectedValue);
+        }
+
+        percentMoneyBuildHintVisible = true;
+        renderPercentMoneyBuildStep();
+      });
+    });
+
+  if (percentMoneyBuildAnswered) {
+    choices
+      .querySelectorAll(".percent-money-build-choice")
+      .forEach(choiceButton => {
+        choiceButton.disabled = true;
+      });
+
+    feedback.className = "feedback show correct percent-money-build-feedback";
+    feedback.innerHTML = `
+      <div class="feedback-head">
+        <div class="feedback-avatar">
+          <img src="luna-icon.png" alt="ルナ">
+        </div>
+        <span class="feedback-name">ルナ</span>
+      </div>
+      そうそう〜<br><br>
+      1500円の1%ぶんは15円！<br>
+      その15円を30こ集めたから、<br>
+      30%ぶんは450円だよ✨
+    `;
+    completeWrap.className = "percent-money-build-complete show";
+    return;
+  }
+
+  if (percentMoneyBuildWrongChoices.length > 0) {
+    feedback.className = "feedback show wrong percent-money-build-feedback";
+    feedback.innerHTML = `
+      <div class="feedback-head">
+        <div class="feedback-avatar">
+          <img src="luna-icon.png" alt="ルナ">
+        </div>
+        <span class="feedback-name">ルナ</span>
+      </div>
+      まず1%ぶんの15円を思い出してみよう〜✨<br>
+      それが30こあると、いくらかな？
+    `;
+    return;
+  }
+
+  feedback.innerHTML = "";
+}
+
 const selectableEvents = [
-  {
-    key: "percent-basics",
-    label: "100個のうち何個？"
-  },
-  {
-    key: "percent-yen",
-    label: "100円のまとまりで考えよう"
-  },
   {
     key: "percent-split",
     label: "100こに分けた1つぶんを見つけよう"
@@ -4347,6 +4809,10 @@ const selectableEvents = [
   {
     key: "percent-collect",
     label: "1%を集めて、いろいろな%を作ろう"
+  },
+  {
+    key: "percent-money-build",
+    label: "1%ぶんの金額を集めてみよう"
   },
   {
     key: "spring",
@@ -4915,6 +5381,23 @@ if (currentEvent?.key === catEvent.key) {
 
     earnedPoints.textContent =
       `+${earned}`;
+  } else if (currentEvent?.key === "percent-money-build") {
+    resultBigScore.textContent =
+      "30% ＝ 450円";
+
+    resultBigScore.style.fontSize =
+      "30px";
+
+    resultComment.textContent =
+      "ルナ「100%の金額を100こに分けると、1%ぶんの金額が分かったね〜 その1%を集めれば、好きな%ぶんの金額も見つけられるよ✨」";
+
+    earnedPointsLabel.textContent =
+      isFirstClearToday
+        ? "今日のメイン報酬"
+        : "追加練習pt";
+
+    earnedPoints.textContent =
+      `+${earned}`;
   } else if (isCatTime) {
     resultBigScore.textContent =
       "ねこタイム完了🐾";
@@ -4995,6 +5478,18 @@ if (currentEvent?.key === catEvent.key) {
 
     resultFooterNote.textContent =
       "次は、この%が何円ぶんなのか見てみよう✨";
+  } else if (currentEvent?.key === "percent-money-build") {
+    resultBrand.textContent =
+      "PERCENT MONEY";
+
+    resultBadge.textContent =
+      "✨ 30%ぶんの金額を発見！";
+
+    chooseAnotherEventButton.textContent =
+      "別のお仕事を選ぶ✨";
+
+    resultFooterNote.textContent =
+      "次は、この450円を元の値段から引いてみよう〜！";
   } else if (isCatTime) {
     resultBrand.textContent =
       "CAT PLAY FINISH";
@@ -5208,6 +5703,11 @@ document
       return;
     }
 
+    if (currentEvent?.key === "percent-money-build") {
+      startPercentMoneyBuildExperience();
+      return;
+    }
+
     startQuiz();
   });
 
@@ -5283,6 +5783,30 @@ document
     }
 
     return;
+  });
+
+document
+  .getElementById("percentMoneyBuildNextButton")
+  .addEventListener("click", () => {
+    if (percentMoneyBuildStep >= 4) {
+      return;
+    }
+
+    percentMoneyBuildStep += 1;
+    renderPercentMoneyBuildStep();
+  });
+
+document
+  .getElementById("percentMoneyBuildFinishButton")
+  .addEventListener("click", () => {
+    if (percentMoneyBuildFinished) {
+      return;
+    }
+
+    percentMoneyBuildFinished = true;
+    score = 3;
+    questions = [{}, {}, {}];
+    finishEvent();
   });
 
     document
